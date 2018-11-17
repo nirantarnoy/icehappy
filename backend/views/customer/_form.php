@@ -2,10 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use toxor88\switchery\Switchery;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Custumer */
 /* @var $form yii\widgets\ActiveForm */
+$custgroup = \backend\models\Custumergroup::find()->all();
+
 ?>
 
 <div class="custumer-form">
@@ -23,9 +25,18 @@ use yii\widgets\ActiveForm;
 
                     <?= $form->field($model, 'card_id')->textInput(['maxlength' => true]) ?>
 
-                    <?= $form->field($model, 'customer_group_id')->textInput() ?>
+                    <select name="customer_group" class="form-control" id="">
 
-                    <?= $form->field($model, 'customer_type_id')->textInput() ?>
+                        <?php foreach ($custgroup as $value):?>
+                            <?php
+                            $select = '';
+                            if($model->customer_group_id == $value->id){$select = "selected";}
+                            ?>
+                            <option value="<?=$value->id?>" <?=$select?>><?=$value->name?></option>
+                        <?php endforeach;?>
+                    </select>
+
+                    <?php //echo $form->field($model, 'customer_type_id')->textInput() ?>
 
                     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
                     <?= $form->field($model, 'lat')->textInput(['maxlength' => true]) ?>
@@ -33,11 +44,8 @@ use yii\widgets\ActiveForm;
 
                     <?php //echo $form->field($model, 'status')->textInput() ?>
 
-                    <div class="demo-switch-title">สถานะ</div>
-                    <div class="switch">
-                        <label>
-                            <input type="checkbox" name="status" checked><span class="lever switch-col-light-green"></span></label>
-                    </div>
+                    <?php echo $form->field($model, 'status')->widget(Switchery::className(),['options'=>['label'=>'','class'=>'form-control']])->label(false) ?>
+
                 </div>
             </div>
 

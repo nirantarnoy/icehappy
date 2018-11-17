@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Warehouse */
 /* @var $form yii\widgets\ActiveForm */
+use toxor88\switchery\Switchery;
 ?>
 
 <div class="wharehouse-form">
@@ -19,9 +20,8 @@ use yii\widgets\ActiveForm;
 
             <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'is_primary')->textInput() ?>
+            <?php echo $form->field($model, 'status')->widget(Switchery::className(),['options'=>['label'=>'','class'=>'form-control']])->label(false) ?>
 
-            <?= $form->field($model, 'status')->textInput() ?>
 
 
             <div class="form-group">

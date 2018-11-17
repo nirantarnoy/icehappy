@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use toxor88\switchery\Switchery;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Usergroup */
 /* @var $form yii\widgets\ActiveForm */
@@ -17,8 +17,7 @@ use yii\widgets\ActiveForm;
 
          <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-         <?= $form->field($model, 'status')->textInput() ?>
-
+         <?php echo $form->field($model, 'status')->widget(Switchery::className(),['options'=>['label'=>'','class'=>'form-control']])->label(false) ?>
          <div class="form-group">
              <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
          </div>
@@ -29,3 +28,11 @@ use yii\widgets\ActiveForm;
  </div>
 
 </div>
+<?php
+$js=<<<JS
+   $(function(){
+     
+   });
+JS;
+$this->registerJs($js,static::POS_END);
+?>

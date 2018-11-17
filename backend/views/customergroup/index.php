@@ -31,8 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     //'id',
                     'name',
                     'description',
-                    'status',
-                    'created_at',
+                    [
+                        'attribute'=>'status',
+                        'contentOptions' => ['style' => 'vertical-align: middle'],
+                        'format' => 'html',
+                        'value'=>function($data){
+                            return $data->status === 1 ? '<div class="label label-success">Active</div>':'<div class="label label-red">Inactive</div>';
+                        }
+                    ],
                     //'updated_at',
                     //'created_by',
                     //'updated_by',

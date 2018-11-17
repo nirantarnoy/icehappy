@@ -67,9 +67,11 @@ class CustomerController extends Controller
         $model = new Custumer();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->status = Yii::$app->request->post('status');
+            $model->customer_group_id = Yii::$app->request->post('customer_group');
             if($model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+                $session = Yii::$app->session;
+                $session->setFlash('msg','บันทึกรายการเรียบร้อย');
+                return $this->redirect(['index']);
             }
 
         }
@@ -90,8 +92,13 @@ class CustomerController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->customer_group_id = Yii::$app->request->post('customer_group');
+            if($model->save()){
+                $session = Yii::$app->session;
+                $session->setFlash('msg','บันทึกรายการเรียบร้อย');
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('update', [

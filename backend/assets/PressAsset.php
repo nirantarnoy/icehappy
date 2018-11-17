@@ -1,17 +1,17 @@
 <?php
 //namespace backend\theme\adminpress\assets;
-namespace app\assets;
+namespace backend\assets;
+
 use yii\web\AssetBundle;
 
 class PressAsset extends AssetBundle
 {
     public $sourcePath = '@adminpress/dist';
     public $css = [
-        'plugins/assets/plugins/bootstrap/css/bootstrap.min.css',
-        'plugins/assets/plugins/morrisjs/morris.css',
+        'plugins/bootstrap/css/bootstrap.min.css',
+        'plugins/morrisjs/morris.css',
         'css/style.css',
-        'css/colors/blue.css',
-
+        'css/colors/blue.css'
     ];
 
     public $js = [
@@ -23,15 +23,17 @@ class PressAsset extends AssetBundle
         'plugins/sticky-kit-master/dist/sticky-kit.min.js',
         'plugins/morrisjs/morris.min.js',
         'plugins/styleswitcher/jQuery.style.switcher.js',
+        'plugins/jquery/jquery.min.js',
         'js/jquery.slimscroll.js',
         'js/waves.js',
         'js/sidebarmenu.js',
         'js/custom.min.js',
-        'js/dashboard1.js'
+        'js/dashboard1.js',
+      //  'js/jasny-bootstrap.js'
     ];
 
     public $depends = [
-        'app\assets\AppAsset',
+        'backend\assets\AppAsset',
         //'yii\web\YiiAsset',
         //'yii\bootstrap\BootstrapAsset',
         //'agency\assets\FontAwesomeAsset'

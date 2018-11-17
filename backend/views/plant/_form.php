@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kartik\select2\Select2;
+//use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use lavrentiev\widgets\toastr\Notification;
 use yii\helpers\Url;
@@ -22,19 +22,33 @@ $dist = District::find()->all();
 AppAsset::register($this);
 
 $url_to_findcity = Url::to(['plant/showcity'],true);
+$url_to_finddistrict = Url::to(['plant/showdistrict'],true);
+$url_to_findzipcode = Url::to(['plant/showzipcode'],true);
 $js=<<<JS
 
    $(function(){
-      alert(); 
+      
    });
 
   function findCity(e){
-        $.post("$url_to_findcity"+"&id="+e.val(),function(data){
+        $.post("$url_to_findcity" +"&id="+e.val(),function(data){
              $("select#city").html(data);
              $("select#city").prop("disabled","");
-         });
+
+        });
                                           
   }
+  function findDistrict(e){
+        $.post("$url_to_finddistrict"+"&id="+e.val(),function(data){
+             $("select#district").html(data);
+             $("select#district").prop("disabled","");
+        });
+        $.post("$url_to_findzipcode"+"&id="+e.val(),function(data){
+            $("#zipcode").val(data);
+        });
+                                          
+  }
+  
 JS;
 $this->registerJs($js,static::POS_END);
 
@@ -119,7 +133,7 @@ if ($session->getFlash('msg')): ?>
                <div class="col-lg-6">
                    <?= $form->field($model, 'line')->textInput(['maxlength' => true]) ?>
                </div> <div class="col-lg-6">
-                   <?= $form->field($model, 'logo')->textInput(['maxlength' => true]) ?>
+                   <?= $form->field($model, 'logo')->fileInput(['maxlength' => true]) ?>
                </div>
 
            </div>
@@ -146,41 +160,22 @@ if ($session->getFlash('msg')): ?>
                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"><?=Yii::t('app','ตำบล')?>
                        </label>
                        <div class="col-md-6 col-sm-6 col-xs-12">
-                           <?= $form->field($model_address_plant?$model_address_plant:$model_address, 'district_id')->widget(Select2::className(),
-                               [
-                                   'data'=> ArrayHelper::map($dist,'DISTRICT_ID','DISTRICT_NAME'),
-                                   'options'=>['maxlength' => true,'class'=>'form-control form-inline','id'=>'district','disabled'=>'disabled'],
-                               ]
-
-                           )->label(false) ?>
+                           <select name="select_district" class="form-control" id="district" disabled>
+                               <?php foreach ($dist as $value):?>
+                                   <option value="<?=$value->DISTRICT_ID?>"><?=$value->DISTRICT_NAME?></option>
+                               <?php endforeach;?>
+                           </select>
                        </div>
                    </div>
                    <div class="form-group" style="margin-top: -10px">
                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"><?=Yii::t('app','อำเภอ')?>
                        </label>
                        <div class="col-md-6 col-sm-6 col-xs-12">
-
-                           <?= $form->field($model_address_plant?$model_address_plant:$model_address, 'city_id')->widget(Select2::className(),
-                               [
-                                   'data'=> ArrayHelper::map($amp,'AMPHUR_ID','AMPHUR_NAME'),
-                                   'options'=>['maxlength' => true,'class'=>'form-control form-inline','id'=>'city','disabled'=>'disabled',
-                                       'onchange'=>'
-                                          $.post("'.Url::to(['plant/showdistrict'],true).'"+"&id="+$(this).val(),function(data){
-                                          $("select#district").html(data);
-                                          $("select#district").prop("disabled","");
-
-                                        });
-                                           $.post("'.Url::to(['plant/showzipcode'],true).'"+"&id="+$(this).val(),function(data){
-                                                $("#zipcode").val(data);
-                                              });
-                                       '
-                                   ],
-                                   'pluginOptions'=>[
-                                       'allowClear'=>true,
-                                   ]
-                               ]
-
-                           )->label(false) ?>
+                           <select name="select_city" onchange="findDistrict($(this))" class="form-control" id="city" disabled>
+                               <?php foreach ($amp as $value):?>
+                                   <option value="<?=$value->AMPHUR_ID?>"><?=$value->AMPHUR_NAME?></option>
+                               <?php endforeach;?>
+                           </select>
                        </div>
                    </div>
                    <div class="form-group" style="margin-top: -10px">
@@ -188,21 +183,6 @@ if ($session->getFlash('msg')): ?>
                        </label>
                        <div class="col-md-6 col-sm-6 col-xs-12">
 
-                           <?= $form->field($model_address_plant?$model_address_plant:$model_address, 'province_id')->widget(Select2::className(),
-                               [
-                                   'data'=> ArrayHelper::map($prov,'PROVINCE_ID','PROVINCE_NAME'),
-                                   'options'=>['maxlength' => true,'class'=>'form-control','id'=>'province',
-                                       'onchange'=>'
-                                          $.post("'.Url::to(['plant/showcity'],true).'"+"&id="+$(this).val(),function(data){
-                                          $("select#city").html(data);
-                                          $("select#city").prop("disabled","");
-
-                                        });
-                                       '
-                                   ],
-                               ]
-
-                           )->label(false) ?>
                            <select name="select_provice" onchange="findCity($(this))" class="form-control" id="">
                                <?php foreach ($prov as $value):?>
                                <option value="<?=$value->PROVINCE_ID?>"><?=$value->PROVINCE_NAME?></option>

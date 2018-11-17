@@ -36,7 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     //'customer_group_id',
                     //'customer_type_id',
                     //'description',
-                    //'status',
+                    [
+                        'attribute'=>'status',
+                        'contentOptions' => ['style' => 'vertical-align: middle'],
+                        'format' => 'html',
+                        'value'=>function($data){
+                            return $data->status === 1 ? '<div class="label label-success">Active</div>':'<div class="label label-red">Inactive</div>';
+                        }
+                    ],
                     //'created_at',
                     //'updated_at',
                     //'created_by',
@@ -66,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'data-pjax' => '0',
                                     'id'=>'modaledit',
                                 ]);
-                                return $data->status == 1? Html::a(
+                                return Html::a(
                                     '<span class="fa fa-edit btn btn-secondary"></span>', $url, [
                                     'id' => 'activity-view-link',
                                     //'data-toggle' => 'modal',
@@ -74,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'data-id' => $index,
                                     'data-pjax' => '0',
                                     // 'style'=>['float'=>'rigth'],
-                                ]):'';
+                                ]);
                             },
                             'delete' => function($url, $data, $index) {
                                 $options = array_merge([

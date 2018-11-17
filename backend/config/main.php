@@ -12,7 +12,19 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
+    'aliases'=>[
+        '@adminpress' => '@backend/theme/adminpress',
+    ],
     'components' => [
+        'view' => [
+            'theme' => [
+                'basePath' => '@backend/theme/adminpress',
+                'baseUrl' => '@web/',
+                'pathMap' => [
+                    '@backend/views' => '@adminpress/views'
+                ],
+            ],
+        ],
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],

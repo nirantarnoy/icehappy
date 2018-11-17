@@ -15,6 +15,7 @@ use \backend\models\AddressBook;
  */
 class PlantController extends Controller
 {
+    public $enableCsrfValidation = false;
     /**
      * {@inheritdoc}
      */
@@ -149,5 +150,40 @@ class PlantController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    public function actionShowcity($id){
+        $model = \common\models\Amphur::find()->where(['PROVINCE_ID' => $id])->all();
+
+        if (count($model) > 0) {
+            foreach ($model as $value) {
+
+                echo "<option value='" . $value->AMPHUR_ID . "'>$value->AMPHUR_NAME</option>";
+
+            }
+        } else {
+            echo "<option>-</option>";
+        }
+    }
+    public function actionShowdistrict($id){
+        $model = \common\models\District::find()->where(['AMPHUR_ID' => $id])->all();
+
+        if (count($model) > 0) {
+            foreach ($model as $value) {
+
+                echo "<option value='" . $value->DISTRICT_ID . "'>$value->DISTRICT_NAME</option>";
+
+            }
+        } else {
+            echo "<option>-</option>";
+        }
+    }
+    public function actionShowzipcode($id){
+        $model = \common\models\Amphur::find()->where(['AMPHUR_ID' => $id])->one();
+
+        if (count($model) > 0) {
+            echo $model->POSTCODE;
+        } else {
+            echo "";
+        }
     }
 }
