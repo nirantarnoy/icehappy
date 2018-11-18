@@ -3,7 +3,9 @@ namespace backend\models;
 use Yii;
 use yii\db\ActiveRecord;
 date_default_timezone_set('Asia/Bangkok');
-class Unit extends \common\models\Unit{
+
+class Productpic extends \common\models\ProductPic
+{
     public function behaviors()
     {
         return [
@@ -44,8 +46,5 @@ class Unit extends \common\models\Unit{
             ],
         ];
     }
-    public function findUnitName($id){
-        $model = \backend\models\Unit::find()->where(['id'=>$id])->one();
-        return count($model)>0?$model->name:'';
-    }
+
 }

@@ -4,14 +4,16 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use toxor88\switchery\Switchery;
 use yii\helpers\ArrayHelper;
-use kartik\select2\Select2;
+//use kartik\select2\Select2;
 use yii\helpers\Url;
-use kartik\file\FileInput;
+//use kartik\file\FileInput;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Product */
 /* @var $form yii\widgets\ActiveForm */
 
 //$vendorlist = \backend\models\Suplier::find()->where(['status'=>1])->all();
+$prodgroup = \backend\models\Productcat::find()->all();
+$unit = \backend\models\Unit::find()->all();
 ?>
 
 <div class="product-form">
@@ -71,10 +73,18 @@ use kartik\file\FileInput;
                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">หมวดสินค้า <span class="required"></span>
                                          </label>
                                          <div class="col-md-6 col-sm-6 col-xs-12">
-                                             <?= $form->field($model, 'category_id')->widget(Select2::className(),[
-                                                 'data' => ArrayHelper::map(backend\models\Productcat::find()->all(),'id','name'),
-                                                 'options' => ['placeholder'=>'เลือกกลุ่มสินค้า']
-                                             ])->label(false) ?>
+                                             <select name="select_group" class="form-control" id="">
+
+                                                 <?php foreach ($prodgroup as $value):?>
+                                                     <?php
+                                                     $select = '';
+                                                     if($model->category_id == $value->id){$select = "selected";}
+                                                     ?>
+                                                     <option value="<?=$value->id?>" <?=$select?>><?=$value->name?></option>
+                                                 <?php endforeach;?>
+
+                                             </select>
+
                                          </div>
                                      </div>
                                      <div class="form-group">
@@ -88,10 +98,17 @@ use kartik\file\FileInput;
                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">หน่วยนับ <span class="required"></span>
                                          </label>
                                          <div class="col-md-6 col-sm-6 col-xs-12">
-                                             <?= $form->field($model, 'unit_id')->widget(Select2::className(),[
-                                                 'data' => ArrayHelper::map(backend\models\Unit::find()->all(),'id','name'),
-                                                 'options' => ['placeholder'=>'เลือกหน่วยนับ']
-                                             ])->label(false) ?>
+                                             <select name="select_unit" class="form-control" id="">
+
+                                                 <?php foreach ($unit as $value):?>
+                                                     <?php
+                                                     $select = '';
+                                                     if($model->category_id == $value->id){$select = "selected";}
+                                                     ?>
+                                                     <option value="<?=$value->id?>" <?=$select?>><?=$value->name?></option>
+                                                 <?php endforeach;?>
+
+                                             </select>
                                          </div>
                                      </div>
 
@@ -111,7 +128,7 @@ use kartik\file\FileInput;
                             </div>
 
                            <hr />
-                            <p><h3>รูปภาพ</h3></p>
+
                       <div class="row">
                           <div class="col-lg-12">
                               <?php if(!$model->isNewRecord): ?>
@@ -132,29 +149,12 @@ use kartik\file\FileInput;
 
                           </div>
                       </div>
-                            <div class="row">
-                                <div class="col-ltg-12">
-                                    <?php
 
-                                    echo FileInput::widget([
-                                    'model' => $modelfile,
-                                    'attribute' => 'file[]',
-                                    'options' => ['multiple' => true],
-                                        'pluginOptions' => [
-                                                'allowUpload'=>false,
-                                        ]
-                                    ]);
-                                    ?>
-                                </div>
-                            </div>
-
-
-                      <hr />
 
                         <div class="col-md-8 col-md-offset-4">
                            <?= Html::submitButton(Yii::t('app', 'บันทึก'), ['class' => 'btn btn-success']) ?>
                            <?php if(!$model->isNewRecord):?>
-                            <div class="btn btn-default"><a href="<?=Url::to(['product/view/','id'=>$model->id],true)?>">ดูรายละเอียด</a></div>
+                            <div class="btn btn-secondary"><a href="<?=Url::to(['product/view/','id'=>$model->id],true)?>">ดูรายละเอียด</a></div>
                           <?php endif;?>
                             <div class="btn btn-danger"><a style="color: #FFF" href="<?=Url::to(['product/index'],true)?>">ยกเลิก</a></div>
                         </div>
@@ -164,6 +164,18 @@ use kartik\file\FileInput;
     <?php ActiveForm::end(); ?>
 
 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">อัพโหลดรูปภาพ</h4>
+                    <label for="input-file-max-fs">You can add a max file size</label>
+                    <input type="file" id="input-file-max-fs" multiple class="dropify" data-max-file-size="2M" />
+                </div>
+            </div>
         </div>
     </div>
 

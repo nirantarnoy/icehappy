@@ -131,9 +131,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 [
 
                                     'header' => '',
-                                    'headerOptions' => ['style' => 'text-align:center;','class' => 'activity-view-link',],
+                                    'headerOptions' => ['style' => 'width:160px;text-align:center;','class' => 'activity-view-link',],
                                     'class' => 'yii\grid\ActionColumn',
-                                    'contentOptions' => ['style' => 'text-align: right'],
+                                    'contentOptions' => ['style' => 'text-align: center'],
                                     'buttons' => [
                                         'view' => function($url, $data, $index) {
                                             $options = [
@@ -142,7 +142,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'data-pjax' => '0',
                                             ];
                                             return Html::a(
-                                                '<span class="glyphicon glyphicon-eye-open btn btn-default"></span>', $url, $options);
+                                                '<span class="fa fa-eye btn btn-secondary"></span>', $url, $options);
                                         },
                                         'update' => function($url, $data, $index) {
                                             $options = array_merge([
@@ -151,15 +151,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'data-pjax' => '0',
                                                 'id'=>'modaledit',
                                             ]);
-                                            return $data->status == 1? Html::a(
-                                                '<span class="glyphicon glyphicon-pencil btn btn-default"></span>', $url, [
+                                            return Html::a(
+                                                '<span class="fa fa-edit btn btn-secondary"></span>', $url, [
                                                 'id' => 'activity-view-link',
                                                 //'data-toggle' => 'modal',
                                                 // 'data-target' => '#modal',
                                                 'data-id' => $index,
                                                 'data-pjax' => '0',
                                                 // 'style'=>['float'=>'rigth'],
-                                            ]):'';
+                                            ]);
                                         },
                                         'delete' => function($url, $data, $index) {
                                             $options = array_merge([
@@ -168,10 +168,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 //'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
                                                 //'data-method' => 'post',
                                                 //'data-pjax' => '0',
-                                                'data-url'=>$url,
                                                 'onclick'=>'recDelete($(this));'
                                             ]);
-                                            return Html::a('<span class="glyphicon glyphicon-trash btn btn-default"></span>', 'javascript:void(0)', $options);
+                                            return Html::a('<span class="fa fa-trash btn btn-secondary"></span>', 'javascript:void(0)', $options);
                                         }
                                     ]
                                 ],

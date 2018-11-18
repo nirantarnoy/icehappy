@@ -16,7 +16,7 @@ $usergroup = \backend\models\Usergroup::find()->all();
 
             <?= $form->field($model, 'username')->textInput()->label() ?>
             <p><?=Yii::t('app','กลุ่มผู้ใช้');?></p>
-            <select name="customer_group" class="form-control" id="">
+            <select name="select_group" class="form-control" id="">
 
                 <?php foreach ($usergroup as $value):?>
                     <?php

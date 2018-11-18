@@ -6,12 +6,12 @@
  * Time: 11:58:29
  */
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+//use yii\bootstrap\Nav;
+//use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use backend\assets\PressAsset;
-use yii\helpers\Url;
-use backend\assets\AppAsset;
+//use yii\helpers\Url;
+//use backend\assets\AppAsset;
 
 
 PressAsset::register($this);
@@ -411,7 +411,7 @@ PressAsset::register($this);
                 <!--                    <li class="breadcrumb-item active">Dashboard</li>-->
                 <!--                </ol>-->
                 <?php echo Breadcrumbs::widget([
-                    'itemTemplate' =>"<ol class='breadcrumb'><li class='breadcrumb-item'>{link}</li></ol>",
+                    //'itemTemplate' =>"<ol class='breadcrumb'><li class='breadcrumb-item'>{link}</li></ol>",
                     'options' => ['class'=>'breadcrumb','style'=>'margin-top: -10px;'],
                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
 

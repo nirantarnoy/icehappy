@@ -15,7 +15,7 @@ use kartik\date\DatePicker;
 //use yii\jui\AutoComplete;
 use yii\web\JsExpression;
 
-ICheckAsset::register($this);
+//ICheckAsset::register($this);
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -122,6 +122,7 @@ table.table-vendor td{
                 </ul> -->
 
             </div>
+            <br>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-9">
@@ -203,11 +204,11 @@ table.table-vendor td{
                                     //'options' => ['id'=>'grid_product'],
                                     'tableOptions' => ['class' => 'table table-hover'],
                                     'emptyText' => '<div style="color: red;align: center;"> <b>ไม่พบรายการไดๆ</b></div>',
-
-                                    'rowOptions' => function($model, $key, $index, $gird){
-                                        $contextMenuId = $gird->columns[0]->contextMenuId;
-                                        return ['data'=>[ 'toggle' => 'context','target'=> "#".$contextMenuId ]];
-                                    },
+//
+//                                    'rowOptions' => function($model, $key, $index, $gird){
+//                                        $contextMenuId = $gird->columns[0]->contextMenuId;
+//                                        return ['data'=>[ 'toggle' => 'context','target'=> "#".$contextMenuId ]];
+//                                    },
                                     'columns' => [
 //                            [
 //                                'class' => \liyunfang\contextmenu\SerialColumn::className(),
@@ -292,9 +293,9 @@ table.table-vendor td{
                                             'headerOptions' => ['style' => 'text-align: center'],
                                             'contentOptions' => ['style' => 'vertical-align: middle;text-align: center;'],
                                             'value'=>function($data){
-                                                if($data->all_qty >0 && $data->all_qty > $data->min_stock){
+                                                if($data->qty >0 && $data->qty > $data->min_stock){
                                                     return '<div class="label label-success">มีสินค้า</div>';
-                                                }else if($data->all_qty >0 && $data->all_qty < $data->min_stock){
+                                                }else if($data->qty >0 && $data->qty < $data->min_stock){
                                                     return '<div class="label label-warning">สินค่าต่ำกว่ากำหนด</div>';
                                                 }else{
                                                     return '<div class="label label-danger">ไม่มีสินค้า</div>';
@@ -303,11 +304,11 @@ table.table-vendor td{
                                             }
                                         ],
                                         [
-                                            'attribute'=>'all_qty',
+                                            'attribute'=>'qty',
                                             'headerOptions' => ['style' => 'text-align: right'],
                                             'contentOptions' => ['style' => 'vertical-align: middle;text-align: right;font-weight: bold;'],
                                             'value'=> function($data){
-                                                return $data->all_qty > 0?number_format($data->all_qty,0):0;
+                                                return $data->qty > 0?number_format($data->qty,0):0;
                                             }
                                         ],
                                         [
@@ -326,6 +327,52 @@ table.table-vendor td{
                                             'value'=>function($data){
                                                 return $data->status === 1 ? '<div class="label label-success">Active</div>':'<div class="label label-default">Inactive</div>';
                                             }
+                                        ],
+                                        [
+
+                                            'header' => '',
+                                            'headerOptions' => ['style' => 'width:160px;text-align:center;','class' => 'activity-view-link',],
+                                            'class' => 'yii\grid\ActionColumn',
+                                            'contentOptions' => ['style' => 'text-align: center'],
+                                            'buttons' => [
+                                                'view' => function($url, $data, $index) {
+                                                    $options = [
+                                                        'title' => Yii::t('yii', 'View'),
+                                                        'aria-label' => Yii::t('yii', 'View'),
+                                                        'data-pjax' => '0',
+                                                    ];
+                                                    return Html::a(
+                                                        '<span class="fa fa-eye btn btn-secondary"></span>', $url, $options);
+                                                },
+                                                'update' => function($url, $data, $index) {
+                                                    $options = array_merge([
+                                                        'title' => Yii::t('yii', 'Update'),
+                                                        'aria-label' => Yii::t('yii', 'Update'),
+                                                        'data-pjax' => '0',
+                                                        'id'=>'modaledit',
+                                                    ]);
+                                                    return Html::a(
+                                                        '<span class="fa fa-edit btn btn-secondary"></span>', $url, [
+                                                        'id' => 'activity-view-link',
+                                                        //'data-toggle' => 'modal',
+                                                        // 'data-target' => '#modal',
+                                                        'data-id' => $index,
+                                                        'data-pjax' => '0',
+                                                        // 'style'=>['float'=>'rigth'],
+                                                    ]);
+                                                },
+                                                'delete' => function($url, $data, $index) {
+                                                    $options = array_merge([
+                                                        'title' => Yii::t('yii', 'Delete'),
+                                                        'aria-label' => Yii::t('yii', 'Delete'),
+                                                        //'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+                                                        //'data-method' => 'post',
+                                                        //'data-pjax' => '0',
+                                                        'onclick'=>'recDelete($(this));'
+                                                    ]);
+                                                    return Html::a('<span class="fa fa-trash btn btn-secondary"></span>', 'javascript:void(0)', $options);
+                                                }
+                                            ]
                                         ],
 
                                     ],
@@ -351,46 +398,7 @@ table.table-vendor td{
                                 ]); ?>
                             </div>
 
-                            <!--  <div class="row">
-                      <div class="col-lg-12">
-                        <?php foreach($dataProvider->getModels() as $value):?>
-                              <div class="col-md-3 col-xs-12 widget widget_tally_box">
-                              <div class="x_panel fixed_height_300">
-                                <div class="x_content">
-                                  <h3 class="name"><?=$value->product_code?></h3>
-                                  <p>
-                                    <?=$value->name?>
-                                  </p>
-                                   <div class="flex">
-                                    <ul class="list-inline count2">
-                                      <li>
-                                        <span>
-                                          <?php if($value->all_qty >0): ?>
-                                            <div class="label label-success"> มีสินค้า</div>
-                                          <?php else:?>
-                                            <div class="label label-danger"> ไม่มีสินค้า</div>
-                                          <?php endif;?>
-                                        </span>
-                                      </li>
-                                      <li>
-                                        <span>
-                                          <?=$value->all_qty?>
-                                        </span>
-                                      </li>
 
-                                    </ul>
-
-                                  </div>
-                                  <div class="btn-group">
-                                      <div class="btn btn-default"><i class="fa fa-eye"></i></div>
-                                      <div class="btn btn-default"><i class="fa fa-pencil"></i></div>
-                                    </div>
-                                </div>
-                              </div>
-                            </div>
-                          <?php endforeach;?>
-                      </div>
-                    </div> -->
 
                         </div>
                     </div>
@@ -693,6 +701,9 @@ $this->registerJsFile("https://code.jquery.com/jquery-1.12.4.js",['depends'=> [\
       "Scheme"
     ];
         
+         $("#perpage").change(function(){
+            $("#form-perpage").submit();
+        });
           
     
     var nowTemp = new Date();

@@ -96,27 +96,6 @@ class ProductController extends Controller
         $searchModel = new \backend\models\ProductSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->andFilterWhere(['category_id'=>$group])->andFilterWhere(['OR',['LIKE','product_code',$searcname],['LIKE','name',$searcname]]);
-        if(count($stockstatus)>1){
-            if(in_array("1",$stockstatus,true) and in_array("2",$stockstatus,true) and in_array("3",$stockstatus,true)){
-
-            }else  if(in_array("1",$stockstatus,true) and in_array("2",$stockstatus,true)){
-                $dataProvider->query->andFilterWhere(['>','all_qty',0]);
-            }else if(in_array("1",$stockstatus,true) and in_array("3",$stockstatus,true)){
-                $dataProvider->query->andFilterWhere(['OR',['AND',['>','all_qty',0],['<=','min_stock','all_qty']],['=','all_qty',0]]);
-            }else if(in_array("2",$stockstatus,true) and in_array("3",$stockstatus,true)){
-                $dataProvider->query->andFilterWhere(['OR',['>','min_stock','all_qty'],['=','all_qty',0]]);
-            }
-
-        }else if(count($stockstatus)>0 and count($stockstatus)<2){
-            //echo $stockstatus[0];return;
-            if($stockstatus[0] == "1"){
-                $dataProvider->query->andFilterWhere(['AND',['>','all_qty',0],['<=','min_stock','all_qty']]);
-            }else if($stockstatus[0] == "2"){
-                $dataProvider->query->andFilterWhere(['>','min_stock','all_qty']);
-            }else if($stockstatus[0] == "3"){
-                $dataProvider->query->andFilterWhere(['=','all_qty',0]);
-            }
-        }
 
 
         $dataProvider->pagination->pageSize = $pageSize;
@@ -248,7 +227,7 @@ class ProductController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelprice = \backend\models\ProductPrice::find()->where(['product_id'=>$id])->all();
+       // $modelprice = \backend\models\ProductPrice::find()->where(['product_id'=>$id])->all();
         $modelfile = new \backend\models\Modelfile();
         $modelpic = \backend\models\Productpic::find()->where(['product_id'=>$id])->all();
 
@@ -309,7 +288,6 @@ class ProductController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'modelprice'=>$modelprice,
             'modelfile'=>$modelfile,
             'modelpic'=>$modelpic,
 

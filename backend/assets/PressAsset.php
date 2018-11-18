@@ -10,6 +10,7 @@ class PressAsset extends AssetBundle
     public $css = [
         'plugins/bootstrap/css/bootstrap.min.css',
         'plugins/morrisjs/morris.css',
+        'plugins/dropify/dist/css/dropify.min.css',
         'css/style.css',
         'css/colors/blue.css'
     ];
@@ -23,6 +24,7 @@ class PressAsset extends AssetBundle
         'plugins/sticky-kit-master/dist/sticky-kit.min.js',
         'plugins/morrisjs/morris.min.js',
         'plugins/styleswitcher/jQuery.style.switcher.js',
+        'plugins/dropify/dist/js/dropify.min.js',
         'plugins/jquery/jquery.min.js',
         'js/jquery.slimscroll.js',
         'js/waves.js',
