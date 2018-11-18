@@ -84,13 +84,28 @@ class PlantController extends Controller
     public function actionCreate()
     {
         $model = new Plant();
+        $model_address = new AddressBook();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model_address->load(Yii::$app->request->post())) {
+            $prov = Yii::$app->request->post('select_province');
+            $district = Yii::$app->request->post('select_district');
+            $city = Yii::$app->request->post('select_city');
+            if($model->save()){
+                $model_address->party_type_id = 1;
+                $model_address->party_id = $model->id;
+                $model_address->province_id = $prov;
+                $model_address->district_id = $district;
+                $model_address->city_id = $city;
+                $model_address->save();
+                $session = Yii::$app->session;
+                $session->setFlash('msg','บันทึกรายการเรียบร้อย');
+                return $this->redirect(['update','id'=>$model->id]);
+            }
         }
 
         return $this->render('create', [
-            'model' => $model,false,true
+            'model' => $model,
+            'model_address'=>$model_address,
         ]);
     }
 
@@ -107,7 +122,25 @@ class PlantController extends Controller
         $model_address = new AddressBook();
         $model_address_plant = AddressBook::find()->where(['party_id'=>$id,'party_type_id'=>1])->one();
         if ($model->load(Yii::$app->request->post())) {
+            $prov = Yii::$app->request->post('select_province');
+            $district = Yii::$app->request->post('select_district');
+            $city = Yii::$app->request->post('select_city');
+
             if($model->save()){
+                if(count($model_address_plant) > 0){
+                    $model_address_plant->load(Yii::$app->request->post());
+                    $model_address_plant->province_id = $prov;
+                    $model_address_plant->city_id = $city;
+                    $model_address_plant->district_id = $district;
+                    $model_address_plant->save();
+                }else{
+                    $model_address->party_type_id = 1; // 1 = plant
+                    $model_address->party_id = $id;
+                    $model_address->province_id = $prov;
+                    $model_address->city_id = $city;
+                    $model_address->district_id = $district;
+                    $model_address->save(false);
+                }
                 $session = Yii::$app->session;
                 $session->setFlash('msg','บันทึกรายการเรียบร้อย');
                 return $this->redirect(['update','id'=>$id]);

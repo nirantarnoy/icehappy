@@ -183,7 +183,7 @@ if ($session->getFlash('msg')): ?>
                        </label>
                        <div class="col-md-6 col-sm-6 col-xs-12">
 
-                           <select name="select_provice" onchange="findCity($(this))" class="form-control" id="">
+                           <select name="select_province" onchange="findCity($(this))" class="form-control" id="">
                                <?php foreach ($prov as $value):?>
                                <option value="<?=$value->PROVINCE_ID?>"><?=$value->PROVINCE_NAME?></option>
                                <?php endforeach;?>
