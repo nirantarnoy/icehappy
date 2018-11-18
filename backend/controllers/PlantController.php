@@ -132,7 +132,7 @@ class PlantController extends Controller
                     $model_address_plant->province_id = $prov;
                     $model_address_plant->city_id = $city;
                     $model_address_plant->district_id = $district;
-                    $model_address_plant->save();
+                    $model_address_plant->save(false);
                 }else{
                     $model_address->party_type_id = 1; // 1 = plant
                     $model_address->party_id = $id;

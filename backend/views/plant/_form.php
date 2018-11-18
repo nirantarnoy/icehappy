@@ -162,7 +162,12 @@ if ($session->getFlash('msg')): ?>
                        <div class="col-md-6 col-sm-6 col-xs-12">
                            <select name="select_district" class="form-control" id="district" disabled>
                                <?php foreach ($dist as $value):?>
-                                   <option value="<?=$value->DISTRICT_ID?>"><?=$value->DISTRICT_NAME?></option>
+                               <?php
+                                  $select = '';
+                                  $dis_id = $model_address_plant?$model_address_plant->district_id:0;
+                                  if($value->DISTRICT_ID ==  $dis_id){$select = 'selected';}
+                                   ?>
+                                   <option value="<?=$value->DISTRICT_ID?>" <?=$select;?>><?=$value->DISTRICT_NAME?></option>
                                <?php endforeach;?>
                            </select>
                        </div>
@@ -173,7 +178,12 @@ if ($session->getFlash('msg')): ?>
                        <div class="col-md-6 col-sm-6 col-xs-12">
                            <select name="select_city" onchange="findDistrict($(this))" class="form-control" id="city" disabled>
                                <?php foreach ($amp as $value):?>
-                                   <option value="<?=$value->AMPHUR_ID?>"><?=$value->AMPHUR_NAME?></option>
+                                   <?php
+                                   $select = '';
+                                   $city_id = $model_address_plant?$model_address_plant->city_id:0;
+                                   if($value->AMPHUR_ID ==  $city_id){$select = 'selected';}
+                                   ?>
+                                   <option value="<?=$value->AMPHUR_ID?>" <?=$select?>><?=$value->AMPHUR_NAME?></option>
                                <?php endforeach;?>
                            </select>
                        </div>
@@ -185,7 +195,12 @@ if ($session->getFlash('msg')): ?>
 
                            <select name="select_province" onchange="findCity($(this))" class="form-control" id="">
                                <?php foreach ($prov as $value):?>
-                               <option value="<?=$value->PROVINCE_ID?>"><?=$value->PROVINCE_NAME?></option>
+                                   <?php
+                                   $select = '';
+                                   $prov_id = $model_address_plant?$model_address_plant->province_id:0;
+                                   if($value->PROVINCE_ID ==  $prov_id){$select = 'selected';}
+                                   ?>
+                               <option value="<?=$value->PROVINCE_ID?>" <?=$select?>><?=$value->PROVINCE_NAME?></option>
                                <?php endforeach;?>
                            </select>
                        </div>

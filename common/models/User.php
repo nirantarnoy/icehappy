@@ -186,4 +186,12 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+    public function attributeLabels()
+    {
+        return [
+            'username'=>'ชื่อเข้าระบบ',
+            'group_id'=>'กลุ่มผู้ใช้งาน',
+            'status'=>'สถานะ'
+        ];
+    }
 }
