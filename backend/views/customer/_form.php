@@ -14,8 +14,7 @@ $zone = \backend\models\Salezone::find()->all();
 <div class="custumer-form">
     <div class="card">
         <div class="card-body">
-            <?php $form = ActiveForm::begin(); ?>
-
+            <?php $form = ActiveForm::begin(['options'=>['class'=>'form-horizontal form-label-left','enctype'=>'multipart/form-data']]); ?>
             <div class="row">
                 <div class="col-lg-4">
                     <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>

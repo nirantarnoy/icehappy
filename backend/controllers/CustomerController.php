@@ -8,6 +8,7 @@ use backend\models\CustumerSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * CustomerController implements the CRUD actions for Custumer model.
@@ -68,6 +69,13 @@ class CustomerController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->customer_group_id = Yii::$app->request->post('customer_group');
+            $model->zone_id = Yii::$app->request->post('zone_id');
+
+            $uploaded = UploadedFile::getInstances();
+            if(!empty($uploaded)){
+
+            }
+
             if($model->save()){
                 $session = Yii::$app->session;
                 $session->setFlash('msg','บันทึกรายการเรียบร้อย');

@@ -23,6 +23,7 @@ use Yii;
  */
 class Customer extends \yii\db\ActiveRecord
 {
+    public $files;
     /**
      * {@inheritdoc}
      */
@@ -41,7 +42,8 @@ class Customer extends \yii\db\ActiveRecord
             [['customer_group_id', 'customer_type_id', 'status','zone_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['code', 'first_name', 'last_name', 'description'], 'string', 'max' => 255],
             [['card_id'], 'string', 'max' => 13],
-            [['lat','long'],'number']
+            [['lat','long'],'string'],
+            [['files'],'file'],
         ];
     }
 
