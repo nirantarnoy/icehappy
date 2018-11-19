@@ -94,6 +94,7 @@ class CustomerController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->customer_group_id = Yii::$app->request->post('customer_group');
+            $model->zone_id = Yii::$app->request->post('zone_id');
             if($model->save()){
                 $session = Yii::$app->session;
                 $session->setFlash('msg','บันทึกรายการเรียบร้อย');

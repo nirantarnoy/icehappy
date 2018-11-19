@@ -24,9 +24,10 @@ $zone = \backend\models\Salezone::find()->all();
 
                     <?php //echo $form->field($model, 'customer_type_id')->textInput() ?>
 
-                    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+
                     <?= $form->field($model, 'lat')->textInput(['maxlength' => true]) ?>
                     <?= $form->field($model, 'long')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
 
                     <?php //echo $form->field($model, 'status')->textInput() ?>
 
@@ -60,6 +61,18 @@ $zone = \backend\models\Salezone::find()->all();
                             <option value="<?=$value->id?>" <?=$select?>><?=$value->name?></option>
                         <?php endforeach;?>
                     </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">อัพโหลดรูปภาพ</h4>
+                            <label for="input-file-max-fs">You can add a max file size</label>
+                            <input type="file" id="input-file-max-fs" multiple class="dropify" data-max-file-size="2M" />
+                        </div>
+                    </div>
                 </div>
             </div>
 

@@ -3,7 +3,7 @@ namespace backend\models;
 use Yii;
 use yii\db\ActiveRecord;
 date_default_timezone_set('Asia/Bangkok');
-class Salezone extends \common\models\SaleZone {
+class Customerpic extends \common\models\CustomerPic {
     public function behaviors()
     {
         return [
@@ -43,9 +43,5 @@ class Salezone extends \common\models\SaleZone {
                 'value'=> time(),
             ],
         ];
-    }
-    public function findName($id){
-        $model = \backend\models\Salezone::find()->where(['id'=>$id])->one();
-        return count($model)>0?$model->name:'';
     }
 }

@@ -39,6 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                return \backend\models\Custumergroup::findName($data->customer_group_id);
                             }
                     ],
+                    [
+                        'attribute'=>'zone_id',
+                        'label' => 'เส้นทาง',
+                        'value' => function($data){
+                            return \backend\models\Salezone::findName($data->zone_id);
+                        }
+                    ],
                     //'customer_type_id',
                     //'description',
                     [
