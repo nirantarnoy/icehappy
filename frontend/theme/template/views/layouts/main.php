@@ -48,15 +48,15 @@ TemplateAsset::register($this);
                         </button>
                         <div class="navbar-brand-wrap">
                             <a class="navbar-brand" href="#">
-                                <img src="img/logo.png" alt="" style="width: 30%">
+                                <img src="img/logo.png" alt="" style="width: 40%">
                             </a>
                         </div>
                     </div> <!-- .navbar-header -->
 
                     <div class="collapse navbar-collapse" id="navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="active"><a href="#home">Home</a></li>
-                            <li><a href="#about">About</a></li>
+                            <li class="active"><a href="#home">หน้าแรก</a></li>
+                            <li><a href="#about">เกี่ยวกับเรา</a></li>
                             <li><a href="#brief_1">Brief</a></li>
                             <li><a href="#pricing">Pricing</a></li>
                             <li><a href="#download">Download</a></li>
