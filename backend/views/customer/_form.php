@@ -7,6 +7,7 @@ use toxor88\switchery\Switchery;
 /* @var $model backend\models\Custumer */
 /* @var $form yii\widgets\ActiveForm */
 $custgroup = \backend\models\Custumergroup::find()->all();
+$zone = \backend\models\Salezone::find()->all();
 
 ?>
 
@@ -20,8 +21,6 @@ $custgroup = \backend\models\Custumergroup::find()->all();
                     <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
 
                     <?= $form->field($model, 'card_id')->textInput(['maxlength' => true]) ?>
-
-
 
                     <?php //echo $form->field($model, 'customer_type_id')->textInput() ?>
 
@@ -50,6 +49,17 @@ $custgroup = \backend\models\Custumergroup::find()->all();
                 </div>
                 <div class="col-lg-4">
                     <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
+                    <label>เขต/เส้นทาง</label>
+                    <select name="zone_id" class="form-control" id="">
+
+                        <?php foreach ($zone as $value):?>
+                            <?php
+                            $select = '';
+                            if($model->zone_id == $value->id){$select = "selected";}
+                            ?>
+                            <option value="<?=$value->id?>" <?=$select?>><?=$value->name?></option>
+                        <?php endforeach;?>
+                    </select>
                 </div>
             </div>
 
