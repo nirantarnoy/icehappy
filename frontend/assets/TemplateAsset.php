@@ -23,7 +23,7 @@ class TemplateAsset extends AssetBundle
         'js/vendor/bootstrap.min.js',
         'js/vendor/plugin.js',
         'js/variable.js',
-        'js/map.js',
+       // 'js/map.js',
         'js/main.js'
     ];
     public $depends = [

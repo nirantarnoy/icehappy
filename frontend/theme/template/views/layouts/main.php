@@ -48,7 +48,7 @@ TemplateAsset::register($this);
                         </button>
                         <div class="navbar-brand-wrap">
                             <a class="navbar-brand" href="#">
-                                <img src="img/site-header-logo.png" alt="">
+                                <img src="img/logo.png" alt="" style="width: 30%">
                             </a>
                         </div>
                     </div> <!-- .navbar-header -->
