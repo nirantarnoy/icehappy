@@ -14,7 +14,7 @@ TemplateAsset::register($this);
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>TITLE</title>
+    <title>บริษัทน้ำแข็งแฮปปี้</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="">
