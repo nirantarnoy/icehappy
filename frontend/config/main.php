@@ -11,7 +11,19 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'aliases'=>[
+        '@template' => '@frontend/theme/template',
+    ],
     'components' => [
+        'view' => [
+            'theme' => [
+                'basePath' => '@frontend/theme/template',
+                'baseUrl' => '@web/',
+                'pathMap' => [
+                    '@frontend/views' => '@template/views'
+                ],
+            ],
+        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],

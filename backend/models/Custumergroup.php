@@ -44,4 +44,8 @@ class Custumergroup extends \common\models\CustomerGroup{
             ],
         ];
     }
+    public function findName($id){
+        $model = \backend\models\Custumergroup::find()->where(['id'=>$id])->one();
+        return count($model)>0?$model->name:'';
+    }
 }

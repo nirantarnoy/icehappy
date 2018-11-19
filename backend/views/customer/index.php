@@ -32,8 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'code',
                     'first_name',
                     'last_name',
-                    'card_id',
-                    //'customer_group_id',
+                   // 'card_id',
+                    [
+                            'attribute'=>'customer_group_id',
+                            'value' => function($data){
+                               return \backend\models\Custumergroup::findName($data->customer_group_id);
+                            }
+                    ],
                     //'customer_type_id',
                     //'description',
                     [

@@ -16,25 +16,12 @@ $custgroup = \backend\models\Custumergroup::find()->all();
             <?php $form = ActiveForm::begin(); ?>
 
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
-
-                    <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
-
-                    <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
 
                     <?= $form->field($model, 'card_id')->textInput(['maxlength' => true]) ?>
 
-                    <select name="customer_group" class="form-control" id="">
 
-                        <?php foreach ($custgroup as $value):?>
-                            <?php
-                            $select = '';
-                            if($model->customer_group_id == $value->id){$select = "selected";}
-                            ?>
-                            <option value="<?=$value->id?>" <?=$select?>><?=$value->name?></option>
-                        <?php endforeach;?>
-                    </select>
 
                     <?php //echo $form->field($model, 'customer_type_id')->textInput() ?>
 
@@ -46,6 +33,23 @@ $custgroup = \backend\models\Custumergroup::find()->all();
 
                     <?php echo $form->field($model, 'status')->widget(Switchery::className(),['options'=>['label'=>'','class'=>'form-control']])->label(false) ?>
 
+                </div>
+                <div class="col-lg-4">
+                    <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
+                    <label>กลุ่มลูกค้า</label>
+                    <select name="customer_group" class="form-control" id="">
+
+                        <?php foreach ($custgroup as $value):?>
+                            <?php
+                            $select = '';
+                            if($model->customer_group_id == $value->id){$select = "selected";}
+                            ?>
+                            <option value="<?=$value->id?>" <?=$select?>><?=$value->name?></option>
+                        <?php endforeach;?>
+                    </select>
+                </div>
+                <div class="col-lg-4">
+                    <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
 
