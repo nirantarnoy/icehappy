@@ -26,12 +26,12 @@ $zone = \backend\models\Salezone::find()->all();
 
 
                     <?= $form->field($model, 'lat')->textInput(['maxlength' => true]) ?>
-                    <?= $form->field($model, 'long')->textInput(['maxlength' => true]) ?>
+
                     <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
 
                     <?php //echo $form->field($model, 'status')->textInput() ?>
 
-                    <?php echo $form->field($model, 'status')->widget(Switchery::className(),['options'=>['label'=>'','class'=>'form-control']])->label(false) ?>
+                    <?php echo $form->field($model, 'status')->widget(Switchery::className(),['options'=>['label'=>'','class'=>'form-control']])->label('สถานะ') ?>
 
                 </div>
                 <div class="col-lg-4">
@@ -47,6 +47,8 @@ $zone = \backend\models\Salezone::find()->all();
                             <option value="<?=$value->id?>" <?=$select?>><?=$value->name?></option>
                         <?php endforeach;?>
                     </select>
+                    <br><br>
+                    <?= $form->field($model, 'long')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-lg-4">
                     <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
