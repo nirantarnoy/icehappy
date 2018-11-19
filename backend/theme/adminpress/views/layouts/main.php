@@ -377,6 +377,7 @@ PressAsset::register($this);
                     <li class="two-column"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-file"></i><span class="hide-menu">Sales Order</span></a>
                         <ul aria-expanded="false" class="collapse">
                             <li><a href="index.php?r=sale/index">Sales Order</a></li>
+                            <li><a href="index.php?r=salezone/index">Zone</a></li>
                             <li><a href="index.php?r=customergroup/index">Customer Group</a></li>
                             <li><a href="index.php?r=customer/index">Customer</a></li>
                             <li><a href="form-material.html">Delivery Group</a></li>
@@ -411,7 +412,7 @@ PressAsset::register($this);
                 <!--                    <li class="breadcrumb-item active">Dashboard</li>-->
                 <!--                </ol>-->
                 <?php echo Breadcrumbs::widget([
-                    //'itemTemplate' =>"<ol class='breadcrumb'><li class='breadcrumb-item'>{link}</li></ol>",
+                    'itemTemplate' =>"<ol class='breadcrumb'><li class='breadcrumb-item'> {link} </li> <span style='font-weight: bold;padding-top: 1px;padding-right: 5px;padding-left: 5px;'> > </span> </ol>",
                     'options' => ['class'=>'breadcrumb','style'=>'margin-top: -10px;'],
                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
 
