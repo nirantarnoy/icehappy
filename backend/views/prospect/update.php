@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Prospect */
 
-$this->title = 'แก้ไขใบคัดกรอง: {nameAttribute}';
+$this->title = 'แก้ไขใบคัดกรอง: '.$model->name;
 $this->params['breadcrumbs'][] = ['label' => 'คัดกรองลูกค้า', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'item' => $item,
     ]) ?>
 
 </div>

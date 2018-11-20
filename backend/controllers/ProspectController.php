@@ -66,8 +66,27 @@ class ProspectController extends Controller
     {
         $model = new Prospect();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $item_list = explode(',',Yii::$app->request->post('select_item')) ;
+            $item_qty = Yii::$app->request->post('item_qty');
+            $model->status=1;
+//            print_r(Yii::$app->request->post('item_qty'));
+//            return;
+            if($model->save()){
+                if(count($item_list)>0){
+                    for($i=0;$i<=count($item_list)-1;$i++){
+                      $detail = new \backend\models\Prospectdetail();
+                      $detail->prospect_id = $model->id;
+                      $detail->itemid = $item_list[$i];
+                      $detail->qty = $item_qty[$i];
+                      $detail->line_type = 1;
+                      $detail->status = 1;
+                      $detail->save();
+                    }
+                }
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
         }
 
         return $this->render('create', [
@@ -85,6 +104,7 @@ class ProspectController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $item = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id,'line_type'=>1])->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -92,6 +112,7 @@ class ProspectController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'item' => $item,
         ]);
     }
 
