@@ -75,7 +75,7 @@ PressAsset::register($this);
                     <!--End Logo icon -->
                     <!-- Logo text --><span>
                          <!-- dark Logo text -->
-                         <img src="images/logos.png" alt="homepage" class="dark-logo" />
+<!--                         <img src="images/logos.png" alt="homepage" class="dark-logo" />-->
                         <!-- Light Logo text -->
                          <img src="images/logo.png" class="light-logo" alt="homepage" style="width: 30%" /></span> </a>
             </div>
@@ -378,6 +378,7 @@ PressAsset::register($this);
                         <ul aria-expanded="false" class="collapse">
                             <li><a href="index.php?r=sale/index">Sales Order</a></li>
                             <li><a href="index.php?r=salezone/index">Zone</a></li>
+                            <li><a href="index.php?r=prospect/index">Prospect</a></li>
                             <li><a href="index.php?r=customergroup/index">Customer Group</a></li>
                             <li><a href="index.php?r=customer/index">Customer</a></li>
                             <li><a href="form-material.html">Delivery Group</a></li>
