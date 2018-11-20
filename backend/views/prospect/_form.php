@@ -119,14 +119,14 @@ use yii\helpers\ArrayHelper;
                                        ?>
                                        <tr>
                                            <td style="vertical-align: middle;">
-                                               <input type="checkbox" id="md_checkbox_<?=$x+10?>" class="filled-in chk-col-cyan" />
-                                               <label for="md_checkbox_<?=$x+10?>"><?=$item[$x]['name']?></label>
+                                               <input type="checkbox" id="item_checkbox_<?=$x?>" name="select_item[]" class="filled-in chk-col-cyan" onchange="enableqty($(this));" />
+                                               <label for="item_checkbox_<?=$x?>"><?=$item[$x]['name']?></label>
                                            </td>
                                            <td style="vertical-align: middle;">
 
                                            </td>
                                            <td style="vertical-align: middle;">
-                                               <input type="number" name="item_<?=$x+10?>" class="form-control">
+                                               <input type="number" name="item_qty[]" class="form-control line_qty" min="1" disabled>
                                            </td>
                                            <td style="vertical-align: middle;">
                                                กระสอบต่อวัน
@@ -144,14 +144,14 @@ use yii\helpers\ArrayHelper;
                                            ?>
                                            <tr style="vertical-align: middle;">
                                                <td style="vertical-align: middle;">
-                                                   <input type="checkbox" id="bucket_checkbox_<?=$x+10?>" class="filled-in chk-col-cyan" />
-                                                   <label for="bucket_checkbox_<?=$x+10?>"><?=$item[$x]['name']?></label>
+                                                   <input type="checkbox" id="bucket_checkbox_<?=$x?>" class="filled-in chk-col-cyan" onchange="enableqty($(this));" />
+                                                   <label for="bucket_checkbox_<?=$x?>"><?=$item[$x]['name']?></label>
                                                </td>
                                                <td style="vertical-align: middle;">
 
                                                </td>
                                                <td style="vertical-align: middle;">
-                                                   <input type="number" name="item_<?=$x+10?>" class="form-control">
+                                                   <input type="number" name="item_bucket[]?>" class="form-control line_qty" min="1" disabled>
                                                </td>
                                                <td style="vertical-align: middle;">
                                                    <span>ใบ</span>
@@ -184,3 +184,21 @@ use yii\helpers\ArrayHelper;
     </div>
     <?php ActiveForm::end(); ?>
 </div>
+<?php
+$js=<<<JS
+  $(function() {
+    
+  });
+  function enableqty(e){
+     
+      if(e.prop("checked")){
+          e.closest("tr").find(".line_qty").removeAttr('disabled');
+      }else{
+          e.closest("tr").find(".line_qty").prop('disabled','disabled');
+      }
+  }
+   
+JS;
+$this->registerJs($js,static::POS_END);
+
+?>
