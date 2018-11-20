@@ -7,7 +7,35 @@ use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Prospect */
 /* @var $form yii\widgets\ActiveForm */
+
+
+$l = 1;
+$old_item = '';
+$m = 1;
+$old_bucket = '';
+if(count($item_select)>0){
+    foreach ($item_select as $value){
+        if($l < count($item_select)){
+            $old_item .=$value->itemid.',';
+        }else if($l == count($item_select)){
+            $old_item .=$value->itemid;
+        }
+        $l+=1;
+    }
+}
+if(count($bucket)>0) {
+    foreach ($bucket as $value) {
+        if ($m < count($bucket)) {
+            $old_bucket .= $value->itemid . ',';
+        } else if ($m == count($bucket)) {
+            $old_bucket .= $value->itemid;
+        }
+        $m += 1;
+    }
+}
+
 ?>
+
 
 <div class="prospect-form">
     <?php $form = ActiveForm::begin(); ?>
@@ -117,10 +145,11 @@ use yii\helpers\ArrayHelper;
                                        $item = \backend\helpers\item::asArrayObject();
                                        for($x=0;$x<=count($item)-1;$x++):
                                        ?>
+                                       <?php if($model->isNewRecord):?>
                                        <tr>
                                            <td style="vertical-align: middle;">
                                                <input type="hidden" name="select_item" class="select_item" value="">
-                                               <input type="hidden" name="select_item_qty" class="select_item_qty" value="">
+<!--                                               <input type="hidden" name="select_item_qty" class="select_item_qty" value="">-->
                                                <input type="checkbox" value="<?=$item[$x]['id']?>" id="item_checkbox_<?=$x?>" name="" class="filled-in chk-col-cyan" onchange="enableqty($(this));" />
                                                <label for="item_checkbox_<?=$x?>"><?=$item[$x]['name']?></label>
                                            </td>
@@ -134,6 +163,41 @@ use yii\helpers\ArrayHelper;
                                                กระสอบต่อวัน
                                            </td>
                                        </tr>
+                                       <?php else:?>
+                                           <?php
+                                           $checked = '';
+                                           $disabled = 'disabled';
+                                           $checked_qty = '';
+                                           $old_select = '';
+                                           $checked_item = '';
+                                           $l = 0;
+                                           foreach ($item_select as $value){
+
+                                                  if($value->itemid == $item[$x]['id']){
+                                                      $checked = 'checked';
+                                                      $checked_qty = $value->qty;
+                                                      $disabled = '';
+
+                                                  }
+                                              }
+                                           ?>
+                                           <tr>
+                                               <td style="vertical-align: middle;">
+                                                   <input type="hidden" name="select_item" class="select_item" value="">
+                                                   <input type="checkbox" value="<?=$item[$x]['id']?>" id="item_checkbox_<?=$x?>" name="" <?=$checked?> class="filled-in chk-col-cyan" onchange="enableqty($(this));" />
+                                                   <label for="item_checkbox_<?=$x?>"><?=$item[$x]['name']?></label>
+                                               </td>
+                                               <td style="vertical-align: middle;">
+
+                                               </td>
+                                               <td style="vertical-align: middle;">
+                                                   <input type="number" name="item_qty[]" class="form-control line_qty" min="1" value="<?=$checked_qty?>" <?=$disabled?> >
+                                               </td>
+                                               <td style="vertical-align: middle;">
+                                                   กระสอบต่อวัน
+                                               </td>
+                                           </tr>
+                                       <?php endif;?>
                                        <?php endfor;?>
                                    </table>
                                </div>
@@ -144,21 +208,57 @@ use yii\helpers\ArrayHelper;
                                        $item = \backend\helpers\Bucket::asArrayObject();
                                        for($x=0;$x<=count($item)-1;$x++):
                                            ?>
+                                       <?php if($model->isNewRecord):?>
                                            <tr style="vertical-align: middle;">
                                                <td style="vertical-align: middle;">
-                                                   <input type="checkbox"  id="bucket_checkbox_<?=$x?>" class="filled-in chk-col-cyan" onchange="enableqty($(this));" />
+                                                   <input type="hidden" name="select_bucket" class="select_bucket" value="">
+                                                   <input type="checkbox" value="<?=$item[$x]['id']?>"  id="bucket_checkbox_<?=$x?>" class="filled-in chk-col-cyan" onchange="enableqty2($(this));" />
                                                    <label for="bucket_checkbox_<?=$x?>"><?=$item[$x]['name']?></label>
                                                </td>
                                                <td style="vertical-align: middle;">
 
                                                </td>
                                                <td style="vertical-align: middle;">
-                                                   <input type="number" name="item_bucket[]?>" class="form-control line_qty" min="1" disabled>
+                                                   <input type="number" name="bucket_qty[]" class="form-control line_qty" min="1" disabled>
                                                </td>
                                                <td style="vertical-align: middle;">
                                                    <span>ใบ</span>
                                                </td>
                                            </tr>
+                                           <?php else:?>
+                                           <?php
+                                           $checked = '';
+                                           $disabled = 'disabled';
+                                           $checked_qty = '';
+                                           $old_select = '';
+                                           $checked_item = '';
+                                           $l = 0;
+                                           foreach ($bucket as $value){
+                                               if($value->itemid == $item[$x]['id']){
+                                                   $checked = 'checked';
+                                                   $checked_qty = $value->qty;
+                                                   $disabled = '';
+
+                                               }
+                                           }
+                                           ?>
+                                           <tr style="vertical-align: middle;">
+                                               <td style="vertical-align: middle;">
+                                                   <input type="hidden" name="select_bucket" class="select_bucket" value="">
+                                                   <input type="checkbox" value="<?=$item[$x]['id']?>" id="bucket_checkbox_<?=$x?>" class="filled-in chk-col-cyan" <?=$checked?> onchange="enableqty2($(this));" />
+                                                   <label for="bucket_checkbox_<?=$x?>"><?=$item[$x]['name']?></label>
+                                               </td>
+                                               <td style="vertical-align: middle;">
+
+                                               </td>
+                                               <td style="vertical-align: middle;">
+                                                   <input type="number" name="bucket_qty[]" class="form-control line_qty" min="1" value="<?=$checked_qty?>" <?=$disabled?>>
+                                               </td>
+                                               <td style="vertical-align: middle;">
+                                                   <span>ใบ</span>
+                                               </td>
+                                           </tr>
+                                           <?php endif;?>
                                        <?php endfor;?>
                                    </table>
                                </div>
@@ -189,14 +289,20 @@ use yii\helpers\ArrayHelper;
 <?php
 $js=<<<JS
   var item_list = [];
+  var bucket_list = [];
   var item_list_qty = [];
   $(function() {
-    
+    $(".select_item").val('$old_item');
+    $(".select_bucket").val('$old_bucket');
+    item_list = [$(".select_item").val()];
+    bucket_list = [$(".select_bucket").val()];
+    //alert($old_bucket);
   });
   function enableqty(e){
       if(e.prop("checked")){
           e.closest("tr").find(".line_qty").removeAttr('disabled');
           e.closest("tr").find(".line_qty").val(1);
+          
           item_list.push(e.val());
       }else{
           e.closest("tr").find(".line_qty").prop('disabled','disabled').val('');
@@ -205,6 +311,21 @@ $js=<<<JS
       }
       //alert(item_list);
      $(".select_item").val(item_list);
+
+  }
+  function enableqty2(e){
+      if(e.prop("checked")){
+          e.closest("tr").find(".line_qty").removeAttr('disabled');
+          e.closest("tr").find(".line_qty").val(1);
+          bucket_list.push(e.val());
+      }else{
+          e.closest("tr").find(".line_qty").prop('disabled','disabled').val('');
+          bucket_list.splice(bucket_list.indexOf(e.val() ), 1);
+          
+      }
+      //alert(item_list);
+   
+     $(".select_bucket").val(bucket_list);
   }
 
    
