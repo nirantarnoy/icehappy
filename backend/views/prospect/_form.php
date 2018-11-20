@@ -51,6 +51,16 @@ use yii\helpers\ArrayHelper;
                     <?= $form->field($model, 'delivery_place')->textarea(['maxlength' => true]) ?>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <?= $form->field($model, 'lat')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-lg-3">
+                    <?= $form->field($model, 'long')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-lg-3"></div>
+                <div class="col-lg-3"></div>
+            </div>
 
 
 

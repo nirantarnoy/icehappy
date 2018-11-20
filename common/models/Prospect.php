@@ -41,6 +41,7 @@ class Prospect extends \yii\db\ActiveRecord
         return [
             [['name'],'required'],
             [['status', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['lat','long'],'string'],
             [['name', 'contact_name', 'mobile', 'phone', 'line', 'facebook', 'seeme', 'delivery_type', 'delivery_place'], 'string', 'max' => 255],
         ];
     }
@@ -58,6 +59,8 @@ class Prospect extends \yii\db\ActiveRecord
             'phone' => 'โทรศัพท์',
             'line' => 'Line',
             'facebook' => 'Facebook',
+            'lat'=>'lat',
+            'long'>'long',
             'seeme' => 'รู้จักเราทาง',
             'delivery_type' => 'วิธีส่ง',
             'delivery_place' => 'ที่อยู่ในการส่ง',
