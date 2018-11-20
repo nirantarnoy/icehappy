@@ -61,6 +61,10 @@ use yii\helpers\ArrayHelper;
                 <div class="col-lg-3"></div>
                 <div class="col-lg-3"></div>
             </div>
+            <div class="row">
+                <div class="col-lg-6"></div>
+                <div class="col-lg-6"></div>
+            </div>
 
 
 
@@ -71,9 +75,11 @@ use yii\helpers\ArrayHelper;
 <!--                <input type="checkbox" id="md_checkbox_21" class="filled-in chk-col-red" checked />-->
                 <?php
                 $list = \backend\helpers\SeeType::asArrayObject();
+                $id = 0;
                 for($i=0;$i<=count($list)-1;$i++):?>
-                <input type="checkbox" id="md_checkbox_28" class="filled-in chk-col-cyan" checked />
-                <label for="md_checkbox_28"><?=$list[$i]['name']?></label>
+                <?php $id+=1;?>
+                <input type="checkbox" id="md_checkbox_<?=$id?>" class="filled-in chk-col-cyan" />
+                <label for="md_checkbox_<?=$id?>"><?=$list[$i]['name']?></label>
                 <?php endfor;?>
 
             </div>
