@@ -39,6 +39,7 @@ class Prospect extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name'],'required'],
             [['status', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['name', 'contact_name', 'mobile', 'phone', 'line', 'facebook', 'seeme', 'delivery_type', 'delivery_place'], 'string', 'max' => 255],
         ];
@@ -51,16 +52,16 @@ class Prospect extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'contact_name' => 'Contact Name',
-            'mobile' => 'Mobile',
-            'phone' => 'Phone',
+            'name' => 'ชื่อร้าน/บริษัท',
+            'contact_name' => 'ชื่อผู้ติดต่อ',
+            'mobile' => 'มือถือ',
+            'phone' => 'โทรศัพท์',
             'line' => 'Line',
             'facebook' => 'Facebook',
-            'seeme' => 'Seeme',
-            'delivery_type' => 'Delivery Type',
-            'delivery_place' => 'Delivery Place',
-            'status' => 'Status',
+            'seeme' => 'รู้จักเราทาง',
+            'delivery_type' => 'วิธีส่ง',
+            'delivery_place' => 'ที่อยู่ในการส่ง',
+            'status' => 'สถานะ',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',

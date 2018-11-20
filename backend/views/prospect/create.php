@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Prospect */
 
-$this->title = 'Create Prospect';
-$this->params['breadcrumbs'][] = ['label' => 'Prospects', 'url' => ['index']];
+$this->title = 'สร้างใบคัดกรอง';
+$this->params['breadcrumbs'][] = ['label' => 'คัดกรองลูกค้า', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="prospect-create">

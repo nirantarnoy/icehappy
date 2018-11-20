@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Prospect */
 
-$this->title = 'Update Prospect: {nameAttribute}';
-$this->params['breadcrumbs'][] = ['label' => 'Prospects', 'url' => ['index']];
+$this->title = 'แก้ไขใบคัดกรอง: {nameAttribute}';
+$this->params['breadcrumbs'][] = ['label' => 'คัดกรองลูกค้า', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
