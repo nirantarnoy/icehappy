@@ -139,7 +139,7 @@ use yii\helpers\ArrayHelper;
                                    <h4 class="card-title">ถังน้ำแข็ง</h4>
                                    <table>
                                        <?php
-                                       $item = \backend\helpers\bucket::asArrayObject();
+                                       $item = \backend\helpers\Bucket::asArrayObject();
                                        for($x=0;$x<=count($item)-1;$x++):
                                            ?>
                                            <tr style="vertical-align: middle;">
