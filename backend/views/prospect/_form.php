@@ -13,23 +13,43 @@ use yii\widgets\ActiveForm;
         <div class="card-body">
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+            <div class="row">
+                <div class="col-lg-3">
+                    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-lg-3">
+                    <?= $form->field($model, 'contact_name')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-lg-3">
+                    <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-lg-3">
+                    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <?= $form->field($model, 'line')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-lg-3">
+                    <?= $form->field($model, 'facebook')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-lg-3">
+                    <?= $form->field($model, 'delivery_type')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-lg-3">
+                    <?= $form->field($model, 'delivery_place')->textarea(['maxlength' => true]) ?>
+                </div>
+            </div>
 
-    <?= $form->field($model, 'contact_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'line')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'facebook')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'seeme')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'delivery_type')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'delivery_place')->textInput(['maxlength' => true]) ?>
+
+
 
     <?= $form->field($model, 'status')->textInput() ?>
 
