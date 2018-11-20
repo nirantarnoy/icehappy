@@ -25,13 +25,13 @@ class PressAsset extends AssetBundle
         'plugins/morrisjs/morris.min.js',
         'plugins/styleswitcher/jQuery.style.switcher.js',
         'plugins/dropify/dist/js/dropify.min.js',
-       // 'plugins/jquery/jquery.min.js',
+        'plugins/jquery/jquery.min.js',
         'js/jquery.slimscroll.js',
         'js/waves.js',
         'js/sidebarmenu.js',
         'js/custom.min.js',
         'js/dashboard1.js',
-      //  'js/jasny-bootstrap.js'
+        'js/jasny-bootstrap.js'
     ];
 
     public $depends = [

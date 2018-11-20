@@ -18,6 +18,7 @@ PressAsset::register($this);
 //AppAsset::register($this);
 //$directoryAsset = Yii::$app->assetManager->getPublishedUrl('@adminpress/dist');
 ?>
+
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,6 +42,7 @@ PressAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+
 </head>
 
 <body class="fix-header fix-sidebar card-no-border logo-center">
