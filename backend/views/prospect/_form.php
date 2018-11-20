@@ -10,9 +10,10 @@ use yii\helpers\ArrayHelper;
 ?>
 
 <div class="prospect-form">
+    <?php $form = ActiveForm::begin(); ?>
     <div class="card">
         <div class="card-body">
-    <?php $form = ActiveForm::begin(); ?>
+
 
             <div class="row">
                 <div class="col-lg-3">
@@ -91,6 +92,83 @@ use yii\helpers\ArrayHelper;
           </div>
 
 
+
+
+    <div class="form-group">
+        <?= Html::submitButton('บันทึก', ['class' => 'btn btn-success']) ?>
+        <div class="btn btn-primary">อนุมัติลูกค้า</div>
+    </div>
+
+
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                           <div class="row">
+                               <div class="col-lg-6">
+                                   <h4 class="card-title">สนใจน้ำแข็ง</h4>
+                                   <table>
+                                       <?php
+                                       $item = \backend\helpers\item::asArrayObject();
+                                       for($x=0;$x<=count($item)-1;$x++):
+                                       ?>
+                                       <tr>
+                                           <td style="vertical-align: middle;">
+                                               <input type="checkbox" id="md_checkbox_<?=$x+10?>" class="filled-in chk-col-cyan" />
+                                               <label for="md_checkbox_<?=$x+10?>"><?=$item[$x]['name']?></label>
+                                           </td>
+                                           <td style="vertical-align: middle;">
+
+                                           </td>
+                                           <td style="vertical-align: middle;">
+                                               <input type="number" name="item_<?=$x+10?>" class="form-control">
+                                           </td>
+                                           <td style="vertical-align: middle;">
+                                               กระสอบต่อวัน
+                                           </td>
+                                       </tr>
+                                       <?php endfor;?>
+                                   </table>
+                               </div>
+                               <div class="col-lg-6">
+                                   <h4 class="card-title">ถังน้ำแข็ง</h4>
+                                   <table>
+                                       <?php
+                                       $item = \backend\helpers\bucket::asArrayObject();
+                                       for($x=0;$x<=count($item)-1;$x++):
+                                           ?>
+                                           <tr style="vertical-align: middle;">
+                                               <td style="vertical-align: middle;">
+                                                   <input type="checkbox" id="bucket_checkbox_<?=$x+10?>" class="filled-in chk-col-cyan" />
+                                                   <label for="bucket_checkbox_<?=$x+10?>"><?=$item[$x]['name']?></label>
+                                               </td>
+                                               <td style="vertical-align: middle;">
+
+                                               </td>
+                                               <td style="vertical-align: middle;">
+                                                   <input type="number" name="item_<?=$x+10?>" class="form-control">
+                                               </td>
+                                               <td style="vertical-align: middle;">
+                                                   <span>ใบ</span>
+                                               </td>
+                                           </tr>
+                                       <?php endfor;?>
+                                   </table>
+                               </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -102,12 +180,7 @@ use yii\helpers\ArrayHelper;
                     </div>
                 </div>
             </div>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
         </div>
     </div>
+    <?php ActiveForm::end(); ?>
 </div>
