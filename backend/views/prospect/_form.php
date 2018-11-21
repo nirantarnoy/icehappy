@@ -13,6 +13,7 @@ $l = 1;
 $old_item = '';
 $m = 1;
 $old_bucket = '';
+$old_seeme = [];
 if(count($item_select)>0){
     foreach ($item_select as $value){
         if($l < count($item_select)){
@@ -33,12 +34,19 @@ if(count($bucket)>0) {
         $m += 1;
     }
 }
+if(count($seeme)>0){
+    foreach ($seeme as $value){
+        array_push($old_seeme,$value->itemid);
+    }
+}
+
+//print_r($old_seeme);
 
 ?>
 
 
 <div class="prospect-form">
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
     <div class="card">
         <div class="card-body">
 
@@ -105,17 +113,38 @@ if(count($bucket)>0) {
                 <?php
                 $list = \backend\helpers\SeeType::asArrayObject();
                 $id = 0;
+                $seeme_checked = '';
                 for($i=0;$i<=count($list)-1;$i++):?>
                 <?php $id+=1;?>
-                <input type="checkbox" id="md_checkbox_<?=$id?>" class="filled-in chk-col-cyan" />
-                <label for="md_checkbox_<?=$id?>"><?=$list[$i]['name']?></label>
+                    <?php if($model->isNewRecord):?>
+                        <input type="checkbox" name="seeme[]" value="<?=$list[$i]['id']?>" id="seeme_checkbox_<?=$id?>" class="filled-in chk-col-cyan" />
+                        <label for="seeme_checkbox_<?=$id?>"><?=$list[$i]['name']?></label>
+                    <?php else:?>
+
+                        <?php
+                           if(in_array($list[$i]['id'],$old_seeme)){
+                               $seeme_checked = 'checked';
+                           }else{
+                               $seeme_checked = '';
+                           }
+                        ?>
+
+                        <input type="checkbox" name="seeme[]" value="<?=$list[$i]['id']?>" id="seeme_checkbox_<?=$id?>" <?=$seeme_checked?> class="filled-in chk-col-cyan" />
+                        <label for="seeme_checkbox_<?=$id?>"><?=$list[$i]['name']?></label>
+                    <?php endif;?>
                 <?php endfor;?>
 
             </div>
 
           <div class="row">
               <div class="col-lg-3">
-                  <?= $form->field($model, 'status')->textInput(['readonly'=>'readonly']) ?>
+                  <label for="">สถานะ</label>
+                  <?php if($model->isNewRecord):?>
+                        <input type="text" class="form-control" value="<?=\backend\helpers\ProspectStatus::getTypeById(1)?>" disabled>
+                  <?php else:?>
+                        <input type="text" class="form-control" value="<?=\backend\helpers\ProspectStatus::getTypeById($model->status)?>" disabled>
+                  <?php endif;?>
+                  <?= $form->field($model, 'status')->hiddenInput(['readonly'=>'readonly'])->label(false) ?>
               </div>
           </div>
 
@@ -277,7 +306,48 @@ if(count($bucket)>0) {
                         <div class="card-body">
                             <h4 class="card-title">อัพโหลดรูปภาพ</h4>
                             <label for="input-file-max-fs">You can add a max file size</label>
-                            <input type="file" id="input-file-max-fs" multiple class="dropify" data-max-file-size="2M" />
+                            <input type="file" name="imagefile[]" id="input-file-max-fs" multiple class="dropify" data-max-file-size="2M" />
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <?php if(count($modelfile)>0): ?>
+                                        <?php $list = [];?>
+                                        <?php foreach ($modelfile as $value):?>
+                                            <?php array_push($list,
+                                                [
+                                                    'url' => '../web/uploads/images/'.$value->name,
+                                                    'src' => '../web/uploads/thumbnail/'.$value->name,
+                                                    'options' =>[
+                                                        'title' => 'ทดสอบรูปภาพ',
+                                                        'style' => ['width'=>20]
+                                                    ],
+                                                    'template'=>""
+                                                ]
+                                            );?>
+                                        <?php endforeach;?>
+
+                                    <?php endif;?>
+                                    <?php $items = [
+                                        [
+                                            'url' => 'http://farm8.static.flickr.com/7429/9478294690_51ae7eb6c9_b.jpg',
+                                            'src' => 'http://farm8.static.flickr.com/7429/9478294690_51ae7eb6c9_s.jpg',
+                                            'options' => array('title' => 'Camposanto monumentale (inside)')
+                                        ],
+                                        [
+                                            'url' => 'http://farm4.static.flickr.com/3825/9476606873_42ed88704d_b.jpg',
+                                            'src' => 'http://farm4.static.flickr.com/3825/9476606873_42ed88704d_s.jpg',
+                                            'options' => array('title' => 'Sail us to the Moon')
+                                        ],
+                                        [
+                                            'url' => 'http://farm4.static.flickr.com/3749/9480072539_e3a1d70d39_b.jpg',
+                                            'src' => 'http://farm4.static.flickr.com/3749/9480072539_e3a1d70d39_s.jpg',
+                                            'options' => array('title' => 'Sail us to the Moon')
+                                        ],
+
+                                    ];?>
+                                    <?= dosamigos\gallery\Gallery::widget(['items' => $list]);?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'item_select'=>null,
         'bucket'=>null,
+        'seeme'=>null,
     ]) ?>
 
 </div>
