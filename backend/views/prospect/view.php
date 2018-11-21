@@ -23,7 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('Approve', ['approve', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Approve', ['approve', 'id' => $model->id], [
+                'class' => 'btn btn-success',
+                'data' => [
+                        'confirm'=>'คุณต้องการอนุมัติลูกค้าใช่หรือไม่',
+                        'method' => 'post'
+                ]
+        ]) ?>
     </p>
 
             <div class="row">
