@@ -59,6 +59,7 @@ class ProspectController extends Controller
         $modelseeme = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id,'line_type'=>3])->all();
         $modelitem = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id,'line_type'=>1])->all();
         $modelbucket = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id,'line_type'=>2])->all();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
             'modelfile'=>$modelfile,
@@ -354,8 +355,8 @@ class ProspectController extends Controller
             return true;
         }
     }
-    public function actionApprove(){
-        $id = Yii::$app->request->post('id');
+    public function actionApprove($id){
+        //$id = Yii::$app->request->post('id');
         if($id){
             $model = \backend\models\Prospect::find()->where(['id'=>$id])->one();
             if($model){
@@ -363,9 +364,38 @@ class ProspectController extends Controller
                 $modelcus->code = '001';
                 $modelcus->first_name = $model->name;
                 $modelcus->status = 1;
-                $model->prospect_id = $model->id;
-                $modelcus->save();
+                $modelcus->lat = $model->lat;
+                $modelcus->long = $model->long;
+                $modelcus->prospect_id = $model->id;
+                if($modelcus->save()){
+                    $modelpro_detail = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id])->all();
+                    if($modelpro_detail){
+                        foreach($modelpro_detail as $value){
+                            $modelcus_detail = new \backend\models\Customerdetail();
+                            $modelcus_detail->customer_id = $modelcus->id;
+                            $modelcus_detail->line_type = $value->line_type;
+                            $modelcus_detail->qty = $value->qty;
+                            $modelcus_detail->itemid = $value->itemid;
+                            $modelcus_detail->status = $value->status;
+                            $modelcus_detail->save(false);
+
+                        }
+                    }
+                    $modelpro_image = \common\models\CustomerFile::find()->where(['party_type'=>1,'party_id'=>$id])->all();
+                    if($modelpro_image){
+                        foreach($modelpro_image as $value){
+                            $modelfile = new \common\models\CustomerFile();
+                            $modelfile->party_id = $modelcus->id;
+                            $modelfile->party_type = 2; //2 = ลูกค้า
+                            $modelfile->file_type = 2; // 2 = รูปภาพ
+                            $modelfile->name = $value->name;
+                            $modelfile->save(false);
+                        }
+                    }
+                    $this->redirect(['customer/view','id'=>$modelcus->id]);
+                }
             }
+
         }
     }
 }
