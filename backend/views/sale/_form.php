@@ -7,6 +7,8 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Sale */
 /* @var $form yii\widgets\ActiveForm */
+
+$cust = \backend\models\Custumer::find()->all();
 ?>
 
 <div class="sale-form">
@@ -15,37 +17,52 @@ use yii\helpers\Url;
                 <?php $form = ActiveForm::begin(); ?>
                 <div class="row">
                     <div class="col-lg-4">
-                        <?= $form->field($model, 'sale_no')->textInput(['maxlength' => true]) ?>
+                        <?= $form->field($model, 'sale_no')->textInput(['maxlength' => true,'readonly'=>'readonly']) ?>
                     </div>
                     <div class="col-lg-4">
                         <?= $form->field($model, 'trans_date')->textInput() ?>
                     </div>
                     <div class="col-lg-4">
-                        <?= $form->field($model, 'customer_id')->textInput() ?>
+                        <?php //echo $form->field($model, 'customer_id')->textInput() ?>
+                        <label for="">Customer</label>
+                        <select name="customer_id" class="form-control" id="">
+
+                            <?php foreach ($cust as $value):?>
+                                <?php
+                                $select = '';
+                                if($model->customer_id == $value->id){$select = "selected";}
+                                ?>
+                                <option value="<?=$value->id?>" <?=$select?>><?=$value->code." ".$value->first_name?></option>
+                            <?php endforeach;?>
+
+                        </select>
                     </div>
                 </div>
             <div class="row">
                 <div class="col-lg-4">
-                    <?= $form->field($model, 'sale_type_id')->textInput() ?>
+                    <?php //echo $form->field($model, 'payment_type_id')->textInput() ?>
+                    <label for="">Payment Method</label>
+                    <select name="customer_id" class="form-control" id="">
+                        <?php
+                           $list = \backend\helpers\PaymentType::asArrayObject();
+                           ?>
+                        <?php for($i=0;$i<=count($list)-1;$i++):?>
+                            <?php
+                            $select = '';
+                            if($model->payment_type_id == $list[$i]['id']){$select = "selected";}
+                            ?>
+                            <option value="<?=$list[$i]['id']?>" <?=$select?>><?=$list[$i]['name']?></option>
+                        <?php endfor;?>
+
+                    </select>
                 </div>
                 <div class="col-lg-4">
-                    <?= $form->field($model, 'payment_type_id')->textInput() ?>
+                    <?= $form->field($model, 'sale_total')->textInput(['readonly'=>'readonly']) ?>
                 </div>
                 <div class="col-lg-4">
-                    <?= $form->field($model, 'sale_total')->textInput() ?>
+                    <?= $form->field($model, 'status')->textInput(['readonly'=>'readonly']) ?>
                 </div>
 
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <?= $form->field($model, 'sale_total_text')->textInput(['maxlength' => true]) ?>
-                </div>
-                <div class="col-lg-4">
-                    <?= $form->field($model, 'status')->textInput() ?>
-                </div>
-                <div class="col-lg-4">
-
-                </div>
             </div>
 
 
