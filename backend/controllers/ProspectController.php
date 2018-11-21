@@ -354,4 +354,18 @@ class ProspectController extends Controller
             return true;
         }
     }
+    public function actionApprove(){
+        $id = Yii::$app->request->post('id');
+        if($id){
+            $model = \backend\models\Prospect::find()->where(['id'=>$id])->one();
+            if($model){
+                $modelcus = new \backend\models\Custumer();
+                $modelcus->code = '001';
+                $modelcus->first_name = $model->name;
+                $modelcus->status = 1;
+                $model->prospect_id = $model->id;
+                $modelcus->save();
+            }
+        }
+    }
 }
