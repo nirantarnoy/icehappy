@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Prospect */
@@ -151,10 +152,7 @@ if(count($seeme)>0){
 
 
 
-    <div class="form-group">
-        <?= Html::submitButton('บันทึก', ['class' => 'btn btn-success']) ?>
-        <div class="btn btn-primary">อนุมัติลูกค้า</div>
-    </div>
+
 
 
         </div>
@@ -299,64 +297,56 @@ if(count($seeme)>0){
         </div>
     </div>
     <div class="card">
-        <div class="card-body">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
+                    <br><br>
+<!--                    <div class="card">-->
+<!--                        <div class="card-body">-->
                             <h4 class="card-title">อัพโหลดรูปภาพ</h4>
                             <label for="input-file-max-fs">You can add a max file size</label>
                             <input type="file" name="imagefile[]" id="input-file-max-fs" multiple class="dropify" data-max-file-size="2M" />
                             <br>
+                            <br>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <?php if(count($modelfile)>0): ?>
-                                        <?php $list = [];?>
-                                        <?php foreach ($modelfile as $value):?>
-                                            <?php array_push($list,
-                                                [
-                                                    'url' => '../web/uploads/images/'.$value->name,
-                                                    'src' => '../web/uploads/thumbnail/'.$value->name,
-                                                    'options' =>[
-                                                        'title' => 'ทดสอบรูปภาพ',
-                                                        'style' => ['width'=>20]
-                                                    ],
-                                                    'template'=>""
-                                                ]
-                                            );?>
-                                        <?php endforeach;?>
+                                    <?php if(!$model->isNewRecord): ?>
+                                      <div class="row">
+                                                <?php foreach ($modelfile as $value):?>
+
+                                                    <div class="col-xs-6 col-md-3">
+                                                        <div class="card">
+                                                            <img class="card-img-top img-responsive" src="../../backend/web/uploads/images/<?=$value->name?>" alt="Card image cap">
+                                                            <div class="card-body">
+                                                                <a href="#" onclick="removepic($(this));" class="btn btn-danger">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <?php //echo Html::img("../../frontend/web/img/screenshots/".$value->filename,['width'=>'10%','class'=>'thumbnail']) ?>
+                                                <?php endforeach;?>
+                                      </div>
 
                                     <?php endif;?>
-                                    <?php $items = [
-                                        [
-                                            'url' => 'http://farm8.static.flickr.com/7429/9478294690_51ae7eb6c9_b.jpg',
-                                            'src' => 'http://farm8.static.flickr.com/7429/9478294690_51ae7eb6c9_s.jpg',
-                                            'options' => array('title' => 'Camposanto monumentale (inside)')
-                                        ],
-                                        [
-                                            'url' => 'http://farm4.static.flickr.com/3825/9476606873_42ed88704d_b.jpg',
-                                            'src' => 'http://farm4.static.flickr.com/3825/9476606873_42ed88704d_s.jpg',
-                                            'options' => array('title' => 'Sail us to the Moon')
-                                        ],
-                                        [
-                                            'url' => 'http://farm4.static.flickr.com/3749/9480072539_e3a1d70d39_b.jpg',
-                                            'src' => 'http://farm4.static.flickr.com/3749/9480072539_e3a1d70d39_s.jpg',
-                                            'options' => array('title' => 'Sail us to the Moon')
-                                        ],
-
-                                    ];?>
-                                    <?= dosamigos\gallery\Gallery::widget(['items' => $list]);?>
                                 </div>
                             </div>
-                        </div>
+<!--                        </div>-->
                     </div>
-                </div>
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <?= Html::submitButton('บันทึก', ['class' => 'btn btn-success']) ?>
             </div>
         </div>
     </div>
     <?php ActiveForm::end(); ?>
 </div>
 <?php
+$url_to_del_image = Url::to(['prospect/deletepic'],true);
 $js=<<<JS
   var item_list = [];
   var bucket_list = [];
@@ -396,6 +386,21 @@ $js=<<<JS
       //alert(item_list);
    
      $(".select_bucket").val(bucket_list);
+  }
+  
+   function removepic(e){
+   // alert(e.attr("data-var"));return;
+        if(confirm("ต้องการลบรูปภาพนี้ใช่หรือไม่")){
+            $.ajax({
+               'type':'post',
+               'dataType':'html',
+               'url':"$url_to_del_image",
+               'data': {'pic_id':e.attr("data-var")},
+               'success': function(data) {
+                 location.reload();
+               }
+            });
+        }
   }
 
    

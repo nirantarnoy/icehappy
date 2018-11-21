@@ -16,6 +16,7 @@ use yii\web\UploadedFile;
  */
 class ProspectController extends Controller
 {
+    public $enableCsrfValidation = false;
     /**
      * {@inheritdoc}
      */
@@ -54,8 +55,16 @@ class ProspectController extends Controller
      */
     public function actionView($id)
     {
+        $modelfile = \common\models\CustomerFile::find()->where(['party_id'=>$id,'party_type'=>1])->all();
+        $modelseeme = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id,'line_type'=>3])->all();
+        $modelitem = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id,'line_type'=>1])->all();
+        $modelbucket = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id,'line_type'=>2])->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'modelfile'=>$modelfile,
+            'modelseeme'=>$modelseeme,
+            'modelitem' => $modelitem,
+            'modelbucket' => $modelbucket
         ]);
     }
 
@@ -293,7 +302,7 @@ class ProspectController extends Controller
     {
         if($this->findModel($id)->delete()){
 
-            $modelfile = \common\models\CustomerFile::find()->where(['customer_id'=>$id])->all();
+            $modelfile = \common\models\CustomerFile::find()->where(['party_id'=>$id])->all();
             if($modelfile){
                 foreach ($modelfile as $val){
 
