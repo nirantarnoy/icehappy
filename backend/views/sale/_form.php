@@ -20,7 +20,16 @@ $cust = \backend\models\Custumer::find()->all();
                         <?= $form->field($model, 'sale_no')->textInput(['maxlength' => true,'readonly'=>'readonly']) ?>
                     </div>
                     <div class="col-lg-4">
-                        <?= $form->field($model, 'trans_date')->textInput() ?>
+                        <?php //echo $form->field($model, 'trans_date')->textInput() ?>
+
+                        <div class="form-group">
+                            <label for="">Sale Date</label>
+                                 <?php $dateval = "".$model->isNewRecord?date('Y-m-d')."":"".date('Y-m-d',$model->trans_date)."";?>
+
+                                <input class="form-control" name="trans_date" type="date" value=<?=$dateval?> id="example-date-input">
+
+                        </div>
+
                     </div>
                     <div class="col-lg-4">
                         <?php //echo $form->field($model, 'customer_id')->textInput() ?>
