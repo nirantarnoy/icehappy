@@ -98,9 +98,9 @@ $cust = \backend\models\Custumer::find()->all();
                         <td style="width: 5%;padding-top: 15px;" class="line-no"></td>
                         <td style="width: 30%">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="รหัสสินค้า" aria-describedby="basic-addon2">
+                                <input type="text" class="form-control product_code" placeholder="รหัสสินค้า" aria-describedby="basic-addon2">
                                 <div class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
+                                    <span class="input-group-text" id="basic-addon1" onclick="findItem($(this));"><i class="fa fa-search"></i></span>
                                 </div>
                             </div>
                         </td>
@@ -173,26 +173,32 @@ $cust = \backend\models\Custumer::find()->all();
     </div>
 
 </div>
-<div id="findModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-md">
-        <!-- Modal content-->
+<div id="findModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><i class="fa fa-search-plus text-primary"></i> <h3><b>ค้นหารหัสสินค้า</b></h3></h4>
+                <h4 class="modal-title" id="myModalLabel">ค้นหารหัสสินค้า</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
                 <input type="text" placeholder="ใส่คำค้นแล้วกด Enter" class="form-control itemsearch" name="itemsearch" >
-                <br>
-                <table class="table table-striped table-hover table-list" style="display: none;">
+                <br><br>
+                <table class="table table-striped table-bordered table-hover table-list">
                     <thead>
-                    <tr style="background-color: #00b488;color: #FFF;">
+                    <tr style="background-color: #2aabd2;color: #FFF;">
                         <th>รหัส</th>
                         <th>ชื่อ</th>
                     </tr>
                     </thead>
                     <tbody>
-
+                       <?php if(count($modelproduct)>0):?>
+                       <?php foreach ($modelproduct as $value):?>
+                           <tr>
+                               <td><?=$value->product_code;?></td>
+                               <td><?=$value->name;?></td>
+                           </tr>
+                       <?php endforeach;?>
+                       <?php endif;?>
                     </tbody>
                 </table>
                 <div class="modal-error" style="display: none;">
@@ -200,15 +206,18 @@ $cust = \backend\models\Custumer::find()->all();
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success btn-ok" data-dismiss="modal">ตกลง</button>
+                <button type="button" class="btn btn-info waves-effect btn-ok" data-dismiss="modal">ตกลง</button>
             </div>
         </div>
+        <!-- /.modal-content -->
     </div>
+    <!-- /.modal-dialog -->
 </div>
+
 <?php
-$url_to_find = Url::to(['purch/finditem'],true);
-$url_to_find_full = Url::to(['purch/finditemfull'],true);
-$url_to_find_all = Url::to(['purch/finditemall'],true);
+$url_to_find = Url::to(['sale/finditem'],true);
+$url_to_find_full = Url::to(['sale/finditemfull'],true);
+$url_to_find_all = Url::to(['sale/finditemall'],true);
 $url_to_loan = Url::to(['sale/loan'],true);
 $url_to_findmaxprice = Url::to(['sale/findmaxprice'],true);
 $url_to_find_loan = Url::to(['sale/findloan'],true);
@@ -337,6 +346,7 @@ $js=<<<JS
      
   });
   function findItem(e) {
+      //alert();
       currow = e.parent().parent().parent().parent().index();
      // alert(currow);
       $("#findModal").modal("show");

@@ -8,12 +8,14 @@ use backend\models\SaleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * SaleController implements the CRUD actions for Sale model.
  */
 class SaleController extends Controller
 {
+    public $enableCsrfValidation = false;
     /**
      * {@inheritdoc}
      */
@@ -66,12 +68,15 @@ class SaleController extends Controller
     {
         $model = new Sale();
 
+        $modelproduct = \backend\models\Product::find()->limit(5)->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'modelproduct' => $modelproduct
         ]);
     }
 
@@ -124,4 +129,53 @@ class SaleController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    public function actionFinditem(){
+        $txt = \Yii::$app->request->post('txt');
+        $list = [];
+        if($txt == ''){
+            return Json::encode($list);
+            //return 'no';
+        }else{
+            $model = \backend\models\Product::find()->where(['Like','product_code',$txt])
+                ->orFilterWhere(['like','name',$txt])
+                ->asArray()
+                ->all();
+            return Json::encode($model);
+        }
+
+    }
+    public function actionFinditemall(){
+        $txt = \Yii::$app->request->post('txt');
+
+        $model = \backend\models\Product::find()
+            ->asArray()
+            ->all();
+        return Json::encode($model);
+
+
+    }
+//    public function actionFinditemfull(){
+//        $txt = \Yii::$app->request->post('txt');
+//        $list = [];
+//        if($txt == ''){
+//            $model = \backend\models\Product::find()
+//                ->asArray()
+//                ->all();
+//            return Json::encode($model);
+//            //return 'no';
+//        }else{
+//            $list = [];
+//            $maxprice = 0;
+//            $model = \backend\models\Product::find()->where(['product_code'=>$txt])->one();
+//            if($model){
+//                $model_max_price = \backend\models\Productstockprice::find()->where(['product_id'=>$model->id])->orderBy(['price'=>SORT_DESC])->one();
+//                if($model_max_price){
+//                    $maxprice = $model_max_price->price;
+//                }
+//                array_push($list,['product_id'=>$model->id,'name'=>$model->name,'maxprice'=>$maxprice]);
+//            }
+//            return Json::encode($list);
+//        }
+//
+//    }
 }
