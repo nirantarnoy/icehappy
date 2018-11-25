@@ -185,9 +185,9 @@ class SaleController extends Controller
         $list = [];
         if($id){
 
-            $model = \backend\models\Customerprice::find()->where(['product_id'=>$id,'customer_id'=>$cust_id])->one();
+            $model = \backend\models\Customerdetail::find()->where(['itemid'=>$id,'customer_id'=>$cust_id])->one();
             if($model){
-                array_push($list,['price'=>$model->price]);
+                array_push($list,['price'=>$model->line_price]);
                 return $list;
             }
             return $list;
