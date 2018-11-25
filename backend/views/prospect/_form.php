@@ -54,7 +54,7 @@ if(count($seeme)>0){
             <div class="row">
                 <div class="col-lg-3">
                     <label for="">คำนำหน้า</label>
-                    <select name="delivery_type" class="form-control" id="">
+                    <select name="prefix" class="form-control" id="">
                         <?php
                         $list = \backend\helpers\Prefixname::asArrayObject();
                         for($i=0;$i<=count($list)-1;$i++):
