@@ -366,6 +366,10 @@ class ProspectController extends Controller
                 $modelcus->status = 1;
                 $modelcus->lat = $model->lat;
                 $modelcus->long = $model->long;
+                $modelcus->prefix = $model->prefix;
+                $modelcus->first_name = $model->first_name;
+                $modelcus->last_name = $model->last_name;
+                $modelcus->email = $model->email;
                 $modelcus->prospect_id = $model->id;
                 if($modelcus->save()){
                     $modelpro_detail = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id])->all();

@@ -51,28 +51,50 @@ if(count($seeme)>0){
     <div class="card">
         <div class="card-body">
 
-
             <div class="row">
                 <div class="col-lg-3">
-                    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                    <label for="">คำนำหน้า</label>
+                    <select name="delivery_type" class="form-control" id="">
+                        <?php
+                        $list = \backend\helpers\Prefixname::asArrayObject();
+                        for($i=0;$i<=count($list)-1;$i++):
+                            ?>
+                            <option value="<?=$list[$i]['id']?>"><?=$list[$i]['name']?></option>
+                        <?php endfor;?>
+                    </select>
+                </div>
+                <div class="col-lg-3">
+                    <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-lg-3">
+                    <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-lg-3">
                     <?= $form->field($model, 'contact_name')->textInput(['maxlength' => true]) ?>
                 </div>
+
+            </div>
+            <div class="row">
                 <div class="col-lg-3">
                     <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-lg-3">
                     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-lg-3">
                     <?= $form->field($model, 'line')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-lg-3">
                     <?= $form->field($model, 'facebook')->textInput(['maxlength' => true]) ?>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="row">
+
                 <div class="col-lg-3">
                     <?php //echo $form->field($model, 'delivery_type')->textInput(['maxlength' => true]) ?>
                     <label for="">ประเภทจัดส่ง</label>
@@ -88,14 +110,15 @@ if(count($seeme)>0){
                 <div class="col-lg-3">
                     <?= $form->field($model, 'delivery_place')->textarea(['maxlength' => true]) ?>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-lg-3">
                     <?= $form->field($model, 'lat')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-lg-3">
                     <?= $form->field($model, 'long')->textInput(['maxlength' => true]) ?>
                 </div>
+            </div>
+            <div class="row">
+
                 <div class="col-lg-3"></div>
                 <div class="col-lg-3"></div>
             </div>

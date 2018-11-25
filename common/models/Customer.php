@@ -41,7 +41,8 @@ class Customer extends \yii\db\ActiveRecord
             [['code'],'required'],
             [['customer_group_id','prospect_id', 'customer_type_id', 'status','zone_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['code', 'first_name', 'last_name', 'description'], 'string', 'max' => 255],
-            [['card_id'], 'string', 'max' => 13],
+            [['card_id','prefix'], 'string', 'max' => 13],
+            [['email'],'email'],
             [['lat','long'],'string'],
             [['files'],'file'],
         ];
@@ -66,6 +67,8 @@ class Customer extends \yii\db\ActiveRecord
             'long' => Yii::t('app', 'Long'),
             'zone_id' => Yii::t('app', 'เขต/เส้นทาง'),
             'status' => Yii::t('app', 'สถานะ'),
+            'email'=>'E-mail',
+            'prefix'=>'คำนำหน้า',
             'created_at' => Yii::t('app', 'สร้างเมื่อ'),
             'updated_at' => Yii::t('app', 'แก้ไขเมื่อ'),
             'created_by' => Yii::t('app', 'สร้างโดย'),
