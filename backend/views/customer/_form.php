@@ -217,23 +217,24 @@ if(count($bucket)>0) {
 
             <div class="row">
                 <div class="col-lg-12">
-
                     <?php if(!$model->isNewRecord): ?>
-                    <div class="card-group">
-                                <?php foreach ($modelpic as $value):?>
+                        <div class="row">
+                            <?php foreach ($modelfile as $value):?>
 
+                                <div class="col-xs-6 col-md-3">
                                     <div class="card">
-                                        <img class="card-img-top img-responsive" style="width: 20%" src="../../backend/web/uploads/images/<?=$value->name?>" alt="Card image cap">
+                                        <img class="card-img-top img-responsive" src="../../backend/web/uploads/images/<?=$value->name?>" alt="Card image cap">
                                         <div class="card-body">
-                                            <a href="javascript:void(0)" class="btn btn-danger" data-var="<?=$value->id?>" onclick="removepic($(this));">ลบ</a>
+                                            <a href="#" onclick="removepic($(this));" class="btn btn-danger">Delete</a>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <?php //echo Html::img("../../frontend/web/img/screenshots/".$value->filename,['width'=>'10%','class'=>'thumbnail']) ?>
-                                <?php endforeach;?>
-                    </div>
+                                <?php //echo Html::img("../../frontend/web/img/screenshots/".$value->filename,['width'=>'10%','class'=>'thumbnail']) ?>
+                            <?php endforeach;?>
+                        </div>
+
                     <?php endif;?>
-
                 </div>
             </div>
 

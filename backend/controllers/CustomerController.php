@@ -108,7 +108,7 @@ class CustomerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelpic = \common\models\CustomerFile::find()->where(['party_type'=>2,'party_id'=>$id])->all();
+        $modelfile = \common\models\CustomerFile::find()->where(['party_type'=>2,'party_id'=>$id])->all();
         $item = \backend\models\Customerdetail::find()->where(['customer_id'=>$id,'line_type'=>1])->all();
         $bucket = \backend\models\Customerdetail::find()->where(['customer_id'=>$id,'line_type'=>2])->all();
        // $seeme_select = \backend\models\Prospectdetail::find()->where(['customer_id'=>$id,'line_type'=>3])->all();
@@ -163,7 +163,7 @@ class CustomerController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'modelpic' => $modelpic,
+            'modelfile' => $modelfile,
             'item' => $item,
             'bucket' => $bucket,
             //'seeme'=> $seeme_select,
