@@ -154,28 +154,44 @@ class SaleController extends Controller
 
 
     }
-//    public function actionFinditemfull(){
-//        $txt = \Yii::$app->request->post('txt');
-//        $list = [];
-//        if($txt == ''){
-//            $model = \backend\models\Product::find()
-//                ->asArray()
-//                ->all();
-//            return Json::encode($model);
-//            //return 'no';
-//        }else{
-//            $list = [];
-//            $maxprice = 0;
-//            $model = \backend\models\Product::find()->where(['product_code'=>$txt])->one();
-//            if($model){
-//                $model_max_price = \backend\models\Productstockprice::find()->where(['product_id'=>$model->id])->orderBy(['price'=>SORT_DESC])->one();
-//                if($model_max_price){
-//                    $maxprice = $model_max_price->price;
-//                }
-//                array_push($list,['product_id'=>$model->id,'name'=>$model->name,'maxprice'=>$maxprice]);
-//            }
-//            return Json::encode($list);
-//        }
-//
-//    }
+    public function actionFinditemfull(){
+        $txt = \Yii::$app->request->post('txt');
+        $list = [];
+        if($txt == ''){
+            $model = \backend\models\Product::find()
+                ->asArray()
+                ->all();
+            return Json::encode($model);
+            //return 'no';
+        }else{
+            $list = [];
+            $customer_price = 0;
+            $model = \backend\models\Product::find()->where(['product_code'=>$txt])->one();
+            if($model){
+                $model_max_price = \backend\models\Customerprice::find()->where(['product_id'=>$model->id])->one();
+                if($model_max_price){
+                    $customer_price = $model_max_price->price;
+                }
+                array_push($list,['product_id'=>$model->id,'name'=>$model->name,'customer_price'=>$customer_price]);
+            }
+            return Json::encode($list);
+        }
+
+    }
+    public function actionFindcustomerprice(){
+        $id = \Yii::$app->request->post("prodid");
+        $cust_id = \Yii::$app->request->post("custid");
+        // return $id;
+        $list = [];
+        if($id){
+
+            $model = \backend\models\Customerprice::find()->where(['product_id'=>$id,'customer_id'=>$cust_id])->one();
+            if($model){
+                array_push($list,['price'=>$model->price]);
+                return $list;
+            }
+            return $list;
+        }
+        return $list;
+    }
 }

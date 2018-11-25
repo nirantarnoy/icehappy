@@ -98,7 +98,8 @@ $cust = \backend\models\Custumer::find()->all();
                         <td style="width: 5%;padding-top: 15px;" class="line-no"></td>
                         <td style="width: 30%">
                             <div class="input-group">
-                                <input type="text" class="form-control product_code" placeholder="รหัสสินค้า" aria-describedby="basic-addon2">
+                                <input type="text" class="form-control product_code" onchange="productChange($(this))" name="product_code[]" placeholder="รหัสสินค้า" aria-describedby="basic-addon2">
+                                <input type="hidden" class="product_id" name="product_id[]" value="">
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="basic-addon1" onclick="findItem($(this));"><i class="fa fa-search"></i></span>
                                 </div>
@@ -112,7 +113,6 @@ $cust = \backend\models\Custumer::find()->all();
                         </td>
                         <td>
                             <input style="border: none;padding: 5px 5px 5px 5px;width: 100%;background:transparent;text-align: right" type="text" name="line_price[]" class="form-control line-price" value="0" onchange="linecal($(this));">
-                            <input style="border: none;padding: 5px 5px 5px 5px;width: 100%;background:transparent;text-align: right" type="hidden" name="line_stock_price[]" class="form-control line-stock-price" value="0">
                         </td>
                         <td>
                             <input style="border: none;padding: 5px 5px 5px 5px;width: 100%;background:transparent;text-align: right" name="line_total[]" readonly type="text" class="form-control line-total" value="0">
@@ -193,7 +193,7 @@ $cust = \backend\models\Custumer::find()->all();
                     <tbody>
                        <?php if(count($modelproduct)>0):?>
                        <?php foreach ($modelproduct as $value):?>
-                           <tr>
+                           <tr ondblclick="getitem($(this));">
                                <td><?=$value->product_code;?></td>
                                <td><?=$value->name;?></td>
                            </tr>
@@ -219,14 +219,13 @@ $url_to_find = Url::to(['sale/finditem'],true);
 $url_to_find_full = Url::to(['sale/finditemfull'],true);
 $url_to_find_all = Url::to(['sale/finditemall'],true);
 $url_to_loan = Url::to(['sale/loan'],true);
-$url_to_findmaxprice = Url::to(['sale/findmaxprice'],true);
+$url_to_find_customer_price = Url::to(['sale/findcutomerprice'],true);
 $url_to_find_loan = Url::to(['sale/findloan'],true);
 $js=<<<JS
   $(function() {
       var currow = -1;
       linenum();
     $(".btn-add-line").click(function() {
-        alert();
        var tr = $(".table-item tbody tr:first");
        if(tr.closest("tr").find(".product_code").val()== "")return;
        var clone = tr.clone();
@@ -277,72 +276,10 @@ $js=<<<JS
       
       var saleid = "$model->id";
       
-      $.ajax({
-              'type':'post',
-              'dataType': 'json',
-              'url': "$url_to_find_loan",
-              'async': false,
-              'data': {'saleid': saleid},
-              'success': function(data) {
-                 //alert(data['sale_id']);return;
-                  $("#loanModal").modal("show").find(".total_pop").text(parseFloat($(".total").val()).toFixed(0));
-                  $("#loanModal").find(".total-amount").val($(".total").val());
-                  $("#loanModal").find(".all_period").val(data['period']);
-                  $("#loanModal").find(".per_fee").val(data['loan_percent']);
-                  $("#loanModal").find(".per_qty").val(data['payment_per']);
-                  $("#loanModal").find(".pay_day").val(data['pay_ever_day']);
-                  $("#loanModal").find(".fee_rate").val(data['fee_rate']);
-           
-              }
-            });
-      
-      
       
     });
      
-     $(".btn-three,.btn-six,.btn-nine,.btn-twel").click(function() {
-        var n = $(this).attr("data-var");
-        var total = $(".total-amount").val();
-        $(".all-period").val(n);
-        $(".per_qty").val((total / n));
-     });
-     
-     $(".per_fee").change(function() {
-        var period = $(".all-period").val();
-        var total = $(".total-amount").val();
-        var per = $(this).val();
-        
-        var normal = (total / period);
-        var all_interest = (total * per) / 100;
-        var per_interest = (all_interest / period);
-        var grand_total = normal + per_interest;
-        $(".per_qty").val(grand_total);
-        
-     });
-     
-     $(".btn-loan-ok").click(function(){
-        var saleid = "$model->id";
-        var allperiod = $(".all_period").val();
-        var loanper = $(".per_fee").val();
-        var perqty = $(".per_qty").val();
-        var payday = $(".pay_day").val();
-        var feerate = $(".fee_rate").val();
-        var sdate = $("#s_date").val();
-        var ndate = $("#n_date").val();
-        
-      //  alert(ndate);return;
-        
-        $.ajax({
-              'type':'post',
-              'dataType': 'html',
-              'url': "$url_to_loan",
-              'data': {'saleid': saleid,'allperiod': allperiod,'loanper': loanper,'perqty': perqty,'payday': payday,'feerate':feerate,'sdate': sdate,'ndate': ndate},
-              'success': function(data) {
-                // alert(data);return;
-                
-              }
-            });
-     });
+    
      
   });
   function findItem(e) {
@@ -359,33 +296,31 @@ $js=<<<JS
     }
   }
   function getitem(e) {
+    
     var prodcode = e.closest("tr").find("td:eq(0)").text();
     var prodname = e.closest("tr").find("td:eq(1)").text();
     var prodid = e.closest("tr").find(".recid").val();
     $(".table-item tbody tr").each(function() {
        // alert(prodcode);
         if($(this).index() == currow){
-              var maxprice = 0;
-              var stock_price_id = 0;
+              var customer_price = 0;
               $.ajax({
                   'type':'post',
                   'dataType': 'json',
-                  'url': "$url_to_findmaxprice",
+                  'url': "$url_to_find_customer_price",
                   'async': false,
                   'data': {'prodid': prodid},
                   'success': function(data) {
-                    maxprice = data[0]['price'];
-                    stock_price_id = data[0]['stock_price_id'];
-                    
+                    customer_price = data[0]['price'];
+                      
                   }
               });
-            
+              
               $(this).closest('tr').find(".product_code").val(prodcode);
               $(this).closest('tr').find(".product_id").val(prodid);
               $(this).closest('tr').find(".product-name").val(prodname);
+              $(this).closest('tr').find('.line-price').val(customer_price);
               $(this).closest('tr').find('.line-qty').focus().select();
-              $(this).closest('tr').find('.line-price').val(maxprice);
-              $(this).closest('tr').find('.line-stock-price').val(stock_price_id);
               
         }
     });
@@ -425,7 +360,7 @@ $js=<<<JS
               'success': function(data) {
                  e.closest("tr").find(".product_id").val(data[0]['product_id']);
                  e.closest("tr").find(".product-name").val(data[0]['name']);
-                 e.closest("tr").find(".line-price").val(data[0]['maxprice']);
+                 e.closest("tr").find(".line-price").val(data[0]['customer_price']);
                  e.closest("tr").find(".line-qty").focus().select();
               }
             });

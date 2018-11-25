@@ -15,6 +15,7 @@ use yii\web\UploadedFile;
  */
 class CustomerController extends Controller
 {
+    public $enableCsrfValidation = false;
     /**
      * {@inheritdoc}
      */
@@ -107,11 +108,53 @@ class CustomerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $modelpic = \common\models\CustomerFile::find()->where(['party_type'=>2,'party_id'=>$id])->all();
+        $item = \backend\models\Customerdetail::find()->where(['customer_id'=>$id,'line_type'=>1])->all();
+        $bucket = \backend\models\Customerdetail::find()->where(['customer_id'=>$id,'line_type'=>2])->all();
+       // $seeme_select = \backend\models\Prospectdetail::find()->where(['customer_id'=>$id,'line_type'=>3])->all();
         if ($model->load(Yii::$app->request->post())) {
+
+            $item_check = substr(Yii::$app->request->post('select_item'),0,1);
+            $item_last = '';
+            if($item_check == ","){
+                $item_last= substr(Yii::$app->request->post('select_item'),1,strlen(Yii::$app->request->post('select_item')));
+            }else{
+                $item_last = Yii::$app->request->post('select_item');
+            }
+            $item_list = explode(',',$item_last) ;
+            $line_price = Yii::$app->request->post('item_price');
+            $item_qty = Yii::$app->request->post('item_qty');
+
+           // print_r($item_list);
+          //  print_r($line_price);
+
+           // return;
+
+
             $model->customer_group_id = Yii::$app->request->post('customer_group');
             $model->zone_id = Yii::$app->request->post('zone_id');
+
             if($model->save()){
+
+                if(count($item_list)>0){
+                    \backend\models\Customerdetail::deleteAll(['customer_id'=>$id,'line_type'=>1]);
+                    for($i=0;$i<=count($item_list)-1;$i++){
+                        $model_detail = \backend\models\Customerdetail::find()->where(['customer_id'=>$id,'itemid'=>$item_list[$i],'line_type'=>1])->one();
+                        if($model_detail){
+                            $model_detail->line_price = $line_price[$i];
+                            $model_detail->save(false);
+                        }else{
+                            $model_detail = new \backend\models\Customerdetail();
+                            $model_detail->customer_id = $id;
+                            $model_detail->line_type = 1;
+                            $model_detail->itemid = $item_list[$i];
+                            $model_detail->qty = $item_qty[$i];
+                            $model_detail->line_price = $line_price[$i];
+                            $model_detail->save(false);
+                        }
+                    }
+                }
+
                 $session = Yii::$app->session;
                 $session->setFlash('msg','บันทึกรายการเรียบร้อย');
                 return $this->redirect(['index']);
@@ -120,6 +163,10 @@ class CustomerController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'modelpic' => $modelpic,
+            'item' => $item,
+            'bucket' => $bucket,
+            //'seeme'=> $seeme_select,
         ]);
     }
 
@@ -151,5 +198,19 @@ class CustomerController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    public function actionDeletepic(){
+        //$id = \Yii::$app->request->post("product_id");
+        $picid = \Yii::$app->request->post("pic_id");
+        if($picid){
+            $model = \common\models\CustomerFile::find()->where(['id'=>$picid])->one();
+            if($model){
+                unlink(Yii::getAlias('@backend') .'/web/uploads/thumbnail/'.$model->name);
+                unlink(Yii::getAlias('@backend') .'/web/uploads/images/'.$model->name);
+                \common\models\CustomerFile::deleteAll(['id'=>$picid]);
+            }
+
+            return true;
+        }
     }
 }

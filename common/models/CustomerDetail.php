@@ -36,7 +36,7 @@ class CustomerDetail extends \yii\db\ActiveRecord
     {
         return [
             [['customer_id', 'line_type', 'itemid', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['qty'], 'number'],
+            [['qty','line_price'], 'number'],
             [['note'], 'string', 'max' => 255],
         ];
     }
@@ -53,6 +53,7 @@ class CustomerDetail extends \yii\db\ActiveRecord
             'itemid' => 'Itemid',
             'qty' => 'Qty',
             'note' => 'Note',
+            'line_price' => 'Line price',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
