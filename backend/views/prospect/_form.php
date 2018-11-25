@@ -139,6 +139,15 @@ if(count($seeme)>0){
 
           <div class="row">
               <div class="col-lg-3">
+                  <label for="">ผู้เสนอ</label>
+                  <?php if($model->isNewRecord):?>
+                      <input type="text" class="form-control" value="<?=\backend\models\User::findName(Yii::$app->user->id)?>" disabled>
+                  <?php else:?>
+                      <input type="text" class="form-control" value="<?=\backend\models\User::findName($model->created_by)?>" disabled>
+                  <?php endif;?>
+                  <?= $form->field($model, 'created_by')->hiddenInput(['readonly'=>'readonly'])->label(false) ?>
+              </div>
+              <div class="col-lg-3">
                   <label for="">สถานะ</label>
                   <?php if($model->isNewRecord):?>
                         <input type="text" class="form-control" value="<?=\backend\helpers\ProspectStatus::getTypeById(1)?>" disabled>

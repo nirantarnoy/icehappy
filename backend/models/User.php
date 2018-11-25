@@ -44,4 +44,8 @@ Class User extends \common\models\User{
             ],
         ];
     }
+    public function findName($id){
+        $model = \backend\models\User::find()->where(['id'=>$id])->one();
+        return count($model)>0?$model->username:'';
+    }
 }
