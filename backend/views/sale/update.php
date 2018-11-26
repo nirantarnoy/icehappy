@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Sale */
 
-$this->title = 'แก้ไขรายการขาย: ' . $model->id;
+$this->title = 'แก้ไขรายการขาย: ' . $model->sale_no;
 $this->params['breadcrumbs'][] = ['label' => 'รายการขาย', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->sale_no, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'แก้ไข';
 ?>
 <div class="sale-update">
@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = 'แก้ไข';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelline'=>$modelline,
+        'modelproduct' => $modelproduct
     ]) ?>
 
 </div>

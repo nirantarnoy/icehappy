@@ -72,8 +72,10 @@ class SaleController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $cusid = \Yii::$app->request->post('customer_id');
+
             $model->customer_id = $cusid;
             $model->status = 1;
+            $model->trans_date = strtotime(Yii::$app->request->post('trans_date'));
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -96,13 +98,16 @@ class SaleController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $modelproduct = \backend\models\Product::find()->limit(5)->all();
+        $modelline = \backend\models\Saleline::find()->where(['sale_id'=>$id])->all();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelline'=>$modelline,
+            'modelproduct' => $modelproduct
         ]);
     }
 

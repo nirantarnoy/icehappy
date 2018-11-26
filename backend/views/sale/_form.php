@@ -123,6 +123,7 @@ $cust = \backend\models\Custumer::find()->all();
 
                     </tr>
                 <?php else:?>
+                   <?php if(count($modelline)>0):?>
                     <?php foreach ($modelline as $value):?>
                         <tr>
                             <td style="width: 5%;padding-top: 15px;" class="line-no"></td>
@@ -155,6 +156,7 @@ $cust = \backend\models\Custumer::find()->all();
 
                         </tr>
                     <?php endforeach;?>
+                   <?php endif;?>
                 <?php endif;?>
                 </tbody>
                 <tfoot>
