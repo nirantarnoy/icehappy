@@ -111,9 +111,10 @@ class ProspectController extends Controller
             $seeme = Yii::$app->request->post('seeme');
 
             $model->status=1;
+            $model->zone_id = \Yii::$app->request->post("zone_id");
 //            print_r($seeme);
 //            return;
-            if($model->save()){
+            if($model->save(false)){
                 if(!empty($uploadimage)){
                     foreach($uploadimage as $file){
 
@@ -217,6 +218,8 @@ class ProspectController extends Controller
             $bucket_qty = Yii::$app->request->post('bucket_qty');
 
             $seeme = Yii::$app->request->post('seeme');
+
+            $model->zone_id = \Yii::$app->request->post("zone_id");
 
           //  print_r($item_list);return;
             if($model->save()){
@@ -361,7 +364,7 @@ class ProspectController extends Controller
             $model = \backend\models\Prospect::find()->where(['id'=>$id])->one();
             if($model){
                 $modelcus = new \backend\models\Custumer();
-                $modelcus->code = '001';
+                $modelcus->code = $modelcus::getLastNo($model->zone_id);
                 $modelcus->first_name = $model->name;
                 $modelcus->status = 1;
                 $modelcus->lat = $model->lat;
@@ -370,6 +373,7 @@ class ProspectController extends Controller
                 $modelcus->first_name = $model->first_name;
                 $modelcus->last_name = $model->last_name;
                 $modelcus->email = $model->email;
+                $modelcus->zone_id = $model->zone_id;
                 $modelcus->prospect_id = $model->id;
                 if($modelcus->save()){
                     $modelpro_detail = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id])->all();

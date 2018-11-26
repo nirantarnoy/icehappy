@@ -60,9 +60,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
 
                         'header' => '',
-                        'headerOptions' => ['style' => 'width:160px;text-align:center;','class' => 'activity-view-link',],
+                        'headerOptions' => ['style' => 'width:200px;text-align:center;','class' => 'activity-view-link',],
                         'class' => 'yii\grid\ActionColumn',
                         'contentOptions' => ['style' => 'text-align: center'],
+                        'template' => '{view}{update}{print}{delete}',
                         'buttons' => [
                             'view' => function($url, $data, $index) {
                                 $options = [
@@ -80,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'data-pjax' => '0',
                                     'id'=>'modaledit',
                                 ]);
-                                return $data->status == 1? Html::a(
+                                return Html::a(
                                     '<span class="fa fa-edit btn btn-secondary"></span>', $url, [
                                     'id' => 'activity-view-link',
                                     //'data-toggle' => 'modal',
@@ -88,7 +89,24 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'data-id' => $index,
                                     'data-pjax' => '0',
                                     // 'style'=>['float'=>'rigth'],
-                                ]):'';
+                                ]);
+                            },
+                            'print' => function($url, $data, $index) {
+                                $options = array_merge([
+                                    'title' => Yii::t('yii', 'Print'),
+                                    'aria-label' => Yii::t('yii', 'Print'),
+                                    'data-pjax' => '0',
+                                    'id'=>'modaledit',
+                                ]);
+                                return Html::a(
+                                    '<span class="fa fa-print btn btn-secondary"></span>', $url, [
+                                    'id' => 'activity-view-link',
+                                    //'data-toggle' => 'modal',
+                                    // 'data-target' => '#modal',
+                                    'data-id' => $index,
+                                    'data-pjax' => '0',
+                                    // 'style'=>['float'=>'rigth'],
+                                ]);
                             },
                             'delete' => function($url, $data, $index) {
                                 $options = array_merge([

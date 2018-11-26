@@ -43,6 +43,8 @@ if(count($seeme)>0){
 
 //print_r($old_seeme);
 
+$zone = \backend\models\Salezone::find()->all();
+
 ?>
 
 
@@ -91,6 +93,19 @@ if(count($seeme)>0){
             <div class="row">
                 <div class="col-lg-3">
                     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-lg-3">
+                    <label>เขต/เส้นทาง</label>
+                    <select name="zone_id" class="form-control" id="">
+
+                        <?php foreach ($zone as $value):?>
+                            <?php
+                            $select = '';
+                            if($model->zone_id == $value->id){$select = "selected";}
+                            ?>
+                            <option value="<?=$value->id?>" <?=$select?>><?=$value->name?></option>
+                        <?php endforeach;?>
+                    </select>
                 </div>
             </div>
             <div class="row">

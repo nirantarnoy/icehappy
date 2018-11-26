@@ -46,6 +46,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'phone',
                                     'line',
                                     'facebook',
+                                    [
+                                        'attribute'=>'zone_id',
+                                        'value'=>function($data){
+                                            return \backend\models\Salezone::findName($data->zone_id);
+                                        }
+                                    ],
                                     //'seeme',
                                      [
                                             'attribute'=>'delivery_type',

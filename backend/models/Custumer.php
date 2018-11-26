@@ -44,4 +44,24 @@ class Custumer extends \common\models\Customer{
             ],
         ];
     }
+    public function getLastNo($zoneid){
+        $model = \backend\models\Custumer::find()->where(['zone_id'=>$zoneid])->MAX('code');
+        $prefix = '';
+        if($model){
+            $zone_num = substr((string)$model,0,2); //01
+            $zone_run = substr((string)$model,2,2); // 99
+            $new_num = (int)$zone_run + 1;
+
+            $new_runno = strlen((string)$new_num)==1?"0".$new_num:$new_num;
+
+            $prefix = $zone_num.$new_runno;
+
+            return $prefix;
+        }else{
+
+                $prefix = \backend\models\Salezone::findName($zoneid)."01";
+        }
+        return $prefix;
+
+    }
 }

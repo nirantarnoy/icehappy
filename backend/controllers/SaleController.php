@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use kartik\mpdf\Pdf;
 
 /**
  * SaleController implements the CRUD actions for Sale model.
@@ -212,5 +213,43 @@ class SaleController extends Controller
             $runno = \backend\models\Sale::getLastNo($cusid);
         }
         return $runno;
+    }
+    public function actionPrint($id){
+        $sale_id = $id;
+        $papersize = Yii::$app->request->post('paper_size');
+        $papersize = 1;
+       // echo 'niran'.$id;return;
+        $model = \backend\models\Sale::find()->where(['id'=>$sale_id])->one();
+        if($model){
+           // echo "niran";return;
+            $pdf = new Pdf([
+
+                //'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+                //  'format' => [150,236], //manaul
+                'mode'=> 's',
+                'format' => $papersize ==1? Pdf::FORMAT_A4:[150,236],
+                'orientation' => $papersize ==1?Pdf::ORIENT_PORTRAIT:Pdf::ORIENT_LANDSCAPE,
+                'destination' => Pdf::DEST_BROWSER,
+                'content' => $this->renderPartial('_print',[
+                    'model'=>$model
+                ]),
+                //'content' => "nira",
+                //'defaultFont' => '@backend/web/fonts/config.php',
+                //'cssFile' => '@backend/web/css/pdf.css',
+                //'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+                'options' => [
+                    'title' => 'รายงานระหัสินค้า',
+                    'subject' => ''
+                ],
+                'methods' => [
+                    //  'SetHeader' => ['รายงานรหัสสินค้า||Generated On: ' . date("r")],
+                    //  'SetFooter' => ['|Page {PAGENO}|'],
+                    //'SetFooter'=>'niran',
+                ],
+
+            ]);
+            //return $this->redirect(['genbill']);
+            return $pdf->render();
+        }
     }
 }
