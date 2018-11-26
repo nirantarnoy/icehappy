@@ -17,7 +17,7 @@ $cust = \backend\models\Custumer::find()->all();
                 <?php $form = ActiveForm::begin(); ?>
                 <div class="row">
                     <div class="col-lg-4">
-                        <?= $form->field($model, 'sale_no')->textInput(['maxlength' => true,'readonly'=>'readonly']) ?>
+                        <?= $form->field($model, 'sale_no')->textInput(['maxlength' => true,'readonly'=>'readonly','id'=>'runno']) ?>
                     </div>
                     <div class="col-lg-4">
                         <?php //echo $form->field($model, 'trans_date')->textInput() ?>
@@ -34,8 +34,8 @@ $cust = \backend\models\Custumer::find()->all();
                     <div class="col-lg-4">
                         <?php //echo $form->field($model, 'customer_id')->textInput() ?>
                         <label for="">Customer</label>
-                        <select name="customer_id" class="form-control" id="">
-
+                        <select name="customer_id" class="form-control" id="" onchange="findrunno($(this))">
+                            <option value="">--เลือกลูกค้า--</option>
                             <?php foreach ($cust as $value):?>
                                 <?php
                                 $select = '';
@@ -218,6 +218,7 @@ $cust = \backend\models\Custumer::find()->all();
 $url_to_find = Url::to(['sale/finditem'],true);
 $url_to_find_full = Url::to(['sale/finditemfull'],true);
 $url_to_find_all = Url::to(['sale/finditemall'],true);
+$url_to_find_runno = Url::to(['sale/findrunno'],true);
 $url_to_loan = Url::to(['sale/loan'],true);
 $url_to_find_customer_price = Url::to(['sale/findcutomerprice'],true);
 $url_to_find_loan = Url::to(['sale/findloan'],true);
@@ -389,6 +390,18 @@ $js=<<<JS
                      $(".table-list tbody").html(html);
                      
                  }
+              }
+            });
+  }
+  function findrunno(e){
+      //alert();
+      $.ajax({
+              'type':'post',
+              'dataType': 'html',
+              'url': "$url_to_find_runno",
+              'data': {'cusid':  e.val()},
+              'success': function(data) {
+                $("#runno").val(data);
               }
             });
   }

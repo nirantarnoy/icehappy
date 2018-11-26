@@ -70,8 +70,14 @@ class SaleController extends Controller
 
         $modelproduct = \backend\models\Product::find()->limit(5)->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $cusid = \Yii::$app->request->post('customer_id');
+            $model->customer_id = $cusid;
+            $model->status = 1;
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
         }
 
         return $this->render('create', [
@@ -193,5 +199,13 @@ class SaleController extends Controller
             return $list;
         }
         return $list;
+    }
+    public function actionFindrunno(){
+        $cusid = Yii::$app->request->post('cusid');
+        $runno = '';
+        if($cusid){
+            $runno = \backend\models\Sale::getLastNo($cusid);
+        }
+        return $runno;
     }
 }
