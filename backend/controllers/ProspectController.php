@@ -406,4 +406,9 @@ class ProspectController extends Controller
 
         }
     }
+    public function actionMap(){
+      //  $contacts = Contact::find()->all();
+        $contacts = null;
+        return $this->render('_map',['contacts'=>$contacts]);
+    }
 }

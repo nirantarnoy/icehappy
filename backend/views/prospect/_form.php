@@ -4,6 +4,17 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use dosamigos\google\maps\LatLng;
+use dosamigos\google\maps\overlays\InfoWindow;
+use dosamigos\google\maps\overlays\Marker;
+use dosamigos\google\maps\Map;
+$coord = new LatLng(['lat'=>13.777234,'lng'=>100.561981]);
+$map = new Map([
+    'center'=>$coord,
+    'zoom'=>12,
+    'width'=>'100%',
+    'height'=>'600',
+]);
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Prospect */
@@ -392,6 +403,17 @@ $zone = \backend\models\Salezone::find()->all();
     </div>
     <?php ActiveForm::end(); ?>
 </div>
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="glyphicon glyphicon-signal"></i> การแสดงแผนที่ Google Map เพื่อบันทึกที่อยู่ลูกค้า</h3>
+    </div>
+    <div class="panel-body">
+        <?php
+        echo $map->display();
+        ?>
+    </div>
+</div>
+
 <?php
 $url_to_del_image = Url::to(['prospect/deletepic'],true);
 $js=<<<JS
