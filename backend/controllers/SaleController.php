@@ -217,7 +217,7 @@ class SaleController extends Controller
     public function actionPrint($id){
         $sale_id = $id;
         $papersize = Yii::$app->request->post('paper_size');
-        $papersize = 1;
+        $papersize = 2;
        // echo 'niran'.$id;return;
         $model = \backend\models\Sale::find()->where(['id'=>$sale_id])->one();
         if($model){
@@ -235,7 +235,7 @@ class SaleController extends Controller
                 ]),
                 //'content' => "nira",
                 //'defaultFont' => '@backend/web/fonts/config.php',
-                //'cssFile' => '@backend/web/css/pdf.css',
+                'cssFile' => '@backend/web/css/pdf.css',
                 //'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
                 'options' => [
                     'title' => 'รายงานระหัสินค้า',
