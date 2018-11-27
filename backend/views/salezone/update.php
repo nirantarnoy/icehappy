@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Salezone */
 
-$this->title = 'แก้ไขเขต/เส้นทาง: {nameAttribute}';
+$this->title = 'แก้ไขเขต/เส้นทาง:'.$model->name;
 $this->params['breadcrumbs'][] = ['label' => 'เขต/เส้นทาง', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
