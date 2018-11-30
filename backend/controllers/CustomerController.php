@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\Json;
+use kartik\mpdf\Pdf;
 
 /**
  * CustomerController implements the CRUD actions for Custumer model.
@@ -212,5 +214,35 @@ class CustomerController extends Controller
 
             return true;
         }
+    }
+    public function actionPrintlongrentmaster(){
+        $pdf = new Pdf([
+
+            //'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+            //  'format' => [150,236], //manaul
+            'mode'=> 's',
+            'format' => Pdf::FORMAT_A4,
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'destination' => Pdf::DEST_BROWSER,
+            'content' => $this->renderPartial('_longrentmaster',[
+               // 'model'=>$model
+            ]),
+            //'content' => "nira",
+            //'defaultFont' => '@backend/web/fonts/config.php',
+            'cssFile' => '@backend/web/css/pdf.css',
+            //'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+            'options' => [
+                'title' => 'รายงานระหัสินค้า',
+                'subject' => ''
+            ],
+            'methods' => [
+                //  'SetHeader' => ['รายงานรหัสสินค้า||Generated On: ' . date("r")],
+                //  'SetFooter' => ['|Page {PAGENO}|'],
+                //'SetFooter'=>'niran',
+            ],
+
+        ]);
+        //return $this->redirect(['genbill']);
+        return $pdf->render();
     }
 }

@@ -30,7 +30,7 @@ body{
 .table_bordered td{
     border:0.8px solid #000;
     border-collapse: collapse;
-    padding: 15px;
+    padding: 12px;
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) {
@@ -146,4 +146,7 @@ body{
     width:200px;
     height:200px;
     border:1px solid blue;
+}
+.rent-content{
+    font-size: 13px;
 }
