@@ -44,8 +44,8 @@ class Saleorder extends \common\models\Saleorder {
             ],
         ];
     }
-    public function getLastNo($cusid){
-        $model = \backend\models\Sale::find()->where(['customer_id'=>$cusid])->MAX('sale_no');
+    public function getLastNo($zoneid){
+        $model = \backend\models\Saleorder::find()->where(['zone_id'=>$zoneid])->MAX('sale_no');
 //        $pre = \backend\models\Sequence::find()->where(['module_id'=>$trans_type])->one();
         $prefix = '';
         if($model){
@@ -72,7 +72,7 @@ class Saleorder extends \common\models\Saleorder {
 //            $prefix.=$cnum + 1;
             return $prefix;
         }else{
-            $zone_code = \backend\models\Custumer::find()->where(['id'=>$cusid])->one();
+            $zone_code = \backend\models\Custumer::find()->where(['id'=>$zoneid])->one();
             if($zone_code){
                 $prefix = \backend\models\Salezone::findName($zone_code->zone_id)."A01";
             }

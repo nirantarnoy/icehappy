@@ -19,11 +19,38 @@ $(function() {
      if($(this).val()!=''){
          $.ajax({
              'type':'post',
-             'dataType': 'html',
+             'dataType': 'json',
              'url': "$url_to_find_salezone",
              'data': {'id':$(this).val()},
              'success': function(data) {
-                $("#sale-zone-name").val(data);
+                 if(data.length >0){
+                     var html = '';
+                     var i = 0;
+                     $("#sale-zone-name").val(data[0]['zone_name']);
+                     if(data[0]['cus_code']!=''){
+                         for(i=0;i<=data.length -1;i++){
+                         html+="<tr>";
+                         html+="<td>"+data[i]['cus_code']+"<input type='hidden' name='' value='"+data[i]['cus_id']+"'></td>";
+                         html+="<td style='width:15%'>"+data[i]['cus_name']+"</td>";
+                         html+="<td>"+"<input type='text' class='form-control' name='product1-qty-"+i+"'/></td>";
+                         html+="<td>"+"<input type='text' class='form-control' name='product1-price-"+i+"'/></td>";
+                         html+="<td>"+"<input type='text' class='form-control' name='product1-total-"+i+"'/></td>";
+                         html+="<td>"+"<input type='text' class='form-control' name='product2-qty-"+i+"'/></td>";
+                         html+="<td>"+"<input type='text' class='form-control' name='product2-price-"+i+"'/></td>";
+                         html+="<td>"+"<input type='text' class='form-control' name='product2-total-"+i+"'/></td>";
+                         html+="<td>"+"<input type='text' class='form-control' name='product3-qty-"+i+"'/></td>";
+                         html+="<td>"+"<input type='text' class='form-control' name='product3-price-"+i+"'/></td>";
+                         html+="<td>"+"<input type='text' class='form-control' name='product3-total-"+i+"'/></td>";
+                         html+="<td>"+"<input type='text' class='form-control' name='free1-qty-"+i+"'/></td>";
+                         html+="<td>"+"<input type='text' class='form-control' name='free2-qty-"+i+"'/></td>";
+                         html+="<td>"+"</td>";
+                         html+="</tr>";
+                     }
+                     }
+                     
+                     $("table.table-list tbody").html(html);
+                 }
+                
              }
          });
      }
@@ -143,5 +170,6 @@ $this->registerJs($js,static::POS_END);
                 </table>
             </div>
         </div>
+        <div class="btn btn-primary">บันทึก</div>
     </div>
 </div>

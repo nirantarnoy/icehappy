@@ -8,6 +8,7 @@ use backend\models\SaleorderSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * SaleorderController implements the CRUD actions for Saleorder model.
@@ -127,14 +128,29 @@ class SaleorderController extends Controller
     }
     public function actionFindzone(){
         $id = Yii::$app->request->post('id');
+        $list = [];
         if($id){
             $model = \backend\models\Salezone::find()->where(['id'=>$id])->one();
             if($model){
-                return $model->description;
+                $model_cus = \backend\models\Custumer::find()->where(['zone_id'=>$id])->all();
+                if($model_cus){
+                    foreach($model_cus as $value){
+                        array_push($list,['zone_name'=>$model->description,'cus_code'=>$value->code,'cus_id'=>$value->id,'cus_name'=>$value->first_name." ".$value->last_name]);
+                    }
+                }
+                return Json::encode($list);
             }else{
-                return '';
+                return Json::encode($list);
             }
         }
-        return '';
+        return Json::encode($list);
+    }
+    public function actionFindrunno(){
+        $zoneid = Yii::$app->request->post('zoneid');
+        $runno = '';
+        if($zoneid){
+            $runno = \backend\models\Sale::getLastNo($zoneid);
+        }
+        return $runno;
     }
 }

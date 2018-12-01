@@ -13,6 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="saleorder-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <div class="card">
+        <div class="card-body">
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -26,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'sale_no',
             'sale_date',
             'sale_zone',
@@ -41,4 +43,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
     <?php Pjax::end(); ?>
+</div>
+    </div>
 </div>
