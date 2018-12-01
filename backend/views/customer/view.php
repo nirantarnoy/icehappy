@@ -24,7 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('พิมพ์สัญญายืม', ['printlongrentmaster', 'id' => $model->id], ['target'=>'_blank','class' => 'btn btn-secondary']) ?>
+        <?= Html::a('พิมพ์สัญญายืม [long]', ['printlongrentmaster', 'id' => $model->id], ['target'=>'_blank','class' => 'btn btn-secondary']) ?>
+        <?= Html::a('พิมพ์สัญญายืม [short]', ['printshortrentmaster', 'id' => $model->id], ['target'=>'_blank','class' => 'btn btn-secondary']) ?>
     </p>
 
     <div class="row">
@@ -39,8 +40,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             'first_name',
                             'last_name',
                             'card_id',
-                            'customer_group_id',
-                            'customer_type_id',
+                            //'customer_group_id',
+                           // 'customer_type_id',
+                            [
+                                'attribute' => 'customer_group_id',
+                                'value'=> function($data){
+                                  return \backend\models\Custumergroup::findName($data->customer_group_id);
+                                }
+                            ],
                             'description',
                             [
                                 'attribute'=>'delivery_type',
@@ -61,6 +68,13 @@ $this->params['breadcrumbs'][] = $this->title;
 //                            'updated_by',
                         ],
                     ]) ?>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        ประวัติการซื้อ
+                    </div>
                 </div>
             </div>
         </div>

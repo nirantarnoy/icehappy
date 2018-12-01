@@ -260,4 +260,42 @@ class CustomerController extends Controller
 
         }
     }
+    public function actionPrintshortrentmaster($id){
+        if($id) {
+            $model = \backend\models\Custumer::find()->where(['id'=>$id])->one();
+            if($model){
+                $cus_address = \backend\models\AddressBook::findAddress($id);
+                $pdf = new Pdf([
+
+                    //'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+                    //  'format' => [150,236], //manaul
+                    'mode' => 's',
+                    'format' => Pdf::FORMAT_A4,
+                    'orientation' => Pdf::ORIENT_PORTRAIT,
+                    'destination' => Pdf::DEST_BROWSER,
+                    'content' => $this->renderPartial('_shortrentmaster', [
+                        'model'=>$model,
+                        'cus_address'=>$cus_address,
+                    ]),
+                    //'content' => "nira",
+                    //'defaultFont' => '@backend/web/fonts/config.php',
+                    'cssFile' => '@backend/web/css/pdf.css',
+                    //'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+                    'options' => [
+                        'title' => 'รายงานระหัสินค้า',
+                        'subject' => ''
+                    ],
+                    'methods' => [
+                        //  'SetHeader' => ['รายงานรหัสสินค้า||Generated On: ' . date("r")],
+                        //  'SetFooter' => ['|Page {PAGENO}|'],
+                        //'SetFooter'=>'niran',
+                    ],
+
+                ]);
+                //return $this->redirect(['genbill']);
+                return $pdf->render();
+            }
+
+        }
+    }
 }
