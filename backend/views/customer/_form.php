@@ -4,11 +4,19 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use toxor88\switchery\Switchery;
 use yii\helpers\Url;
+
+use common\models\Province;
+use common\models\Amphur;
+use common\models\District;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Custumer */
 /* @var $form yii\widgets\ActiveForm */
 $custgroup = \backend\models\Custumergroup::find()->all();
 $zone = \backend\models\Salezone::find()->all();
+
+$prov = Province::find()->all();
+$amp = Amphur::find()->all();
+$dist = District::find()->all();
 
 $l = 1;
 $old_item = '';
@@ -35,7 +43,36 @@ if(count($bucket)>0) {
         $m += 1;
     }
 }
+$url_to_findcity = Url::to(['plant/showcity'],true);
+$url_to_finddistrict = Url::to(['plant/showdistrict'],true);
+$url_to_findzipcode = Url::to(['plant/showzipcode'],true);
+$js=<<<JS
 
+   $(function(){
+      
+   });
+
+  function findCity(e){
+        $.post("$url_to_findcity" +"&id="+e.val(),function(data){
+             $("select#city").html(data);
+             $("select#city").prop("disabled","");
+
+        });
+                                          
+  }
+  function findDistrict(e){
+        $.post("$url_to_finddistrict"+"&id="+e.val(),function(data){
+             $("select#district").html(data);
+             $("select#district").prop("disabled","");
+        });
+        $.post("$url_to_findzipcode"+"&id="+e.val(),function(data){
+            $("#zipcode").val(data);
+        });
+                                          
+  }
+  
+JS;
+$this->registerJs($js,static::POS_END);
 
 ?>
 
@@ -124,10 +161,102 @@ if(count($bucket)>0) {
                 </div>
 
             </div>
+
             <div class="row">
                 <div class="col-lg-3">
                     <?php echo $form->field($model, 'status')->widget(Switchery::className(),['options'=>['label'=>'','class'=>'form-control']])->label('สถานะ') ?>
 
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group" style="margin-top: -10px">
+                        <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name"><?=Yii::t('app','ที่อยู่')?>
+                        </label>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <?= $form->field($model_address_plant?$model_address_plant:$model_address, 'address')->textarea(['maxlength' => true,'class'=>'form-control'])->label(false) ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group" style="margin-top: -10px">
+                        <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name"><?=Yii::t('app','ถนน')?>
+                        </label>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <?= $form->field($model_address_plant?$model_address_plant:$model_address, 'street')->textInput(['maxlength' => true,'class'=>'form-control'])->label(false) ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group" style="margin-top: -10px">
+                        <label class="control-label col-lg-12" for="first-name"><?=Yii::t('app','ตำบล')?>
+                        </label>
+                        <div class="col-lg-12">
+                            <select name="select_district" class="form-control" id="district" disabled>
+                                <?php foreach ($dist as $value):?>
+                                    <?php
+                                    $select = '';
+                                    $dis_id = $model_address_plant?$model_address_plant->district_id:0;
+                                    if($value->DISTRICT_ID ==  $dis_id){$select = 'selected';}
+                                    ?>
+                                    <option value="<?=$value->DISTRICT_ID?>" <?=$select;?>><?=$value->DISTRICT_NAME?></option>
+                                <?php endforeach;?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group" style="margin-top: -10px">
+                        <label class="control-label col-lg-12" for="first-name"><?=Yii::t('app','อำเภอ')?>
+                        </label>
+                        <div class="col-lg-12">
+                            <select name="select_city" onchange="findDistrict($(this))" class="form-control" id="city" disabled>
+                                <?php foreach ($amp as $value):?>
+                                    <?php
+                                    $select = '';
+                                    $city_id = $model_address_plant?$model_address_plant->city_id:0;
+                                    if($value->AMPHUR_ID ==  $city_id){$select = 'selected';}
+                                    ?>
+                                    <option value="<?=$value->AMPHUR_ID?>" <?=$select?>><?=$value->AMPHUR_NAME?></option>
+                                <?php endforeach;?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group" style="margin-top: -10px">
+                        <label class="control-label col-lg-12" for="first-name"><?=Yii::t('app','จังหวัด')?>
+                        </label>
+                        <div class="col-lg-12">
+                            <select name="select_province" onchange="findCity($(this))" class="form-control" id="">
+                                <?php foreach ($prov as $value):?>
+                                    <?php
+                                    $select = '';
+                                    $prov_id = $model_address_plant?$model_address_plant->province_id:0;
+                                    if($value->PROVINCE_ID ==  $prov_id){$select = 'selected';}
+                                    ?>
+                                    <option value="<?=$value->PROVINCE_ID?>" <?=$select?>><?=$value->PROVINCE_NAME?></option>
+                                <?php endforeach;?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group" style="margin-top: -10px">
+                        <label class="control-label col-lg-12" for="first-name"><?=Yii::t('app','รหัสไปรษณีย์')?>
+                        </label>
+                        <div class="col-lg-12">
+                            <?php if($model_address_plant):?>
+                                <?= $form->field($model_address_plant, 'zipcode')->textInput(['class'=>'form-control','id'=>'zipcode','readonly'=>'readonly'])->label(false) ?>
+                            <?php else:?>
+                                <?= $form->field($model_address, 'zipcode')->textInput(['class'=>'form-control','id'=>'zipcode','readonly'=>'readonly'])->label(false) ?>
+                            <?php endif;?>
+
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">

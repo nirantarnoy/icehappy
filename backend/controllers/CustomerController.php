@@ -77,6 +77,7 @@ class CustomerController extends Controller
     public function actionCreate()
     {
         $model = new Custumer();
+        $model_address = new \backend\models\AddressBook();
 
         if ($model->load(Yii::$app->request->post())) {
             $model->customer_group_id = Yii::$app->request->post('customer_group');
@@ -97,6 +98,8 @@ class CustomerController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'model_address'=>$model_address,
+            'model_address_plant'=>null,
         ]);
     }
 
@@ -110,6 +113,8 @@ class CustomerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model_address = new \backend\models\AddressBook();
+        $model_address_plant = \backend\models\AddressBook::find()->where(['party_type_id'=>2,'party_id'=>$id])->one();
         $modelfile = \common\models\CustomerFile::find()->where(['party_type'=>2,'party_id'=>$id])->all();
         $item = \backend\models\Customerdetail::find()->where(['customer_id'=>$id,'line_type'=>1])->all();
         $bucket = \backend\models\Customerdetail::find()->where(['customer_id'=>$id,'line_type'=>2])->all();
@@ -168,6 +173,8 @@ class CustomerController extends Controller
             'modelfile' => $modelfile,
             'item' => $item,
             'bucket' => $bucket,
+            'model_address'=>$model_address,
+            'model_address_plant'=>$model_address_plant,
             //'seeme'=> $seeme_select,
         ]);
     }
@@ -215,34 +222,42 @@ class CustomerController extends Controller
             return true;
         }
     }
-    public function actionPrintlongrentmaster(){
-        $pdf = new Pdf([
+    public function actionPrintlongrentmaster($id){
+        if($id) {
+            $model = \backend\models\Custumer::find()->where(['id'=>$id])->one();
+            if($model){
+                $cus_address = \backend\models\AddressBook::findAddress($id);
+                $pdf = new Pdf([
 
-            //'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
-            //  'format' => [150,236], //manaul
-            'mode'=> 's',
-            'format' => Pdf::FORMAT_A4,
-            'orientation' => Pdf::ORIENT_PORTRAIT,
-            'destination' => Pdf::DEST_BROWSER,
-            'content' => $this->renderPartial('_longrentmaster',[
-               // 'model'=>$model
-            ]),
-            //'content' => "nira",
-            //'defaultFont' => '@backend/web/fonts/config.php',
-            'cssFile' => '@backend/web/css/pdf.css',
-            //'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
-            'options' => [
-                'title' => 'รายงานระหัสินค้า',
-                'subject' => ''
-            ],
-            'methods' => [
-                //  'SetHeader' => ['รายงานรหัสสินค้า||Generated On: ' . date("r")],
-                //  'SetFooter' => ['|Page {PAGENO}|'],
-                //'SetFooter'=>'niran',
-            ],
+                    //'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+                    //  'format' => [150,236], //manaul
+                    'mode' => 's',
+                    'format' => Pdf::FORMAT_A4,
+                    'orientation' => Pdf::ORIENT_PORTRAIT,
+                    'destination' => Pdf::DEST_BROWSER,
+                    'content' => $this->renderPartial('_longrentmaster', [
+                         'model'=>$model,
+                         'cus_address'=>$cus_address,
+                    ]),
+                    //'content' => "nira",
+                    //'defaultFont' => '@backend/web/fonts/config.php',
+                    'cssFile' => '@backend/web/css/pdf.css',
+                    //'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+                    'options' => [
+                        'title' => 'รายงานระหัสินค้า',
+                        'subject' => ''
+                    ],
+                    'methods' => [
+                        //  'SetHeader' => ['รายงานรหัสสินค้า||Generated On: ' . date("r")],
+                        //  'SetFooter' => ['|Page {PAGENO}|'],
+                        //'SetFooter'=>'niran',
+                    ],
 
-        ]);
-        //return $this->redirect(['genbill']);
-        return $pdf->render();
+                ]);
+                //return $this->redirect(['genbill']);
+                return $pdf->render();
+            }
+
+        }
     }
 }

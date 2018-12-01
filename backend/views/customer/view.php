@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('พิมพ์สัญญายืม', ['printlongrentmaster', 'id' => $model->id], ['target'=>'_blank','class' => 'btn btn-secondary']) ?>
     </p>
 
     <div class="row">

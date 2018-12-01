@@ -19,6 +19,8 @@ $this->params['breadcrumbs'][] = 'Update';
         'modelfile' => $modelfile,
         'item_select' => $item,
         'bucket' => $bucket,
+        'model_address'=>$model_address,
+        'model_address_plant'=>$model_address_plant,
     ]) ?>
 
 </div>
