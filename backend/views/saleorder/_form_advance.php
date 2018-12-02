@@ -103,10 +103,10 @@ function calall() {
      product3_qty = (product3_qty + parseInt($(this).find("td:eq(8) input:text").val() ==''?0:$(this).find("td:eq(8) input:text").val()));
      product4_qty = (product4_qty + parseInt($(this).find("td:eq(11) input:text").val() ==''?0:$(this).find("td:eq(11) input:text").val()));
      
-     product1_total = (product1_total + parseInt($(this).find("td:eq(4) input:text").val() ==''?0:$(this).find("td:eq(4) input:text").val()));
-     product2_total = (product2_total + parseInt($(this).find("td:eq(7) input:text").val() ==''?0:$(this).find("td:eq(7) input:text").val()));
-     product3_total = (product3_total + parseInt($(this).find("td:eq(10) input:text").val() ==''?0:$(this).find("td:eq(10) input:text").val()));
-     product4_total = (product4_total + parseInt($(this).find("td:eq(13) input:text").val() ==''?0:$(this).find("td:eq(13) input:text").val()));
+     product1_total = (product1_total + parseFloat($(this).find("td:eq(4) input:text").val() ==''?0:$(this).find("td:eq(4) input:text").val()));
+     product2_total = (product2_total + parseFloat($(this).find("td:eq(7) input:text").val() ==''?0:$(this).find("td:eq(7) input:text").val()));
+     product3_total = (product3_total + parseFloat($(this).find("td:eq(10) input:text").val() ==''?0:$(this).find("td:eq(10) input:text").val()));
+     product4_total = (product4_total + parseFloat($(this).find("td:eq(13) input:text").val() ==''?0:$(this).find("td:eq(13) input:text").val()));
     
     
      free1_total = (free1_total + parseInt($(this).find("td:eq(14) input:text").val() ==''?0:$(this).find("td:eq(14) input:text").val()));
@@ -241,45 +241,45 @@ $to_url = $model->isNewRecord?"index.php?r=saleorder/createorder":"index.php?r=s
                         </td>
                         <td style="width: 15%"><?=$query[$i]['first_name']." ".$query[$i]['last_name']?></td>
                         <td>
-                            <input type='text' style='text-align: right' class='form-control' id='product1-qty-<?=$i?>' value="<?=$query[$i]['qty1']?>" name='product1-qty[]' onchange='caltotal($(this));'/>
+                            <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;'  id='product1-qty-<?=$i?>' value="<?=$query[$i]['qty1']?>" name='product1-qty[]' onchange='caltotal($(this));'/>
                         </td>
                         <td>
-                            <input type='text' style='text-align: right' class='form-control' id='product1-price-<?=$i?>' value="<?=$query[$i]['price1']?>" name='product1-price[]' onchange='caltotalprice($(this));'/>
+                            <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='product1-price-<?=$i?>' value="<?=number_format($query[$i]['price1'],1)?>" name='product1-price[]' onchange='caltotalprice($(this));'/>
                         </td>
                         <td>
-                            <input type='text' style='text-align: right' class='form-control' id='product1-total-<?=$i?>' value="<?=$query[$i]['total1']?>" name='product1-total[]' readonly/>
+                            <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='product1-total-<?=$i?>' value="<?=number_format($query[$i]['total1'],1)?>" name='product1-total[]' readonly/>
                         </td>
                         <td>
-                            <input type='text' style='text-align: right' class='form-control' id='product2-qty-<?=$i?>' value="<?=$query[$i]['qty2']?>" name='product2-qty[]' onchange='caltotal($(this));'/>
+                            <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='product2-qty-<?=$i?>' value="<?=$query[$i]['qty2']?>" name='product2-qty[]' onchange='caltotal($(this));'/>
                         </td>
                         <td>
-                            <input type='text' style='text-align: right' class='form-control' id='product2-price-<?=$i?>' value="<?=$query[$i]['price2']?>" name='product2-price[]' onchange='caltotalprice($(this));'/>
+                            <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='product2-price-<?=$i?>' value="<?=number_format($query[$i]['price2'],1)?>" name='product2-price[]' onchange='caltotalprice($(this));'/>
                         </td>
                         <td>
-                            <input type='text' style='text-align: right' class='form-control' id='product2-total-<?=$i?>' value="<?=$query[$i]['total2']?>" name='product2-total[]' readonly/>
+                            <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='product2-total-<?=$i?>' value="<?=number_format($query[$i]['total2'],1)?>" name='product2-total[]' readonly/>
                         </td>
                         <td>
-                            <input type='text' style='text-align: right' class='form-control' id='product3-qty-<?=$i?>' value="<?=$query[$i]['qty3']?>" name='product3-qty[]' onchange='caltotal($(this));'/>
+                            <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='product3-qty-<?=$i?>' value="<?=$query[$i]['qty3']?>" name='product3-qty[]' onchange='caltotal($(this));'/>
                         </td>
                         <td>
-                            <input type='text' style='text-align: right' class='form-control' id='product3-price-<?=$i?>' value="<?=$query[$i]['price3']?>" name='product3-price[]' onchange='caltotalprice($(this));'/>
+                            <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='product3-price-<?=$i?>' value="<?=number_format($query[$i]['price3'],1)?>" name='product3-price[]' onchange='caltotalprice($(this));'/>
                         </td>
                         <td>
-                            <input type='text' style='text-align: right' class='form-control' id='product3-total-<?=$i?>' value="<?=$query[$i]['total3']?>" name='product3-total[]' readonly/>
+                            <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='product3-total-<?=$i?>' value="<?=number_format($query[$i]['total3'],1)?>" name='product3-total[]' readonly/>
                         </td>
                         <td>
-                            <input type='text' style='text-align: right' class='form-control' id='product4-qty-<?=$i?>' value="<?=$query[$i]['qty4']?>" name='product4-qty[]' onchange='caltotal($(this));'/>
+                            <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='product4-qty-<?=$i?>' value="<?=$query[$i]['qty4']?>" name='product4-qty[]' onchange='caltotal($(this));'/>
                         </td>
                         <td>
-                            <input type='text' style='text-align: right' class='form-control' id='product4-price-<?=$i?>' value="<?=$query[$i]['price4']?>" name='product4-price[]' onchange='caltotalprice($(this));'/>
+                            <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='product4-price-<?=$i?>' value="<?=number_format($query[$i]['price4'],1)?>" name='product4-price[]' onchange='caltotalprice($(this));'/>
                         </td>
                         <td>
-                            <input type='text' style='text-align: right' class='form-control' id='product4-total-<?=$i?>' value="<?=$query[$i]['total4']?>" name='product4-total[]' readonly/>
+                            <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='product4-total-<?=$i?>' value="<?=number_format($query[$i]['total4'],1)?>" name='product4-total[]' readonly/>
                         </td>
                         <td>
-                            <input type='text' style='text-align: right' class='form-control' id='free1-qty-<?=$i?>' value="" name='free1-qty[]'/>
+                            <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='free1-qty-<?=$i?>' value="" name='free1-qty[]'/>
                         </td>
-                        <td><input type='text' style='text-align: right' class='form-control' id='free2-qty-<?=$i?>' value="" name='free2-qty[]'/></td>
+                        <td><input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='free2-qty-<?=$i?>' value="" name='free2-qty[]'/></td>
                         <td></td>
                     </tr>
                     <?php endfor;?>
