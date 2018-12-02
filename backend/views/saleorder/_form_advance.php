@@ -16,6 +16,7 @@ $url_to_find_salezone = Url::to(['saleorder/findzone'],true);
 
 $js=<<<JS
 $(function() {
+    calall();
   $("#sale-zone").change(function() {
      if($(this).val()!=''){
          $.ajax({
@@ -33,17 +34,17 @@ $(function() {
                          html+="<tr>";
                          html+="<td>"+data[i]['cus_code']+"<input type='hidden' name='cus_id[]' value='"+data[i]['cus_id']+"'></td>";
                          html+="<td style='width:15%'>"+data[i]['cus_name']+"</td>";
-                         html+="<td>"+"<input type='text' class='form-control' id='product1-qty-"+i+"' name='product1-qty[]' onchange='caltotal($(this));'/></td>";
-                         html+="<td>"+"<input type='text' class='form-control' id='product1-price-"+i+"' name='product1-price[]' value='"+data[i]['price1']+"'/></td>";
-                         html+="<td>"+"<input type='text' class='form-control' id='product1-total-"+i+"' name='product1-total[]' disabled /></td>";
-                         html+="<td>"+"<input type='text' class='form-control' id='product2-qty-"+i+"' name='product2-qty[]' onchange='caltotal($(this));'/></td>";
-                         html+="<td>"+"<input type='text' class='form-control' id='product2-price-"+i+"' name='product2-price[]'/></td>";
-                         html+="<td>"+"<input type='text' class='form-control' id='product2-total-"+i+"' name='product2-total[]' disabled /></td>";
-                         html+="<td>"+"<input type='text' class='form-control' id='product3-qty-"+i+"' name='product3-qty[]' onchange='caltotal($(this));'/></td>";
-                         html+="<td>"+"<input type='text' class='form-control' id='product3-price-"+i+"' name='product3-price[]'/></td>";
-                         html+="<td>"+"<input type='text' class='form-control' id='product3-total-"+i+"' name='product3-total[]' disabled /></td>";
-                         html+="<td>"+"<input type='text' class='form-control' id='free1-qty-"+i+"' name='free1-qty[]' onchange='calall();'/></td>";
-                         html+="<td>"+"<input type='text' class='form-control' id='free2-qty-"+i+"'name='free2-qty[]' onchange='calall();'/></td>";
+                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product1-qty-"+i+"' name='product1-qty[]' onchange='caltotal($(this));'/></td>";
+                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product1-price-"+i+"' name='product1-price[]' value='"+data[i]['price1']+"'/></td>";
+                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product1-total-"+i+"' name='product1-total[]' disabled /></td>";
+                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product2-qty-"+i+"' name='product2-qty[]' onchange='caltotal($(this));'/></td>";
+                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product2-price-"+i+"' name='product2-price[]'/></td>";
+                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product2-total-"+i+"' name='product2-total[]' disabled /></td>";
+                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product3-qty-"+i+"' name='product3-qty[]' onchange='caltotal($(this));'/></td>";
+                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product3-price-"+i+"' name='product3-price[]'/></td>";
+                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product3-total-"+i+"' name='product3-total[]' disabled /></td>";
+                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='free1-qty-"+i+"' name='free1-qty[]' onchange='calall();'/></td>";
+                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='free2-qty-"+i+"'name='free2-qty[]' onchange='calall();'/></td>";
                          html+="<td>"+"</td>";
                          html+="</tr>";
                      }
@@ -111,9 +112,11 @@ function calall() {
 }
 JS;
 $this->registerJs($js,static::POS_END);
+$to_url = $model->isNewRecord?"index.php?r=saleorder/createorder":"index.php?r=saleorder/updateorder";
 
 ?>
-<form id="sale-form" action="index.php?r=saleorder/createorder" method="post">
+<form id="sale-form" action="<?=$to_url?>" method="post">
+    <input type="hidden" name="sale_id" value="<?=$model->isNewRecord?0:$model->id?>">
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -204,50 +207,65 @@ $this->registerJs($js,static::POS_END);
 <!--                            <td></td>-->
 <!--                        </tr>-->
                     <?php if(!$model->isNewRecord):?>
-                    <?php $i=0;?>
-                    <?php foreach ($modelline as $value):?>
-                            <?php $i+=1;?>
+                    <?php //$i=0;?>
+                    <?php for ($i=0;$i<=count($query)-1;$i++):?>
+                            <?php //$i+=1;?>
                     <tr>
                         <td>
-                            <input type='hidden' name='cus_id[]' value="">
+                            <?=$query[$i]['code']?>
+                            <input type='hidden' name='cus_id[]' value="<?=$query[$i]['customer_id']?>">
                         </td>
-                        <td style="width: 15%"><?=$value->customer_id?></td>
+                        <td style="width: 15%"><?=$query[$i]['first_name']." ".$query[$i]['last_name']?></td>
                         <td>
-                            <input type='text' class='form-control' id='product1-qty-<?=$i?>' value="<?=$value->qty?>" name='product1-qty[]' onchange='caltotal($(this));'/>
+                            <input type='text' style='text-align: right' class='form-control' id='product1-qty-<?=$i?>' value="<?=$query[$i]['qty1']?>" name='product1-qty[]' onchange='caltotal($(this));'/>
                         </td>
-                        <td></td>
-                        <td></td>
                         <td>
-                            <input type='text' class='form-control' id='product2-qty-<?=$i?>' value="<?=$value->qty?>" name='product2-qty[]' onchange='caltotal($(this));'/>
+                            <input type='text' style='text-align: right' class='form-control' id='product1-price-<?=$i?>' value="<?=$query[$i]['price1']?>" name='product1-price[]' onchange='caltotal($(this));'/>
                         </td>
-                        <td></td>
-                        <td></td>
                         <td>
-                            <input type='text' class='form-control' id='product3-qty-<?=$i?>' value="<?=$value->qty?>" name='product3-qty[]' onchange='caltotal($(this));'/>
+                            <input type='text' style='text-align: right' class='form-control' id='product1-total-<?=$i?>' value="<?=$query[$i]['total1']?>" name='product1-total[]' readonly/>
                         </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            <input type='text' style='text-align: right' class='form-control' id='product2-qty-<?=$i?>' value="<?=$query[$i]['qty2']?>" name='product2-qty[]' onchange='caltotal($(this));'/>
+                        </td>
+                        <td>
+                            <input type='text' style='text-align: right' class='form-control' id='product2-price-<?=$i?>' value="<?=$query[$i]['price2']?>" name='product2-price[]' onchange='caltotal($(this));'/>
+                        </td>
+                        <td>
+                            <input type='text' style='text-align: right' class='form-control' id='product2-total-<?=$i?>' value="<?=$query[$i]['total2']?>" name='product2-total[]' readonly/>
+                        </td>
+                        <td>
+                            <input type='text' style='text-align: right' class='form-control' id='product3-qty-<?=$i?>' value="<?=$query[$i]['qty3']?>" name='product3-qty[]' onchange='caltotal($(this));'/>
+                        </td>
+                        <td>
+                            <input type='text' style='text-align: right' class='form-control' id='product3-price-<?=$i?>' value="<?=$query[$i]['price3']?>" name='product3-price[]' onchange='caltotal($(this));'/>
+                        </td>
+                        <td>
+                            <input type='text' style='text-align: right' class='form-control' id='product3-total-<?=$i?>' value="<?=$query[$i]['total3']?>" name='product3-total[]' readonly/>
+                        </td>
+                        <td>
+                            <input type='text' style='text-align: right' class='form-control' id='free1-qty-<?=$i?>' value="" name='free1-qty[]'/>
+                        </td>
+                        <td><input type='text' style='text-align: right' class='form-control' id='free2-qty-<?=$i?>' value="" name='free2-qty[]'/></td>
                         <td></td>
                     </tr>
-                    <?php endforeach;?>
+                    <?php endfor;?>
                     <?php endif;?>
                     </tbody>
                     <tfoot>
                     <tr style="font-weight: bold">
                         <td colspan="2" style="text-align: right">รวมทั้งหมด</td>
+                        <td style="text-align: center;background-color: #9cc2cb;text-align: right"></td>
                         <td style="text-align: center"></td>
+                        <td style="text-align: center;background-color: #9cc2cb;text-align: right"></td>
+                        <td style="text-align: center;background-color: #9cc2cb;text-align: right"></td>
                         <td style="text-align: center"></td>
+                        <td style="text-align: center;background-color: #9cc2cb;text-align: right"></td>
+                        <td style="text-align: center;background-color: #9cc2cb;text-align: right"></td>
                         <td style="text-align: center"></td>
-                        <td style="text-align: center"></td>
-                        <td style="text-align: center"></td>
-                        <td style="text-align: center"></td>
-                        <td style="text-align: center"></td>
-                        <td style="text-align: center"></td>
-                        <td style="text-align: center"></td>
-                        <td style="text-align: center"></td>
-                        <td style="text-align: center"></td>
+                        <td style="text-align: center;background-color: #9cc2cb;text-align: right"></td>
+                        <td style="text-align: center;background-color: #9cc2cb;text-align: right"></td>
+                        <td style="text-align: center;background-color: #9cc2cb;text-align: right"></td>
                         <td style="text-align: center"></td>
                     </tr>
                     </tfoot>

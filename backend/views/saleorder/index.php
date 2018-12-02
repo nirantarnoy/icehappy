@@ -31,7 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             'sale_no',
             'sale_date',
-            'sale_zone',
+            [
+                'attribute' => 'sale_zone',
+                'value' => function($data){
+                    return \backend\models\Salezone::findName($data->sale_zone);
+                }
+            ],
             [
                 'attribute'=>'status',
                 'contentOptions' => ['style' => 'vertical-align: middle'],

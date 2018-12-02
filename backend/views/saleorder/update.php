@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = 'Update';
         'runno' => $runno,
         'zone_name' => $zone_name,
         'modelline' => $modelline,
+        'query' => $query,
     ]) ?>
 
 </div>

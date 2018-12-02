@@ -178,6 +178,106 @@ class SaleorderController extends Controller
         }
     }
 
+    public function actionUpdateorder(){
+
+        $saleid = Yii::$app->request->post('sale_id');
+        $saleno = Yii::$app->request->post('sale_no');
+        $salezone = Yii::$app->request->post('sale_zone');
+        $saledate = Yii::$app->request->post('sale_date');
+
+
+        $cusid = Yii::$app->request->post('cus_id');
+
+        $prod1_qty = Yii::$app->request->post('product1-qty');
+        $prod2_qty = Yii::$app->request->post('product2-qty');
+        $prod3_qty = Yii::$app->request->post('product3-qty');
+
+        $prod1_prc = Yii::$app->request->post('product1-price');
+        $prod2_prc = Yii::$app->request->post('product2-price');
+        $prod3_prc = Yii::$app->request->post('product3-price');
+
+        $prod1_total = Yii::$app->request->post('product1-total');
+        $prod2_total = Yii::$app->request->post('product2-total');
+        $prod3_total = Yii::$app->request->post('product3-total');
+
+        $free1_qty = Yii::$app->request->post('free1-qty');
+        $free2_qty = Yii::$app->request->post('free2-qty');
+
+        $free1_total = Yii::$app->request->post('free1-total');
+        $free2_total = Yii::$app->request->post('free2-total');
+
+
+        // print_r($prod1_qty);return;
+        //echo $saleno;return;
+        if($saleno !='' && $salezone !=''){
+            //  echo 'niran';return;
+            $model = \backend\models\Saleorder::find()->where(['id'=>$saleid])->one();
+            $model->sale_no = $saleno;
+            $model->sale_date = $saledate;
+            $model->sale_zone = $salezone;
+            $model->status = 1;
+            if($model->save(false)){
+                \backend\models\Saleorderline::deleteAll(['sale_id'=>$saleid]);
+                if(count($cusid) && count($prod1_qty)){
+                    for($i=0;$i<=count($cusid)-1;$i++){
+                        if($prod1_qty[$i] == '' || $prod1_qty[$i]<=0){continue;}
+                        $modelline = new \backend\models\Saleorderline();
+                        $modelline->customer_id = $cusid[$i];
+                        $modelline->sale_id = $model->id;
+                        $modelline->qty = $prod1_qty[$i];
+                        $modelline->price = $prod1_prc[$i];
+                        $modelline->product_id = 1;
+                        //  $modelline->free_qty = $free1_qty[$i];
+                        $modelline->save();
+
+                    }
+                }
+                if(count($cusid) && count($prod2_qty)){
+                    for($i=0;$i<=count($cusid)-1;$i++){
+                        if($prod2_qty[$i] == '' || $prod2_qty[$i]<=0){continue;}
+                        $modelline = new \backend\models\Saleorderline();
+                        $modelline->customer_id = $cusid[$i];
+                        $modelline->sale_id = $model->id;
+                        $modelline->qty = $prod2_qty[$i];
+                        $modelline->price = $prod2_prc[$i];
+                        $modelline->product_id = 2;
+                        //  $modelline->free_qty = $free2_qty[$i];
+                        $modelline->save();
+
+                    }
+                }
+                if(count($cusid) && count($prod3_qty)){
+                    for($i=0;$i<=count($cusid)-1;$i++){
+                        if($prod3_qty[$i] == '' || $prod3_qty[$i]<=0){continue;}
+                        $modelline = new \backend\models\Saleorderline();
+                        $modelline->customer_id = $cusid[$i];
+                        $modelline->sale_id = $model->id;
+                        $modelline->qty = $prod3_qty[$i];
+                        $modelline->price = $prod3_prc[$i];
+                        $modelline->product_id = 3;
+                        // $modelline->free_qty = $free3_qty[$i];
+                        $modelline->save();
+
+                    }
+                }
+                if(count($cusid)){
+                    for($i=0;$i<=count($cusid)-1;$i++){
+                        if($free1_qty[$i]=='' && $free2_qty[$i] == ''){continue;}
+                        $modelfree = new \backend\models\Salefree();
+                        $modelfree->customer_id = $cusid[$i];
+                        $modelfree->sale_id = $model->id;
+                        $modelfree->qty_big = $free1_qty[$i];
+                        $modelfree->qty_small = $free2_qty[$i];
+                        //  $modelline->free_qty = $free1_qty[$i];
+                        $modelfree->save();
+
+                    }
+                }
+                return $this->redirect(['index']);
+            }
+        }
+    }
+
     /**
      * Updates an existing Saleorder model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -190,6 +290,29 @@ class SaleorderController extends Controller
         $model = $this->findModel($id);
         $modelline = \backend\models\Saleorderline::find()->where(['sale_id'=>$id])->all();
 
+        $sql = "
+              SELECT  customer_id,code,first_name,last_name, 
+                (SELECT qty FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id) AS qty1,
+                (SELECT qty FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id) AS qty2,
+                (SELECT qty FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id) AS qty3,
+                (SELECT price FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id) AS price1,
+                (SELECT price FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id) AS price2,
+                (SELECT price FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id) AS price3,
+                (SELECT qty * price FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id) AS total1,
+                (SELECT qty * price FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id) AS total2,
+                (SELECT qty * price FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id) AS total3
+            FROM saleorder_line AS T1 
+            INNER JOIN customer AS T2 ON T1.customer_id = T2.id
+            WHERE T1.sale_id = ".$id."
+            GROUP BY customer_id
+        ";
+
+        $query = Yii::$app->db->createCommand($sql)->queryAll();
+
+       // print_r($query);return;
+
+
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -199,6 +322,7 @@ class SaleorderController extends Controller
             'runno' => $model->sale_no,
             'zone_name' => \backend\models\Salezone::findDescription($model->sale_zone),
             'modelline' => $modelline,
+            'query' => $query,
 
         ]);
     }
