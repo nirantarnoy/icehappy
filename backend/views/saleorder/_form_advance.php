@@ -176,18 +176,15 @@ $to_url = $model->isNewRecord?"index.php?r=saleorder/createorder":"index.php?r=s
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                <table class="table table-bordered table-list">
+                <table class="table table-bordered table-list" data-mobile-responsive="true" data-sort-order="desc" data-height="20">
                     <thead>
                         <tr>
-                            <td></td>
-                            <td></td>
+                            <td colspan="2"></td>
                             <td colspan="3" style="text-align: center">น้ำแข็งหลอดใหญ่</td>
                             <td colspan="3" style="text-align: center">น้ำแข็งหลอดเล็ก</td>
                             <td colspan="3" style="text-align: center">น้ำแข็งบด</td>
                             <td colspan="3" style="text-align: center">น้ำแข็งแพ็ค</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td colspan="3"></td>
                         </tr>
                         <tr>
                             <td rowspan="2" style="vertical-align: middle;text-align: center;">รหัส</td>
