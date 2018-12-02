@@ -13,11 +13,15 @@
         <td colspan="3" style="text-align: center">น้ำแข็งหลอดใหญ่</td>
         <td colspan="3" style="text-align: center">น้ำแข็งหลอดเล็ก</td>
         <td colspan="3" style="text-align: center">น้ำแข็งบด</td>
+        <td colspan="3" style="text-align: center">น้ำแข็งแพ็ค</td>
         <td colspan="3"></td>
     </tr>
     <tr>
         <td rowspan="2" style="vertical-align: middle;text-align: center;">รหัส</td>
         <td rowspan="2" style="vertical-align: middle;text-align: center;">ชื่อร้านค้า</td>
+        <td rowspan="2" style="vertical-align: middle;text-align: center;">จำนวน</td>
+        <td rowspan="2" style="vertical-align: middle;text-align: center;">ราคา</td>
+        <td rowspan="2" style="vertical-align: middle;text-align: center;">รวมเงิน</td>
         <td rowspan="2" style="vertical-align: middle;text-align: center;">จำนวน</td>
         <td rowspan="2" style="vertical-align: middle;text-align: center;">ราคา</td>
         <td rowspan="2" style="vertical-align: middle;text-align: center;">รวมเงิน</td>
@@ -72,7 +76,16 @@
             </td>
             <td style="text-align: right">
                 <?=$query[$i]['total3']?>
-            </td style="text-align: right">
+            </td>
+            <td style="text-align: right">
+                <?=$query[$i]['qty4']?>
+            </td>
+            <td style="text-align: right">
+                <?=$query[$i]['price4']?>
+            </td>
+            <td style="text-align: right">
+                <?=$query[$i]['total4']?>
+            </td>
             <td>
 
             </td>
@@ -105,6 +118,13 @@
         <td style="text-align: center"></td>
         <td style="text-align: center;background-color: #9cc2cb;text-align: right">
             <?=$query2[0]['total3']?>
+        </td>
+        <td style="text-align: center;background-color: #9cc2cb;text-align: right">
+            <?=$query2[0]['qty4']?>
+        </td>
+        <td style="text-align: center"></td>
+        <td style="text-align: center;background-color: #9cc2cb;text-align: right">
+            <?=$query2[0]['total4']?>
         </td>
         <td style="text-align: center;background-color: #9cc2cb;text-align: right"></td>
         <td style="text-align: center;background-color: #9cc2cb;text-align: right"></td>
