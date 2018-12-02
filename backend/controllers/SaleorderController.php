@@ -192,14 +192,17 @@ class SaleorderController extends Controller
         $prod1_qty = Yii::$app->request->post('product1-qty');
         $prod2_qty = Yii::$app->request->post('product2-qty');
         $prod3_qty = Yii::$app->request->post('product3-qty');
+        $prod4_qty = Yii::$app->request->post('product4-qty');
 
         $prod1_prc = Yii::$app->request->post('product1-price');
         $prod2_prc = Yii::$app->request->post('product2-price');
         $prod3_prc = Yii::$app->request->post('product3-price');
+        $prod4_prc = Yii::$app->request->post('product4-price');
 
         $prod1_total = Yii::$app->request->post('product1-total');
         $prod2_total = Yii::$app->request->post('product2-total');
         $prod3_total = Yii::$app->request->post('product3-total');
+        $prod4_total = Yii::$app->request->post('product4-total');
 
         $free1_qty = Yii::$app->request->post('free1-qty');
         $free2_qty = Yii::$app->request->post('free2-qty');
@@ -261,6 +264,20 @@ class SaleorderController extends Controller
 
                     }
                 }
+                if(count($cusid) && count($prod4_qty)){
+                    for($i=0;$i<=count($cusid)-1;$i++){
+                        if($prod4_qty[$i] == '' || $prod4_qty[$i]<=0){continue;}
+                        $modelline = new \backend\models\Saleorderline();
+                        $modelline->customer_id = $cusid[$i];
+                        $modelline->sale_id = $model->id;
+                        $modelline->qty = $prod4_qty[$i];
+                        $modelline->price = $prod4_prc[$i];
+                        $modelline->product_id = 4;
+                        // $modelline->free_qty = $free3_qty[$i];
+                        $modelline->save();
+
+                    }
+                }
                 if(count($cusid)){
                     for($i=0;$i<=count($cusid)-1;$i++){
                         if($free1_qty[$i]=='' && $free2_qty[$i] == ''){continue;}
@@ -293,15 +310,18 @@ class SaleorderController extends Controller
 
         $sql = "
               SELECT  customer_id,code,first_name,last_name, 
-                (SELECT qty FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id) AS qty1,
-                (SELECT qty FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id) AS qty2,
-                (SELECT qty FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id) AS qty3,
-                (SELECT price FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id) AS price1,
-                (SELECT price FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id) AS price2,
-                (SELECT price FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id) AS price3,
-                (SELECT qty * price FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id) AS total1,
-                (SELECT qty * price FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id) AS total2,
-                (SELECT qty * price FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id) AS total3
+                (SELECT qty FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS qty1,
+                (SELECT qty FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS qty2,
+                (SELECT qty FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS qty3,
+                (SELECT qty FROM saleorder_line WHERE product_id=4 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS qty4,
+                (SELECT price FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS price1,
+                (SELECT price FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS price2,
+                (SELECT price FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS price3,
+                (SELECT price FROM saleorder_line WHERE product_id=4 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS price4,
+                (SELECT qty * price FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS total1,
+                (SELECT qty * price FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS total2,
+                (SELECT qty * price FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS total3,
+                (SELECT qty * price FROM saleorder_line WHERE product_id=4 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS total4
             FROM saleorder_line AS T1 
             INNER JOIN customer AS T2 ON T1.customer_id = T2.id
             WHERE T1.sale_id = ".$id."
@@ -409,15 +429,18 @@ class SaleorderController extends Controller
         if(count($query_sale)>0){
             $sql = "
               SELECT  customer_id,code,first_name,last_name, 
-                    (SELECT qty FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id) AS qty1,
-                    (SELECT qty FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id) AS qty2,
-                    (SELECT qty FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id) AS qty3,
-                    (SELECT price FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id) AS price1,
-                    (SELECT price FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id) AS price2,
-                    (SELECT price FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id) AS price3,
-                    (SELECT qty * price FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id) AS total1,
-                    (SELECT qty * price FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id) AS total2,
-                    (SELECT qty * price FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id) AS total3
+                    (SELECT qty FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS qty1,
+                    (SELECT qty FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS qty2,
+                    (SELECT qty FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS qty3,
+                    (SELECT qty FROM saleorder_line WHERE product_id=4 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS qty4,
+                    (SELECT price FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS price1,
+                    (SELECT price FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS price2,
+                    (SELECT price FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS price3,
+                    (SELECT price FROM saleorder_line WHERE product_id=4 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS price4,
+                    (SELECT qty * price FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS total1,
+                    (SELECT qty * price FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS total2,
+                    (SELECT qty * price FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS total3,
+                    (SELECT qty * price FROM saleorder_line WHERE product_id=4 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS total4
                 FROM saleorder_line AS T1 
                 INNER JOIN customer AS T2 ON T1.customer_id = T2.id
                 WHERE T1.sale_id = ".$sale_id."
@@ -431,9 +454,11 @@ class SaleorderController extends Controller
                     (SELECT sum(qty) FROM saleorder_line WHERE product_id=1 AND sale_id = T1.sale_id) AS qty1,
                     (SELECT sum(qty) FROM saleorder_line WHERE product_id=2 AND sale_id = T1.sale_id) AS qty2,
                     (SELECT sum(qty) FROM saleorder_line WHERE product_id=3 AND sale_id = T1.sale_id) AS qty3,
+                    (SELECT sum(qty) FROM saleorder_line WHERE product_id=4 AND sale_id = T1.sale_id) AS qty4,
                     (SELECT sum(qty * price) FROM saleorder_line WHERE product_id=1 AND sale_id = T1.sale_id) AS total1,
                     (SELECT sum(qty * price) FROM saleorder_line WHERE product_id=2 AND sale_id = T1.sale_id) AS total2,
-                    (SELECT sum(qty * price) FROM saleorder_line WHERE product_id=3 AND sale_id = T1.sale_id) AS total3
+                    (SELECT sum(qty * price) FROM saleorder_line WHERE product_id=3 AND sale_id = T1.sale_id) AS total3,
+                    (SELECT sum(qty * price) FROM saleorder_line WHERE product_id=4 AND sale_id = T1.sale_id) AS total4
                 FROM saleorder_line AS T1 
                 WHERE sale_id =".$sale_id."
                 GROUP BY sale_id
