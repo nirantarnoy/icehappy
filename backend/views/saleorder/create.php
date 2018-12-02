@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form_advance', [
         'model' => $model,
+        'runno' => $runno,
     ]) ?>
 
 </div>

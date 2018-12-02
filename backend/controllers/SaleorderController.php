@@ -68,13 +68,66 @@ class SaleorderController extends Controller
     {
         $model = new Saleorder();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
             'model' => $model,
+            'runno' => $model::getLastNo(),
         ]);
+    }
+    public function actionCreateorder(){
+
+        $saleno = Yii::$app->request->post('sale_no');
+        $salezone = Yii::$app->request->post('sale_zone');
+        $saledate = Yii::$app->request->post('sale_date');
+
+
+        $cusid = Yii::$app->request->post('cus_id');
+
+        $prod1_qty = Yii::$app->request->post('product1-qty');
+        $prod2_qty = Yii::$app->request->post('product2-qty');
+        $prod3_qty = Yii::$app->request->post('product3-qty');
+
+        $prod1_prc = Yii::$app->request->post('product1-price');
+        $prod2_prc = Yii::$app->request->post('product2-price');
+        $prod3_prc = Yii::$app->request->post('product3-price');
+
+        $prod1_total = Yii::$app->request->post('product1-total');
+        $prod2_total = Yii::$app->request->post('product2-total');
+        $prod3_total = Yii::$app->request->post('product3-total');
+
+        $free1_qty = Yii::$app->request->post('free1-qty');
+        $free2_qty = Yii::$app->request->post('free2-qty');
+
+        $free1_total = Yii::$app->request->post('free1-total');
+        $free2_total = Yii::$app->request->post('free2-total');
+
+
+        print_r($prod1_qty);return;
+
+        if($saleno !='' && $salezone){
+            $model = new \backend\models\Saleorder();
+            $model->sale_no = $saleno;
+            $model->sale_date = $saledate;
+            $model->sale_zone = $salezone;
+            $model->status = 1;
+            if($model->save(false)){
+                if(count($cusid)){
+                    for($i0;$i<=count($cusid)-1;$i++){
+                        $modelline = new \backend\models\Saleorderline();
+                        $modelline->customer_id = $cusid[$i];
+                        $modelline->sale_id = $model->id;
+                        $modelline->qty = $prod1_qty[$i];
+                        
+                    }
+                }
+            }
+        }
     }
 
     /**

@@ -44,39 +44,22 @@ class Saleorder extends \common\models\Saleorder {
             ],
         ];
     }
-    public function getLastNo($zoneid){
-        $model = \backend\models\Saleorder::find()->where(['zone_id'=>$zoneid])->MAX('sale_no');
-//        $pre = \backend\models\Sequence::find()->where(['module_id'=>$trans_type])->one();
-        $prefix = '';
+    public function getLastNo(){
+        $model = \backend\models\Saleorder::find()->max("sale_no");
         if($model){
-            $list = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','U','V','W','X','Y','Z'];
-
-            $cnum = substr((string)$model,0,2); //01
-            $char = substr((string)$model,2,1); // A
-            $nums = substr((string)$model,3,2); //99
-            $new_num = (int)$nums + 1;
-            $last_num = '';
-            $char_index = array_search($char,$list);
-            if($new_num == 100){
-                $prefix = $cnum.$list[($char_index + 1)].'01';
-            }else{
-                $last_num = strlen((string)$new_num)==1?"0".$new_num:$new_num;
-                //   $prefix = $cnum.$char.strlen($new_num)==1?"0".$new_num:$new_num;
-                $prefix = $cnum.$char.$last_num;
+            $prefix = 'CV'.substr(date("Y"),2,2);
+            $cnum = substr((string)$model,strlen($prefix),strlen($model));
+            $len = strlen($cnum);
+            $clen = strlen($cnum + 1);
+            $loop = $len - $clen;
+            for($i=1;$i<=$loop;$i++){
+                $prefix.="0";
             }
-
-//            $loop = $len - $clen;
-//            for($i=1;$i<=$loop;$i++){
-//                $prefix.="0";
-//            }
-//            $prefix.=$cnum + 1;
+            $prefix.=$cnum + 1;
             return $prefix;
         }else{
-            $zone_code = \backend\models\Custumer::find()->where(['id'=>$zoneid])->one();
-            if($zone_code){
-                $prefix = \backend\models\Salezone::findName($zone_code->zone_id)."A01";
-            }
-            return $prefix;
+            $prefix ="CV".substr(date("Y"),2,2);
+            return $prefix.'000001';
         }
     }
 }

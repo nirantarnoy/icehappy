@@ -8,6 +8,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+
 $this->title = "Create Saleorder";
 $sale_zone = \backend\models\Salezone::find()->asArray()->all();
 
@@ -30,7 +31,7 @@ $(function() {
                      if(data[0]['cus_code']!=''){
                          for(i=0;i<=data.length -1;i++){
                          html+="<tr>";
-                         html+="<td>"+data[i]['cus_code']+"<input type='hidden' name='' value='"+data[i]['cus_id']+"'></td>";
+                         html+="<td>"+data[i]['cus_code']+"<input type='hidden' name='cus_id[]' value='"+data[i]['cus_id']+"'></td>";
                          html+="<td style='width:15%'>"+data[i]['cus_name']+"</td>";
                          html+="<td>"+"<input type='text' class='form-control' id='product1-qty-"+i+"' name='product1-qty[]' onchange='caltotal($(this));'/></td>";
                          html+="<td>"+"<input type='text' class='form-control' id='product1-price-"+i+"' name='product1-price[]' value='"+data[i]['price1']+"'/></td>";
@@ -112,6 +113,7 @@ JS;
 $this->registerJs($js,static::POS_END);
 
 ?>
+<form id="sale-form" action="index.php?r=saleorder/createorder" method="post">
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -137,7 +139,7 @@ $this->registerJs($js,static::POS_END);
                     </div>
                     <div class="col-lg-3">
                         <label for="">เลขที่ใบขาย</label>
-                        <input type="text" class="form-control" name="sale_no" disabled>
+                        <input type="text" class="form-control" name="sale_no" value="<?=$runno;?>" disabled>
                     </div>
                     <div class="col-lg-3">
                         <label for="">วันที่</label>
@@ -222,6 +224,8 @@ $this->registerJs($js,static::POS_END);
                 </table>
             </div>
         </div>
-        <div class="btn btn-primary">บันทึก</div>
+        <input type="submit" class="btn btn-primary" value="บันทึก">
     </div>
 </div>
+</form>
+
