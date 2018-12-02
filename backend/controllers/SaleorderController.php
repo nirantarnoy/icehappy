@@ -108,24 +108,72 @@ class SaleorderController extends Controller
         $free2_total = Yii::$app->request->post('free2-total');
 
 
-        print_r($prod1_qty);return;
-
-        if($saleno !='' && $salezone){
+       // print_r($prod1_qty);return;
+        //echo $saleno;return;
+        if($saleno !='' && $salezone !=''){
+          //  echo 'niran';return;
             $model = new \backend\models\Saleorder();
             $model->sale_no = $saleno;
             $model->sale_date = $saledate;
             $model->sale_zone = $salezone;
             $model->status = 1;
             if($model->save(false)){
-                if(count($cusid)){
-                    for($i0;$i<=count($cusid)-1;$i++){
+                if(count($cusid) && count($prod1_qty)){
+                    for($i=0;$i<=count($cusid)-1;$i++){
+                        if($prod1_qty[$i] == '' || $prod1_qty[$i]<=0){continue;}
                         $modelline = new \backend\models\Saleorderline();
                         $modelline->customer_id = $cusid[$i];
                         $modelline->sale_id = $model->id;
                         $modelline->qty = $prod1_qty[$i];
-                        
+                        $modelline->price = $prod1_prc[$i];
+                        $modelline->product_id = 1;
+                      //  $modelline->free_qty = $free1_qty[$i];
+                        $modelline->save();
+
                     }
                 }
+                if(count($cusid) && count($prod2_qty)){
+                    for($i=0;$i<=count($cusid)-1;$i++){
+                        if($prod2_qty[$i] == '' || $prod2_qty[$i]<=0){continue;}
+                        $modelline = new \backend\models\Saleorderline();
+                        $modelline->customer_id = $cusid[$i];
+                        $modelline->sale_id = $model->id;
+                        $modelline->qty = $prod2_qty[$i];
+                        $modelline->price = $prod2_prc[$i];
+                        $modelline->product_id = 2;
+                      //  $modelline->free_qty = $free2_qty[$i];
+                        $modelline->save();
+
+                    }
+                }
+                if(count($cusid) && count($prod3_qty)){
+                    for($i=0;$i<=count($cusid)-1;$i++){
+                        if($prod3_qty[$i] == '' || $prod3_qty[$i]<=0){continue;}
+                        $modelline = new \backend\models\Saleorderline();
+                        $modelline->customer_id = $cusid[$i];
+                        $modelline->sale_id = $model->id;
+                        $modelline->qty = $prod3_qty[$i];
+                        $modelline->price = $prod3_prc[$i];
+                        $modelline->product_id = 3;
+                       // $modelline->free_qty = $free3_qty[$i];
+                        $modelline->save();
+
+                    }
+                }
+                if(count($cusid)){
+                    for($i=0;$i<=count($cusid)-1;$i++){
+                        if($free1_qty[$i]=='' && $free2_qty[$i] == ''){continue;}
+                        $modelfree = new \backend\models\Salefree();
+                        $modelfree->customer_id = $cusid[$i];
+                        $modelfree->sale_id = $model->id;
+                        $modelfree->qty_big = $free1_qty[$i];
+                        $modelfree->qty_small = $free2_qty[$i];
+                        //  $modelline->free_qty = $free1_qty[$i];
+                        $modelfree->save();
+
+                    }
+                }
+                return $this->redirect(['index']);
             }
         }
     }
@@ -140,6 +188,7 @@ class SaleorderController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelline = \backend\models\Saleorderline::find()->where(['sale_id'=>$id])->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -147,6 +196,10 @@ class SaleorderController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'runno' => $model->sale_no,
+            'zone_name' => \backend\models\Salezone::findDescription($model->sale_zone),
+            'modelline' => $modelline,
+
         ]);
     }
 

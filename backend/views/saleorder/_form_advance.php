@@ -135,16 +135,16 @@ $this->registerJs($js,static::POS_END);
                     </div>
                     <div class="col-lg-3">
                         <label for="">ชื่อเขต/เส้นทาง</label>
-                        <input type="text" class="form-control" name="" id="sale-zone-name" disabled>
+                        <input type="text" class="form-control" name="sale_zone_name" id="sale-zone-name" value="<?=$model->isNewRecord?'':$zone_name;?>" disabled>
                     </div>
                     <div class="col-lg-3">
                         <label for="">เลขที่ใบขาย</label>
-                        <input type="text" class="form-control" name="sale_no" value="<?=$runno;?>" disabled>
+                        <input type="text" class="form-control" name="sale_no" value="<?=$runno;?>" readonly>
                     </div>
                     <div class="col-lg-3">
                         <label for="">วันที่</label>
-                        <?php $dateval = "".$model->isNewRecord?date('Y-m-d')."":"".date('Y-m-d',$model->trans_date)."";?>
-                        <input class="form-control" name="trans_date" type="date" value=<?=$dateval?> id="example-date-input">
+                        <?php $dateval = "".$model->isNewRecord?date('Y-m-d')."":"".$model->sale_date."";?>
+                        <input class="form-control" name="sale_date" type="date" value=<?=$dateval?> id="example-date-input">
                     </div>
                     <div class="col-lg-3"></div>
                 </div>
@@ -187,22 +187,52 @@ $this->registerJs($js,static::POS_END);
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+<!--                        <tr>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                        </tr>-->
+                    <?php if(!$model->isNewRecord):?>
+                    <?php $i=0;?>
+                    <?php foreach ($modelline as $value):?>
+                            <?php $i+=1;?>
+                    <tr>
+                        <td>
+                            <input type='hidden' name='cus_id[]' value="">
+                        </td>
+                        <td style="width: 15%"><?=$value->customer_id?></td>
+                        <td>
+                            <input type='text' class='form-control' id='product1-qty-<?=$i?>' value="<?=$value->qty?>" name='product1-qty[]' onchange='caltotal($(this));'/>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <input type='text' class='form-control' id='product2-qty-<?=$i?>' value="<?=$value->qty?>" name='product2-qty[]' onchange='caltotal($(this));'/>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <input type='text' class='form-control' id='product3-qty-<?=$i?>' value="<?=$value->qty?>" name='product3-qty[]' onchange='caltotal($(this));'/>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <?php endforeach;?>
+                    <?php endif;?>
                     </tbody>
                     <tfoot>
                     <tr style="font-weight: bold">
