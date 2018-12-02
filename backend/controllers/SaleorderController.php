@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use kartik\mpdf\Pdf;
 
 /**
  * SaleorderController implements the CRUD actions for Saleorder model.
@@ -309,6 +310,8 @@ class SaleorderController extends Controller
 
         $query = Yii::$app->db->createCommand($sql)->queryAll();
 
+
+
        // print_r($query);return;
 
 
@@ -385,5 +388,92 @@ class SaleorderController extends Controller
             $runno = \backend\models\Sale::getLastNo($zoneid);
         }
         return $runno;
+    }
+    public function actionPrint($id){
+        $sale_id = $id;
+        $papersize = Yii::$app->request->post('paper_size');
+        $papersize = 1;
+        // echo 'niran'.$id;return;
+        //$model = \backend\models\Saleorder::find()->where(['id'=>$sale_id])->one();
+
+        $sql_sale = "
+            select *,sale_zone.name as zone_code,sale_zone.description as zone_description
+            from saleorder
+            INNER JOIN 
+            sale_zone on sale_zone.id = saleorder.sale_zone
+            WHERE saleorder.id =".$sale_id."
+        ";
+
+        $query_sale = Yii::$app->db->createCommand($sql_sale)->queryAll();
+
+        if(count($query_sale)>0){
+            $sql = "
+              SELECT  customer_id,code,first_name,last_name, 
+                    (SELECT qty FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id) AS qty1,
+                    (SELECT qty FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id) AS qty2,
+                    (SELECT qty FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id) AS qty3,
+                    (SELECT price FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id) AS price1,
+                    (SELECT price FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id) AS price2,
+                    (SELECT price FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id) AS price3,
+                    (SELECT qty * price FROM saleorder_line WHERE product_id=1 AND customer_id = t1.customer_id) AS total1,
+                    (SELECT qty * price FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id) AS total2,
+                    (SELECT qty * price FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id) AS total3
+                FROM saleorder_line AS T1 
+                INNER JOIN customer AS T2 ON T1.customer_id = T2.id
+                WHERE T1.sale_id = ".$sale_id."
+                GROUP BY customer_id
+            ";
+
+            $query = Yii::$app->db->createCommand($sql)->queryAll();
+
+            $sql2 = "
+                SELECT  sale_id, 
+                    (SELECT sum(qty) FROM saleorder_line WHERE product_id=1 AND sale_id = T1.sale_id) AS qty1,
+                    (SELECT sum(qty) FROM saleorder_line WHERE product_id=2 AND sale_id = T1.sale_id) AS qty2,
+                    (SELECT sum(qty) FROM saleorder_line WHERE product_id=3 AND sale_id = T1.sale_id) AS qty3,
+                    (SELECT sum(qty * price) FROM saleorder_line WHERE product_id=1 AND sale_id = T1.sale_id) AS total1,
+                    (SELECT sum(qty * price) FROM saleorder_line WHERE product_id=2 AND sale_id = T1.sale_id) AS total2,
+                    (SELECT sum(qty * price) FROM saleorder_line WHERE product_id=3 AND sale_id = T1.sale_id) AS total3
+                FROM saleorder_line AS T1 
+                WHERE sale_id =".$sale_id."
+                GROUP BY sale_id
+            ";
+            $query2 = Yii::$app->db->createCommand($sql2)->queryAll();
+
+            // echo "niran";return;
+            $pdf = new Pdf([
+
+                //'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+                //  'format' => [150,236], //manaul
+                'mode'=> 's',
+                'format' => $papersize ==1? Pdf::FORMAT_A4:[150,236],
+                'orientation' => $papersize ==1?Pdf::ORIENT_PORTRAIT:Pdf::ORIENT_LANDSCAPE,
+                'destination' => Pdf::DEST_BROWSER,
+                'marginLeft' => 3,
+                'marginRight' => 3,
+                'content' => $this->renderPartial('_print',[
+                    //'model'=>$model,
+                    'query'=>$query,
+                    'query2'=>$query2,
+                    'query_sale'=>$query_sale,
+                ]),
+                //'content' => "nira",
+                //'defaultFont' => '@backend/web/fonts/config.php',
+                'cssFile' => '@backend/web/css/pdf.css',
+                //'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+                'options' => [
+                    'title' => 'รายงานระหัสินค้า',
+                    'subject' => ''
+                ],
+                'methods' => [
+                    //  'SetHeader' => ['รายงานรหัสสินค้า||Generated On: ' . date("r")],
+                    //  'SetFooter' => ['|Page {PAGENO}|'],
+                    //'SetFooter'=>'niran',
+                ],
+
+            ]);
+            //return $this->redirect(['genbill']);
+            return $pdf->render();
+        }
     }
 }

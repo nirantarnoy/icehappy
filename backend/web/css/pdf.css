@@ -1,7 +1,7 @@
 
 body{
     font-family: "Garuda";
-    font-size: 8pt;
+    font-size: 7pt;
     width: 8.5in;
     margin: 0in .1875in;
 }
@@ -18,7 +18,7 @@ body{
     border-collapse: collapse;
     margin-bottom: 10px;
     margin-top: 10px;
-    font-size: 14px;
+    font-size: 10px;
     width: 100%;
     border-spacing: -1px;
 }
