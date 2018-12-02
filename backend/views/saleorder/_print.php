@@ -44,6 +44,15 @@
     <tbody>
     <?php for ($i=0;$i<=count($query)-1;$i++):?>
         <?php //$i+=1;?>
+        <?php //$i+=1;
+        $qty_big = '';
+        $qty_small = '';
+
+        if(count($modelfree)){
+            $qty_big = $modelfree[$i]['customer_id']==$query[$i]['customer_id']?$modelfree[$i]['qty_big']:'';
+            $qty_small = $modelfree[$i]['customer_id']==$query[$i]['customer_id']?$modelfree[$i]['qty_small']:'';
+        }
+        ?>
         <tr>
             <td>
                 <?=$query[$i]['code']?>
@@ -54,43 +63,44 @@
                 <?=$query[$i]['qty1']?>
             </td>
             <td style="text-align: right">
-                <?=$query[$i]['price1']?>
+                <?=number_format($query[$i]['price1'],1)?>
             </td>
             <td style="text-align: right">
-                <?=$query[$i]['total1']?>
+                <?=number_format($query[$i]['total1'],1)?>
             </td>
             <td style="text-align: right">
                 <?=$query[$i]['qty2']?>
             </td >
             <td style="text-align: right">
-                <?=$query[$i]['price2']?>
+                <?=number_format($query[$i]['price2'],1)?>
             </td>
             <td style="text-align: right">
-                <?=$query[$i]['total2']?>
+                <?=number_format($query[$i]['total2'],1)?>
             </td>
             <td style="text-align: right">
                 <?=$query[$i]['qty3']?>
             </td>
             <td style="text-align: right">
-                <?=$query[$i]['price3']?>
+                <?=number_format($query[$i]['price3'],1)?>
             </td>
             <td style="text-align: right">
-                <?=$query[$i]['total3']?>
+                <?=number_format($query[$i]['total3'],1)?>
             </td>
             <td style="text-align: right">
                 <?=$query[$i]['qty4']?>
             </td>
             <td style="text-align: right">
-                <?=$query[$i]['price4']?>
+                <?=number_format($query[$i]['price4'],1)?>
             </td>
             <td style="text-align: right">
-                <?=$query[$i]['total4']?>
+                <?=number_format($query[$i]['total4'],1)?>
             </td>
             <td>
-
+                <?=$qty_big?>
             </td>
-            <td></td>
-            <td></td>
+            <td>
+                <?=$qty_small?>
+            </td>
         </tr>
     <?php endfor;?>
 
@@ -103,31 +113,35 @@
         </td>
         <td style="text-align: center"></td>
         <td style="text-align: center;background-color: #9cc2cb;text-align: right">
-            <?=$query2[0]['total1']?>
+            <?=number_format($query2[0]['total1'],1)?>
         </td>
         <td style="text-align: center;background-color: #9cc2cb;text-align: right">
             <?=$query2[0]['qty2']?>
         </td>
         <td style="text-align: center"></td>
         <td style="text-align: center;background-color: #9cc2cb;text-align: right">
-            <?=$query2[0]['total2']?>
+            <?=number_format($query2[0]['total2'],1)?>
         </td>
         <td style="text-align: center;background-color: #9cc2cb;text-align: right">
             <?=$query2[0]['qty3']?>
         </td>
         <td style="text-align: center"></td>
         <td style="text-align: center;background-color: #9cc2cb;text-align: right">
-            <?=$query2[0]['total3']?>
+            <?=number_format($query2[0]['total3'],1)?>
         </td>
         <td style="text-align: center;background-color: #9cc2cb;text-align: right">
             <?=$query2[0]['qty4']?>
         </td>
         <td style="text-align: center"></td>
         <td style="text-align: center;background-color: #9cc2cb;text-align: right">
-            <?=$query2[0]['total4']?>
+            <?=number_format($query2[0]['total4'],1)?>
         </td>
-        <td style="text-align: center;background-color: #9cc2cb;text-align: right"></td>
-        <td style="text-align: center;background-color: #9cc2cb;text-align: right"></td>
+        <td style="text-align: center;background-color: #9cc2cb;text-align: right">
+            <?=$query3[0]['total_big']?>
+        </td>
+        <td style="text-align: center;background-color: #9cc2cb;text-align: right">
+            <?=$query3[0]['total_small']?>
+        </td>
         <td style="text-align: center"></td>
     </tr>
     </tfoot>

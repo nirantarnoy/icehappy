@@ -233,7 +233,15 @@ $to_url = $model->isNewRecord?"index.php?r=saleorder/createorder":"index.php?r=s
                        // print_r($query);return;
                         ?>
                     <?php for ($i=0;$i<=count($query)-1;$i++):?>
-                            <?php //$i+=1;?>
+                            <?php //$i+=1;
+                              $qty_big = '';
+                              $qty_small = '';
+
+                              if(count($modelfree)){
+                                  $qty_big = $modelfree[$i]['customer_id']==$query[$i]['customer_id']?$modelfree[$i]['qty_big']:'';
+                                  $qty_small = $modelfree[$i]['customer_id']==$query[$i]['customer_id']?$modelfree[$i]['qty_small']:'';
+                              }
+                            ?>
                     <tr>
                         <td>
                             <?=$query[$i]['code']?>
@@ -277,9 +285,9 @@ $to_url = $model->isNewRecord?"index.php?r=saleorder/createorder":"index.php?r=s
                             <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='product4-total-<?=$i?>' value="<?=number_format($query[$i]['total4'],1)?>" name='product4-total[]' readonly/>
                         </td>
                         <td>
-                            <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='free1-qty-<?=$i?>' value="" name='free1-qty[]'/>
+                            <input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='free1-qty-<?=$i?>' value="<?=$qty_big?>" name='free1-qty[]'/>
                         </td>
-                        <td><input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='free2-qty-<?=$i?>' value="" name='free2-qty[]'/></td>
+                        <td><input type='text' class='form-control' style='text-align: right;padding-left: 1px;padding-right: 1px;' id='free2-qty-<?=$i?>' value="<?=$qty_small?>" name='free2-qty[]'/></td>
                         <td></td>
                     </tr>
                     <?php endfor;?>

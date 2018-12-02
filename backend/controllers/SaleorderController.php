@@ -93,14 +93,17 @@ class SaleorderController extends Controller
         $prod1_qty = Yii::$app->request->post('product1-qty');
         $prod2_qty = Yii::$app->request->post('product2-qty');
         $prod3_qty = Yii::$app->request->post('product3-qty');
+        $prod4_qty = Yii::$app->request->post('product4-qty');
 
         $prod1_prc = Yii::$app->request->post('product1-price');
         $prod2_prc = Yii::$app->request->post('product2-price');
         $prod3_prc = Yii::$app->request->post('product3-price');
+        $prod4_prc = Yii::$app->request->post('product4-price');
 
         $prod1_total = Yii::$app->request->post('product1-total');
         $prod2_total = Yii::$app->request->post('product2-total');
         $prod3_total = Yii::$app->request->post('product3-total');
+        $prod4_total = Yii::$app->request->post('product4-total');
 
         $free1_qty = Yii::$app->request->post('free1-qty');
         $free2_qty = Yii::$app->request->post('free2-qty');
@@ -157,6 +160,20 @@ class SaleorderController extends Controller
                         $modelline->price = $prod3_prc[$i];
                         $modelline->product_id = 3;
                        // $modelline->free_qty = $free3_qty[$i];
+                        $modelline->save();
+
+                    }
+                }
+                if(count($cusid) && count($prod4_qty)){
+                    for($i=0;$i<=count($cusid)-1;$i++){
+                        if($prod4_qty[$i] == '' || $prod4_qty[$i]<=0){continue;}
+                        $modelline = new \backend\models\Saleorderline();
+                        $modelline->customer_id = $cusid[$i];
+                        $modelline->sale_id = $model->id;
+                        $modelline->qty = $prod4_qty[$i];
+                        $modelline->price = $prod4_prc[$i];
+                        $modelline->product_id = 4;
+                        // $modelline->free_qty = $free3_qty[$i];
                         $modelline->save();
 
                     }
@@ -307,6 +324,7 @@ class SaleorderController extends Controller
     {
         $model = $this->findModel($id);
         $modelline = \backend\models\Saleorderline::find()->where(['sale_id'=>$id])->all();
+        $modelfree = \backend\models\Salefree::find()->where(['sale_id'=>$id])->asArray()->all();
 
         $sql = "
               SELECT  customer_id,code,first_name,last_name, 
@@ -346,6 +364,7 @@ class SaleorderController extends Controller
             'zone_name' => \backend\models\Salezone::findDescription($model->sale_zone),
             'modelline' => $modelline,
             'query' => $query,
+            'modelfree'=>$modelfree
 
         ]);
     }
@@ -425,6 +444,7 @@ class SaleorderController extends Controller
         ";
 
         $query_sale = Yii::$app->db->createCommand($sql_sale)->queryAll();
+        $modelfree = \backend\models\Salefree::find()->where(['sale_id'=>$sale_id])->asArray()->all();
 
         if(count($query_sale)>0){
             $sql = "
@@ -465,6 +485,16 @@ class SaleorderController extends Controller
             ";
             $query2 = Yii::$app->db->createCommand($sql2)->queryAll();
 
+            $sql3 = "
+                SELECT  sale_id, 
+                    (SELECT sum(qty_big) FROM saleorder_line WHERE product_id=1 AND sale_id = T1.sale_id) AS total_big,
+                    (SELECT sum(qty_small) FROM saleorder_line WHERE product_id=2 AND sale_id = T1.sale_id) AS total_small
+                FROM sale_free AS T1 
+                WHERE sale_id =".$sale_id."
+                GROUP BY sale_id
+            ";
+            $query3 = Yii::$app->db->createCommand($sql3)->queryAll();
+
             // echo "niran";return;
             $pdf = new Pdf([
 
@@ -480,7 +510,9 @@ class SaleorderController extends Controller
                     //'model'=>$model,
                     'query'=>$query,
                     'query2'=>$query2,
+                    'query3'=>$query3,
                     'query_sale'=>$query_sale,
+                    'modelfree'=>$modelfree,
                 ]),
                 //'content' => "nira",
                 //'defaultFont' => '@backend/web/fonts/config.php',
