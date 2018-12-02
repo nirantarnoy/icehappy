@@ -378,7 +378,7 @@ PressAsset::register($this);
                     <li class="nav-small-cap">Sales Order</li>
                     <li class="two-column"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-file"></i><span class="hide-menu">Sales Order</span></a>
                         <ul aria-expanded="false" class="collapse">
-                            <li><a href="index.php?r=sale/index">Sales Order</a></li>
+                            <li><a href="index.php?r=saleorder/index">Sales Order</a></li>
                             <li><a href="index.php?r=salezone/index">Zone</a></li>
                             <li><a href="index.php?r=prospect/index">Prospect</a></li>
                             <li><a href="index.php?r=customergroup/index">Customer Group</a></li>

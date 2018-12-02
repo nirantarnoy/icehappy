@@ -64,4 +64,8 @@ class Custumer extends \common\models\Customer{
         return $prefix;
 
     }
+    public function findprice($cus,$product){
+        $model = \backend\models\Customerdetail::find()->where(['customer_id'=>$cus,'line_type'=>1,'itemid'=>$product])->one();
+        return count($model)>0?$model->line_price:0;
+    }
 }

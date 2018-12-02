@@ -135,7 +135,10 @@ class SaleorderController extends Controller
                 $model_cus = \backend\models\Custumer::find()->where(['zone_id'=>$id])->all();
                 if($model_cus){
                     foreach($model_cus as $value){
-                        array_push($list,['zone_name'=>$model->description,'cus_code'=>$value->code,'cus_id'=>$value->id,'cus_name'=>$value->first_name." ".$value->last_name]);
+                        $price1 = \backend\models\Custumer::findprice($value->id,1);
+                        array_push($list,['zone_name'=>$model->description,'cus_code'=>$value->code,
+                                                 'cus_id'=>$value->id,'cus_name'=>$value->first_name." ".$value->last_name,
+                                                 'price1'=>$price1]);
                     }
                 }
                 return Json::encode($list);
