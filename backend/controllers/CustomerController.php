@@ -83,24 +83,42 @@ class CustomerController extends Controller
             $model->customer_group_id = Yii::$app->request->post('customer_group');
             $model->zone_id = Yii::$app->request->post('zone_id');
 
-            $uploaded = UploadedFile::getInstances();
-            if(!empty($uploaded)){
+            $uploadimage = UploadedFile::getInstancesByName('imagefile');
+
+
+            if ($model->save()) {
+
+                if (!empty($uploadimage)) {
+                    foreach ($uploadimage as $file) {
+
+
+                        $file->saveAs(Yii::getAlias('@backend') . '/web/uploads/images/' . $file);
+                        Image::thumbnail(Yii::getAlias('@backend') . '/web/uploads/images/' . $file, 100, 70)
+                            ->rotate(0)
+                            ->save(Yii::getAlias('@backend') . '/web/uploads/thumbnail/' . $file, ['jpeg_quality' => 100]);
+
+
+                        $modelfile = new \common\models\CustomerFile();
+                        $modelfile->party_id = $model->id;
+                        $modelfile->party_type = 2; //1 = คัดกรอง 2 = ลูกค้า
+                        $modelfile->file_type = 2; // 2 = รูปภาพ
+                        $modelfile->name = $file;
+                        $modelfile->save(false);
+                    }
+
+                    $session = Yii::$app->session;
+                    $session->setFlash('msg', 'บันทึกรายการเรียบร้อย');
+                    return $this->redirect(['index']);
+                }
 
             }
 
-            if($model->save()){
-                $session = Yii::$app->session;
-                $session->setFlash('msg','บันทึกรายการเรียบร้อย');
-                return $this->redirect(['index']);
-            }
-
+            return $this->render('create', [
+                'model' => $model,
+                'model_address' => $model_address,
+                'model_address_plant' => null,
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-            'model_address'=>$model_address,
-            'model_address_plant'=>null,
-        ]);
     }
 
     /**
