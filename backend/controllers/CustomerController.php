@@ -106,11 +106,11 @@ class CustomerController extends Controller
                         $modelfile->save(false);
                     }
 
-                    $session = Yii::$app->session;
-                    $session->setFlash('msg', 'บันทึกรายการเรียบร้อย');
-                    return $this->redirect(['index']);
-                }
 
+                }
+                $session = Yii::$app->session;
+                $session->setFlash('msg', 'บันทึกรายการเรียบร้อย');
+                return $this->redirect(['index']);
             }
 
             return $this->render('create', [
