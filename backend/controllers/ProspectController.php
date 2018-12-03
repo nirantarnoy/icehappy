@@ -80,10 +80,8 @@ class ProspectController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-
+            $prefix = Yii::$app->request->post('prefix');
             $uploadimage = UploadedFile::getInstancesByName('imagefile');
-
-
 
 
             $item_check = substr(Yii::$app->request->post('select_item'),0,1);
@@ -114,6 +112,7 @@ class ProspectController extends Controller
             $model->zone_id = \Yii::$app->request->post("zone_id");
 //            print_r($seeme);
 //            return;
+            $model->prefix = $prefix;
             if($model->save(false)){
                 if(!empty($uploadimage)){
                     foreach($uploadimage as $file){
@@ -195,6 +194,7 @@ class ProspectController extends Controller
         $seeme_select = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id,'line_type'=>3])->all();
         $modelfile = \common\models\CustomerFile::find()->where(['party_id'=>$id,'party_type'=>1])->all();
         if ($model->load(Yii::$app->request->post())) {
+            $prefix = Yii::$app->request->post('prefix');
             $uploadimage = UploadedFile::getInstancesByName('imagefile');
 
             $item_check = substr(Yii::$app->request->post('select_item'),0,1);
@@ -220,7 +220,7 @@ class ProspectController extends Controller
             $seeme = Yii::$app->request->post('seeme');
 
             $model->zone_id = \Yii::$app->request->post("zone_id");
-
+            $model->prefix = $prefix;
           //  print_r($item_list);return;
             if($model->save()){
                 if(!empty($uploadimage)){
@@ -365,6 +365,7 @@ class ProspectController extends Controller
             if($model){
                 $modelcus = new \backend\models\Custumer();
                 $modelcus->code = $modelcus::getLastNo($model->zone_id);
+                $modelcus->prefix = $model->prefix;
                 $modelcus->first_name = $model->name;
                 $modelcus->status = 1;
                 $modelcus->lat = $model->lat;
@@ -373,6 +374,8 @@ class ProspectController extends Controller
                 $modelcus->first_name = $model->first_name;
                 $modelcus->last_name = $model->last_name;
                 $modelcus->email = $model->email;
+                $modelcus->facebook = $model->facebook;
+                $modelcus->line = $model->line;
                 $modelcus->zone_id = $model->zone_id;
                 $modelcus->prospect_id = $model->id;
                 if($modelcus->save()){

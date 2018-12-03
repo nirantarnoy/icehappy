@@ -383,7 +383,7 @@ PressAsset::register($this);
                             <li><a href="index.php?r=prospect/index">Prospect</a></li>
                             <li><a href="index.php?r=customergroup/index">Customer Group</a></li>
                             <li><a href="index.php?r=customer/index">Customer</a></li>
-                            
+
 
                         </ul>
                     </li>
