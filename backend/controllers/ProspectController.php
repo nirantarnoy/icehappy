@@ -381,6 +381,8 @@ class ProspectController extends Controller
                 $modelcus->zone_id = $model->zone_id;
                 $modelcus->prospect_id = $model->id;
                 if($modelcus->save()){
+                    $model->status = 2;
+                    $model->save(false);
                     $modelpro_detail = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id])->all();
                     if($modelpro_detail){
                         foreach($modelpro_detail as $value){
