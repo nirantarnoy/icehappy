@@ -65,25 +65,28 @@ $zone = \backend\models\Salezone::find()->all();
         <div class="card-body">
 
             <div class="row">
+
+                <div class="col-lg-3">
+                    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                </div>
                 <div class="col-lg-3">
                     <label for="">คำนำหน้า</label>
                     <select name="prefix" class="form-control" id="">
                         <?php
                         $list = \backend\helpers\Prefixname::asArrayObject();
+                        $select = '';
                         for($i=0;$i<=count($list)-1;$i++):
+                            if($list[$i]['id']== $model->prefix){$select = 'selected';}
                             ?>
-                            <option value="<?=$list[$i]['id']?>"><?=$list[$i]['name']?></option>
+                            <option value="<?=$list[$i]['id']?>" <?=$select?>><?=$list[$i]['name']?></option>
                         <?php endfor;?>
                     </select>
                 </div>
                 <div class="col-lg-3">
-                    <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
+                    <?php echo $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-lg-3">
                     <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
-                </div>
-                <div class="col-lg-3">
-                    <?= $form->field($model, 'contact_name')->textInput(['maxlength' => true]) ?>
                 </div>
 
             </div>

@@ -40,13 +40,12 @@ $this->params['breadcrumbs'][] = $this->title;
             //'delivery_type',
             //'delivery_place',
             [
-                'attribute'=>'status',
-                'contentOptions' => ['style' => 'vertical-align: middle'],
-                'format' => 'html',
-                'value'=>function($data){
-                    return $data->status === 1 ? '<div class="label label-success">Active</div>':'<div class="label label-warning">Inactive</div>';
-                }
-            ],
+                                            'attribute'=>'status',
+                                            'format'=>'raw',
+                                            'value'=>function($data){
+                                              return "<label class='label label-warning'>".\backend\helpers\ProspectStatus::getTypeById($data->status)."</label>";
+                                            }
+                                    ],
             [
                 'attribute' => 'created_at',
                 'value' => function($data){
