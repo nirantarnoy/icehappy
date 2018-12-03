@@ -43,7 +43,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                             'attribute'=>'status',
                                             'format'=>'raw',
                                             'value'=>function($data){
-                                              return "<label class='label label-warning'>".\backend\helpers\ProspectStatus::getTypeById($data->status)."</label>";
+                                               if(\backend\helpers\ProspectStatus::getTypeById($data->status) == 1){
+                                                   return "<label class='label label-warning'>".\backend\helpers\ProspectStatus::getTypeById($data->status)."</label>";
+                                               }else{
+                                                   return "<label class='label label-success'>".\backend\helpers\ProspectStatus::getTypeById($data->status)."</label>";
+                                               }
+
+
                                             }
                                     ],
             [
