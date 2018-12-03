@@ -113,12 +113,13 @@ class CustomerController extends Controller
                 return $this->redirect(['index']);
             }
 
-            return $this->render('create', [
-                'model' => $model,
-                'model_address' => $model_address,
-                'model_address_plant' => null,
-            ]);
+
         }
+        return $this->render('create', [
+            'model' => $model,
+            'model_address' => $model_address,
+            'model_address_plant' => null,
+        ]);
     }
 
     /**

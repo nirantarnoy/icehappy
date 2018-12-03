@@ -376,7 +376,8 @@ $this->registerJs($js,static::POS_END);
                         <div class="card-body">
                             <h4 class="card-title">อัพโหลดรูปภาพ</h4>
                             <label for="input-file-max-fs">You can add a max file size</label>
-                            <input type="file" id="input-file-max-fs" multiple class="dropify" data-max-file-size="2M" />
+                            <input type="file" name="imagefile[]" id="input-file-max-fs" multiple class="dropify" data-max-file-size="2M" />
+
                         </div>
                     </div>
                 </div>
