@@ -137,10 +137,16 @@
             <?=number_format($query2[0]['total4'],1)?>
         </td>
         <td style="text-align: center;background-color: #9cc2cb;text-align: right">
-            <?=$query3[0]['total_big']?>
+            <?php if(count($query3)){
+                echo $query3[0]['total_big'];
+                }
+                ?>
         </td>
         <td style="text-align: center;background-color: #9cc2cb;text-align: right">
-            <?=$query3[0]['total_small']?>
+            <?php if(count($query3)){
+                echo $query3[0]['total_small'];
+            }
+            ?>
         </td>
         <td style="text-align: center"></td>
     </tr>
