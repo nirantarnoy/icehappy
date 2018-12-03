@@ -340,9 +340,9 @@ class SaleorderController extends Controller
                 (SELECT qty * price FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS total2,
                 (SELECT qty * price FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS total3,
                 (SELECT qty * price FROM saleorder_line WHERE product_id=4 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS total4
-            FROM saleorder_line AS T1 
-            INNER JOIN customer AS T2 ON T1.customer_id = T2.id
-            WHERE T1.sale_id = ".$id."
+            FROM saleorder_line AS t1 
+            INNER JOIN customer AS t2 ON t1.customer_id = t2.id
+            WHERE t1.sale_id = ".$id."
             GROUP BY customer_id
         ";
 
@@ -461,9 +461,9 @@ class SaleorderController extends Controller
                     (SELECT qty * price FROM saleorder_line WHERE product_id=2 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS total2,
                     (SELECT qty * price FROM saleorder_line WHERE product_id=3 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS total3,
                     (SELECT qty * price FROM saleorder_line WHERE product_id=4 AND customer_id = t1.customer_id AND sale_id = t1.sale_id) AS total4
-                FROM saleorder_line AS T1 
-                INNER JOIN customer AS T2 ON T1.customer_id = T2.id
-                WHERE T1.sale_id = ".$sale_id."
+                FROM saleorder_line AS t1 
+                INNER JOIN customer AS t2 ON t1.customer_id = t2.id
+                WHERE t1.sale_id = ".$sale_id."
                 GROUP BY customer_id
             ";
 
