@@ -223,7 +223,7 @@ class ProspectController extends Controller
             $model->zone_id = \Yii::$app->request->post("zone_id");
             $model->prefix = $prefix;
           //  print_r($item_list);return;
-            echo $prefix;return;
+            //echo $prefix;return;
             if($model->save()){
                 if(!empty($uploadimage)){
                     foreach($uploadimage as $file){
