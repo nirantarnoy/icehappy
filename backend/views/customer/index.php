@@ -126,15 +126,15 @@ $js=<<<JS
  $(function() {
    $("#sa-warning1").click(function(){
       swal({   
-            title: "Are you sure XX?",   
-            text: "You will not be able to recover this imaginary file!",   
+            title: "คุณต้องการลบข้อมูลนี้ใช่หรือไม่?",   
+            text: "ข้อมูลนี้จะถูกลบแบบถาวรเลยนะ!",   
             type: "warning",   
             showCancelButton: true,   
             confirmButtonColor: "#DD6B55",   
-            confirmButtonText: "Yes, delete it!",   
+            confirmButtonText: "ตกลง",   
             closeOnConfirm: false 
         }, function(){   
-            swal("Deleted!", "Your imaginary file has been deleted.", "success"); 
+            swal("ลบข้อมูลเรียบร้อยแล้ว!", "ระบบทำการลบข้อมูลที่คุณต้องการให้แล้ว.", "success"); 
         }); 
    });
  });
