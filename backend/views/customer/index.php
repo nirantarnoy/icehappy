@@ -102,6 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //                                    'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
 //                                    'data-method' => 'post',
 //                                    'data-pjax' => '0',
+                                     'data-url'=>$url,
                                     'onclick'=>'recDelete($(this));'
                                 ]);
                                 return Html::a('<span class="fa fa-trash btn btn-secondary"></span>', 'javascript:void(0)', $options);
