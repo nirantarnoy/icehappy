@@ -114,5 +114,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php Pjax::end(); ?>
         </div>
     </div>
-
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Warning message <small>(Click on image)</small></h4>
+            <img src="../assets/images/alert/alert4.png" alt="alert" class="img-responsive model_img" id="sa-warning">
+        </div>
+    </div>
 </div>
