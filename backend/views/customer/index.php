@@ -132,6 +132,7 @@ $js=<<<JS
             showCancelButton: true,   
             confirmButtonColor: "#DD6B55",   
             confirmButtonText: "ตกลง",   
+            cancelButtonText: "เลิกทำ",   
             closeOnConfirm: false 
         }, function(){   
             swal("ลบข้อมูลเรียบร้อยแล้ว!", "ระบบทำการลบข้อมูลที่คุณต้องการให้แล้ว.", "success"); 
