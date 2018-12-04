@@ -142,6 +142,7 @@ $js=<<<JS
     function recDelete(e){
             //e.preventDefault();
             var url = e.attr("data-url");
+            alert(url);
             swal({   
                 title: "คุณต้องการลบข้อมูลนี้ใช่หรือไม่?",   
                 text: "ข้อมูลนี้จะถูกลบแบบถาวรเลยนะ!",   
