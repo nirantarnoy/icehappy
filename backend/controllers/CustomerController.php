@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\helpers\Json;
 use kartik\mpdf\Pdf;
+use yii\imagine\Image;
+
 
 /**
  * CustomerController implements the CRUD actions for Custumer model.
