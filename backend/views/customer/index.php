@@ -9,8 +9,16 @@ use yii\widgets\Pjax;
 
 $this->title = 'ลูกค้า';
 $this->params['breadcrumbs'][] = $this->title;
+
+$completed = '';
 ?>
 <div class="chk-alert">
+    <?php
+    $session = Yii::$app->session;
+    if($session->getFlash('msg')){
+      $completed = "completed";
+    }
+    ?>
     <div class="tst3"></div>
 </div>
 <div class="custumer-index">
@@ -134,7 +142,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 $js=<<<JS
  $(function() {
-     if(1>0){
+     var comp = "$completed";
+     if(comp == "completed"){
         // $(".tst3").click(function(){
            $.toast({
             heading: 'Welcome to Monster admin',
@@ -180,7 +189,7 @@ $js=<<<JS
             }, function(){  
                   e.attr("href",url); 
                   e.trigger("click"); 
-                  swal("ลบข้อมูลเรียบร้อยแล้ว!", "ระบบทำการลบข้อมูลที่คุณต้องการให้แล้ว.", "success"); 
+                //  swal("ลบข้อมูลเรียบร้อยแล้ว!", "ระบบทำการลบข้อมูลที่คุณต้องการให้แล้ว.", "success"); 
             });
     }
 JS;

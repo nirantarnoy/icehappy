@@ -304,7 +304,8 @@ class CustomerController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        $session = Yii::$app->session;
+        $session->setFlash('msg','บันทึกรายการเรียบร้อย');
         return $this->redirect(['index']);
     }
 
