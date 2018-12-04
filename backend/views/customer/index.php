@@ -154,8 +154,8 @@ $js=<<<JS
                 cancelButtonText: "เลิกทำ",   
                 closeOnConfirm: false 
             }, function(){  
-                //  e.attr("href",url); 
-                //  e.trigger("click"); 
+                  e.attr("href",url); 
+                  e.trigger("click"); 
                   swal("ลบข้อมูลเรียบร้อยแล้ว!", "ระบบทำการลบข้อมูลที่คุณต้องการให้แล้ว.", "success"); 
             });
     }
