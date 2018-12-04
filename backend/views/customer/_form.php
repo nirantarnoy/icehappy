@@ -259,6 +259,7 @@ $this->registerJs($js,static::POS_END);
                     </div>
                 </div>
             </div>
+            <?php if(!$model->isNewRecord):?>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card">
@@ -368,6 +369,147 @@ $this->registerJs($js,static::POS_END);
 <!--                </div>-->
 
             </div>
+            <?php endif;?>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h4 class="card-title">สนใจน้ำแข็ง</h4>
+                                            <table>
+                                                <?php
+                                                $item = \backend\helpers\item::asArrayObject();
+                                                for($x=0;$x<=count($item)-1;$x++):
+                                                    ?>
+                                                    <?php if($model->isNewRecord):?>
+                                                    <tr>
+                                                        <td style="vertical-align: middle;">
+                                                            <input type="hidden" name="select_item" class="select_item" value="">
+                                                            <!--                                               <input type="hidden" name="select_item_qty" class="select_item_qty" value="">-->
+                                                            <input type="checkbox" value="<?=$item[$x]['id']?>" id="item_checkbox_<?=$x?>" name="" class="filled-in chk-col-cyan" onchange="enableqty($(this));" />
+                                                            <label for="item_checkbox_<?=$x?>"><?=$item[$x]['name']?></label>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <input type="number" name="item_qty[]" class="form-control line_qty" min="1" value="" disabled >
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            กระสอบต่อวัน
+                                                        </td>
+                                                    </tr>
+                                                <?php else:?>
+                                                    <?php
+                                                    $checked = '';
+                                                    $disabled = 'disabled';
+                                                    $checked_qty = '';
+                                                    $old_select = '';
+                                                    $checked_item = '';
+                                                    $l = 0;
+                                                    foreach ($item_select as $value){
+
+                                                        if($value->itemid == $item[$x]['id']){
+                                                            $checked = 'checked';
+                                                            $checked_qty = $value->qty;
+                                                            $disabled = '';
+
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <tr>
+                                                        <td style="vertical-align: middle;">
+                                                            <input type="hidden" name="select_item" class="select_item" value="">
+                                                            <input type="checkbox" value="<?=$item[$x]['id']?>" id="item_checkbox_<?=$x?>" name="" <?=$checked?> class="filled-in chk-col-cyan" onchange="enableqty($(this));" />
+                                                            <label for="item_checkbox_<?=$x?>"><?=$item[$x]['name']?></label>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <input type="number" name="item_qty[]" class="form-control line_qty" min="1" value="<?=$checked_qty?>" <?=$disabled?> >
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            กระสอบต่อวัน
+                                                        </td>
+                                                    </tr>
+                                                <?php endif;?>
+                                                <?php endfor;?>
+                                            </table>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4 class="card-title">ถังน้ำแข็ง</h4>
+                                            <table>
+                                                <?php
+                                                $item = \backend\helpers\Bucket::asArrayObject();
+                                                for($x=0;$x<=count($item)-1;$x++):
+                                                    ?>
+                                                    <?php if($model->isNewRecord):?>
+                                                    <tr style="vertical-align: middle;">
+                                                        <td style="vertical-align: middle;">
+                                                            <input type="hidden" name="select_bucket" class="select_bucket" value="">
+                                                            <input type="checkbox" value="<?=$item[$x]['id']?>"  id="bucket_checkbox_<?=$x?>" class="filled-in chk-col-cyan" onchange="enableqty2($(this));" />
+                                                            <label for="bucket_checkbox_<?=$x?>"><?=$item[$x]['name']?></label>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <input type="number" name="bucket_qty[]" class="form-control line_qty" min="1" disabled>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <span>ใบ</span>
+                                                        </td>
+                                                    </tr>
+                                                <?php else:?>
+                                                    <?php
+                                                    $checked = '';
+                                                    $disabled = 'disabled';
+                                                    $checked_qty = '';
+                                                    $old_select = '';
+                                                    $checked_item = '';
+                                                    $l = 0;
+                                                    foreach ($bucket as $value){
+                                                        if($value->itemid == $item[$x]['id']){
+                                                            $checked = 'checked';
+                                                            $checked_qty = $value->qty;
+                                                            $disabled = '';
+
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <tr style="vertical-align: middle;">
+                                                        <td style="vertical-align: middle;">
+                                                            <input type="hidden" name="select_bucket" class="select_bucket" value="">
+                                                            <input type="checkbox" value="<?=$item[$x]['id']?>" id="bucket_checkbox_<?=$x?>" class="filled-in chk-col-cyan" <?=$checked?> onchange="enableqty2($(this));" />
+                                                            <label for="bucket_checkbox_<?=$x?>"><?=$item[$x]['name']?></label>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <input type="number" name="bucket_qty[]" class="form-control line_qty" min="1" value="<?=$checked_qty?>" <?=$disabled?>>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <span>ใบ</span>
+                                                        </td>
+                                                    </tr>
+                                                <?php endif;?>
+                                                <?php endfor;?>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
             <div class="row">
@@ -421,8 +563,13 @@ $url_to_del_pic = Url::to(['customer/deletepic'],true);
 $js =<<<JS
 
  var item_list = [];
+ var bucket_list = [];
+
   $(function() {
       $(".select_item").val('$old_item');
+       $(".select_bucket").val('$old_bucket');
+       item_list = [$(".select_item").val()];
+       bucket_list = [$(".select_bucket").val()];
   });
   function removepic(e){
    // alert(e.attr("data-var"));return;
@@ -457,6 +604,20 @@ $js =<<<JS
       //alert(item_list);
      $(".select_item").val(item_list);
 
+  }
+  function enableqty2(e){
+      if(e.prop("checked")){
+          e.closest("tr").find(".line_qty").removeAttr('disabled');
+          e.closest("tr").find(".line_qty").val(1);
+          bucket_list.push(e.val());
+      }else{
+          e.closest("tr").find(".line_qty").prop('disabled','disabled').val('');
+          bucket_list.splice(bucket_list.indexOf(e.val() ), 1);
+          
+      }
+      //alert(item_list);
+   
+     $(".select_bucket").val(bucket_list);
   }
 JS;
 

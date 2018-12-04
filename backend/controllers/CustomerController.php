@@ -83,8 +83,33 @@ class CustomerController extends Controller
             $model->customer_group_id = Yii::$app->request->post('customer_group');
             $model->zone_id = Yii::$app->request->post('zone_id');
 
+
+            $item_check = substr(Yii::$app->request->post('select_item'),0,1);
+            $item_last = '';
+            if($item_check == ","){
+                $item_last= substr(Yii::$app->request->post('select_item'),1,strlen(Yii::$app->request->post('select_item')));
+            }else{
+                $item_last = Yii::$app->request->post('select_item');
+            }
+            $item_list = explode(',',$item_last) ;
+            $item_qty = Yii::$app->request->post('item_qty');
+
+            $bucket_check = substr(Yii::$app->request->post('select_bucket'),0,1);
+            $bucket_last = '';
+
+            if($bucket_check == ","){
+                $bucket_last= substr(Yii::$app->request->post('select_bucket'),1,strlen(Yii::$app->request->post('select_bucket')));
+            }else{
+                $bucket_last = Yii::$app->request->post('select_bucket');
+            }
+
+            $bucket_list = explode(',',$bucket_last) ;
+            $bucket_qty = Yii::$app->request->post('bucket_qty');
+
             $uploadimage = UploadedFile::getInstancesByName('imagefile');
 
+
+            //print_r($bucket_list);return;
 
             if ($model->save()) {
 
@@ -108,6 +133,31 @@ class CustomerController extends Controller
 
 
                 }
+                if(count($item_list)>0 && count($item_qty)>0){
+                    for($i=0;$i<=count($item_list)-1;$i++){
+                        $detail = new \backend\models\Customerdetail();
+                        $detail->customer_id = $model->id;
+                        $detail->itemid = $item_list[$i];
+                        $detail->qty = $item_qty[$i];
+                        $detail->line_type = 1;
+                        $detail->status = 1;
+                        $detail->save();
+                    }
+
+                }
+                if(count($bucket_list)>0 && count($bucket_qty)>0){
+                    for($i=0;$i<=count($bucket_list)-1;$i++){
+
+                        $detail = new \backend\models\Customerdetail();
+                        $detail->customer_id = $model->id;
+                        $detail->itemid = $bucket_list[$i];
+                        $detail->qty = $bucket_qty[$i];
+                        $detail->line_type = 2;
+                        $detail->status = 1;
+                        $detail->save();
+                    }
+                }
+
                 $session = Yii::$app->session;
                 $session->setFlash('msg', 'บันทึกรายการเรียบร้อย');
                 return $this->redirect(['index']);
