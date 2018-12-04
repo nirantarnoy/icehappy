@@ -135,7 +135,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $js=<<<JS
  $(function() {
      if(1>0){
-         $(".tst3").click(function(){
+        // $(".tst3").click(function(){
            $.toast({
             heading: 'Welcome to Monster admin',
             text: 'Use the predefined ones, or specify a custom position object.',
@@ -146,7 +146,7 @@ $js=<<<JS
             stack: 6
           });
 
-     });
+     //});
      }
    $("#sa-warning1").click(function(){
       swal({   
