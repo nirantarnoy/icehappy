@@ -99,12 +99,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $options = array_merge([
                                     'title' => Yii::t('yii', 'Delete'),
                                     'aria-label' => Yii::t('yii', 'Delete'),
-                                    //'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-                                    //'data-method' => 'post',
-                                    //'data-pjax' => '0',
-                                    'onclick'=>'recDelete($(this));'
+                                    'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+                                    'data-method' => 'post',
+                                    'data-pjax' => '0',
+                                   // 'onclick'=>'recDelete($(this));'
                                 ]);
-                                return Html::a('<span class="fa fa-trash btn btn-secondary"></span>', 'javascript:void(0)', $options);
+                             //   return Html::a('<span class="fa fa-trash btn btn-secondary"></span>', 'javascript:void(0)', $options);
+                                return Html::a('<span class="fa fa-trash btn btn-secondary"></span>', $url, $options);
                             }
                         ]
                     ],
