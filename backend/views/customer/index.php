@@ -117,7 +117,27 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Warning message <small>(Click on image)</small></h4>
-            <img src="../assets/images/alert/alert4.png" alt="alert" class="img-responsive model_img" id="sa-warning">
+            <img src="../assets/images/alert/alert4.png" alt="alert" class="img-responsive model_img" id="sa-warning1">
         </div>
     </div>
 </div>
+<?php
+$js=<<<JS
+ $(function() {
+   $("#sa-warning1").click(function(){
+      swal({   
+            title: "Are you sure XX?",   
+            text: "You will not be able to recover this imaginary file!",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Yes, delete it!",   
+            closeOnConfirm: false 
+        }, function(){   
+            swal("Deleted!", "Your imaginary file has been deleted.", "success"); 
+        }); 
+   });
+ });
+JS;
+$this->registerJs($js,static::POS_END);
+?>
