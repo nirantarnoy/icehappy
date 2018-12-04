@@ -126,18 +126,18 @@ $completed = '';
             <?php Pjax::end(); ?>
         </div>
     </div>
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Warning message <small>(Click on image)</small></h4>
-            <img src="../assets/images/alert/alert4.png" alt="alert" class="img-responsive model_img" id="sa-warning1">
-        </div>
-    </div>
-    <div class="button-box">
-        <button class="tst1 btn btn-info">Info Message</button>
-        <button class="tst2 btn btn-warning">Warning Message</button>
-        <button class="tst3 btn btn-success">Success Message</button>
-        <button class="tst4 btn btn-danger">Danger Message</button>
-    </div>
+<!--    <div class="card">-->
+<!--        <div class="card-body">-->
+<!--            <h4 class="card-title">Warning message <small>(Click on image)</small></h4>-->
+<!--            <img src="../assets/images/alert/alert4.png" alt="alert" class="img-responsive model_img" id="sa-warning1">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="button-box">-->
+<!--        <button class="tst1 btn btn-info">Info Message</button>-->
+<!--        <button class="tst2 btn btn-warning">Warning Message</button>-->
+<!--        <button class="tst3 btn btn-success">Success Message</button>-->
+<!--        <button class="tst4 btn btn-danger">Danger Message</button>-->
+<!--    </div>-->
 </div>
 <?php
 $js=<<<JS
@@ -146,8 +146,8 @@ $js=<<<JS
      if(comp == "completed"){
         // $(".tst3").click(function(){
            $.toast({
-            heading: 'Welcome to Monster admin',
-            text: 'Use the predefined ones, or specify a custom position object.',
+            heading: 'แจ้งผลการทำงาน',
+            text: 'ระบบทำการลบข้อมูลที่คุณต้องการลบแล้ว',
             position: 'top-right',
             loaderBg:'#ff6849',
             icon: 'success',
