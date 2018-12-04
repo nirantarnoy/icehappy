@@ -121,6 +121,12 @@ $this->params['breadcrumbs'][] = $this->title;
             <img src="../assets/images/alert/alert4.png" alt="alert" class="img-responsive model_img" id="sa-warning1">
         </div>
     </div>
+    <div class="button-box">
+        <button class="tst1 btn btn-info">Info Message</button>
+        <button class="tst2 btn btn-warning">Warning Message</button>
+        <button class="tst3 btn btn-success">Success Message</button>
+        <button class="tst4 btn btn-danger">Danger Message</button>
+    </div>
 </div>
 <?php
 $js=<<<JS
