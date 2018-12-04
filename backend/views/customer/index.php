@@ -143,7 +143,7 @@ $js=<<<JS
     function recDelete(e){
             //e.preventDefault();
             var url = e.attr("data-url");
-            alert(url);
+          //  alert(url);
             swal({   
                 title: "คุณต้องการลบข้อมูลนี้ใช่หรือไม่?",   
                 text: "ข้อมูลนี้จะถูกลบแบบถาวรเลยนะ!",   
@@ -154,8 +154,8 @@ $js=<<<JS
                 cancelButtonText: "เลิกทำ",   
                 closeOnConfirm: false 
             }, function(){  
-                  e.attr("href",url); 
-                  e.trigger("click"); 
+                //  e.attr("href",url); 
+                //  e.trigger("click"); 
                   swal("ลบข้อมูลเรียบร้อยแล้ว!", "ระบบทำการลบข้อมูลที่คุณต้องการให้แล้ว.", "success"); 
             });
     }
