@@ -10,6 +10,9 @@ use yii\widgets\Pjax;
 $this->title = 'ลูกค้า';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="chk-alert">
+    <div class="tst3"></div>
+</div>
 <div class="custumer-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -131,6 +134,20 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 $js=<<<JS
  $(function() {
+     if(1>0){
+         $(".tst3").click(function(){
+           $.toast({
+            heading: 'Welcome to Monster admin',
+            text: 'Use the predefined ones, or specify a custom position object.',
+            position: 'top-right',
+            loaderBg:'#ff6849',
+            icon: 'success',
+            hideAfter: 3500, 
+            stack: 6
+          });
+
+     });
+     }
    $("#sa-warning1").click(function(){
       swal({   
             title: "คุณต้องการลบข้อมูลนี้ใช่หรือไม่?",   
@@ -145,6 +162,7 @@ $js=<<<JS
             swal("ลบข้อมูลเรียบร้อยแล้ว!", "ระบบทำการลบข้อมูลที่คุณต้องการให้แล้ว.", "success"); 
         }); 
    });
+   
  });
     function recDelete(e){
             //e.preventDefault();
