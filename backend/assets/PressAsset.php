@@ -16,7 +16,7 @@ class PressAsset extends AssetBundle
     ];
 
     public $js = [
-        'plugins/jquery/jquery.min.js',
+        //'plugins/jquery/jquery.min.js',
         'plugins/bootstrap/js/popper.min.js',
         'plugins/bootstrap/js/bootstrap.min.js',
         'plugins/sparkline/jquery.sparkline.min.js',
@@ -25,7 +25,7 @@ class PressAsset extends AssetBundle
         'plugins/morrisjs/morris.min.js',
         'plugins/styleswitcher/jQuery.style.switcher.js',
         'plugins/dropify/dist/js/dropify.min.js',
-        'plugins/jquery/jquery.min.js',
+       // 'plugins/jquery/jquery.min.js',
         'js/jquery.slimscroll.js',
         'js/waves.js',
         'js/sidebarmenu.js',
