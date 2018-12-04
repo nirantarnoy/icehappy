@@ -370,7 +370,7 @@ $this->registerJs($js,static::POS_END);
 
             </div>
             <?php endif;?>
-
+            <?php if($model->isNewRecord):?>
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -510,6 +510,7 @@ $this->registerJs($js,static::POS_END);
                     </div>
                 </div>
             </div>
+            <?php endif;?>
 
 
             <div class="row">

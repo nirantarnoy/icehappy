@@ -79,9 +79,14 @@ class CustomerController extends Controller
         $model = new Custumer();
         $model_address = new \backend\models\AddressBook();
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $model_address->load(Yii::$app->request->post())) {
+
             $model->customer_group_id = Yii::$app->request->post('customer_group');
             $model->zone_id = Yii::$app->request->post('zone_id');
+
+            $district = Yii::$app->request->post('select_district');
+            $city = Yii::$app->request->post('select_city');
+            $province = Yii::$app->request->post('select_province');
 
 
             $item_check = substr(Yii::$app->request->post('select_item'),0,1);
@@ -112,11 +117,17 @@ class CustomerController extends Controller
             //print_r($bucket_list);return;
 
             if ($model->save()) {
+                // insert address
+                $model_address->status = 1;
+                $model_address->party_id = $model->id;
+                $model_address->district_id = $district;
+                $model_address->city_id = $city;
+                $model_address->province_id = $province;
+                $model_address->party_type_id = 2;
+                $model_address->save(false);
 
                 if (!empty($uploadimage)) {
                     foreach ($uploadimage as $file) {
-
-
                         $file->saveAs(Yii::getAlias('@backend') . '/web/uploads/images/' . $file);
                         Image::thumbnail(Yii::getAlias('@backend') . '/web/uploads/images/' . $file, 100, 70)
                             ->rotate(0)
@@ -190,6 +201,10 @@ class CustomerController extends Controller
        // $seeme_select = \backend\models\Prospectdetail::find()->where(['customer_id'=>$id,'line_type'=>3])->all();
         if ($model->load(Yii::$app->request->post())) {
 
+            $district = Yii::$app->request->post('select_district');
+            $city = Yii::$app->request->post('select_city');
+            $province = Yii::$app->request->post('select_province');
+
             $item_check = substr(Yii::$app->request->post('select_item'),0,1);
             $item_last = '';
             if($item_check == ","){
@@ -201,7 +216,10 @@ class CustomerController extends Controller
             $line_price = Yii::$app->request->post('item_price');
             $item_qty = Yii::$app->request->post('item_qty');
 
-           // print_r($item_list);
+            $uploadimage = UploadedFile::getInstancesByName('imagefile');
+
+
+            // print_r($item_list);
           //  print_r($line_price);
 
            // return;
@@ -212,6 +230,32 @@ class CustomerController extends Controller
 
             if($model->save()){
 
+//                $model_address_plant->status = 1;
+//                $model_address_plant->party_id = $model->id;
+                $model_address_plant->district_id = $district;
+                $model_address_plant->city_id = $city;
+                $model_address_plant->province_id = $province;
+           //     $model_address_plant->party_type_id = 2;
+                $model_address_plant->save(false);
+
+                if (!empty($uploadimage)) {
+                    foreach ($uploadimage as $file) {
+                        $file->saveAs(Yii::getAlias('@backend') . '/web/uploads/images/' . $file);
+                        Image::thumbnail(Yii::getAlias('@backend') . '/web/uploads/images/' . $file, 100, 70)
+                            ->rotate(0)
+                            ->save(Yii::getAlias('@backend') . '/web/uploads/thumbnail/' . $file, ['jpeg_quality' => 100]);
+
+
+                        $modelfile = new \common\models\CustomerFile();
+                        $modelfile->party_id = $model->id;
+                        $modelfile->party_type = 2; //1 = คัดกรอง 2 = ลูกค้า
+                        $modelfile->file_type = 2; // 2 = รูปภาพ
+                        $modelfile->name = $file;
+                        $modelfile->save(false);
+                    }
+
+
+                }
                 if(count($item_list)>0){
                     \backend\models\Customerdetail::deleteAll(['customer_id'=>$id,'line_type'=>1]);
                     for($i=0;$i<=count($item_list)-1;$i++){
