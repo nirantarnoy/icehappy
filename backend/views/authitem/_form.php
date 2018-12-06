@@ -15,14 +15,25 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'type')->textInput() ?>
+            <label for="">ประเภท</label>
+    <?php //echo $form->field($model, 'type')->textInput() ?>
+            <select name="auth_type" id="" class="form-control auth-type">
+                <option value="">-- เลือกประเภท --</option>
+                <?php
+                $value = \backend\helpers\AuthType::asArrayObject();
+                for ($i=0;$i<=count($value)-1;$i++):?>
+                   <?php $select = '';
+                    if($value[$i]['id']==$model->type){$select = 'selected';}
+                    ?>
+                    <option value="<?=$value[$i]['id']?>" <?=$select?>><?=$value[$i]['name']?></option>
+                <?php endfor;?>
+            </select>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'rule_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'child_list')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'data')->textInput() ?>
+    <?php //echo $form->field($model, 'data')->textInput() ?>
 
 
     <div class="form-group">

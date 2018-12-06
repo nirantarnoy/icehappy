@@ -66,8 +66,12 @@ class AuthitemController extends Controller
     {
         $model = new Authitem();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->name]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->type = Yii::$app->request->post('auth_type');
+            if( $model->save()){
+                return $this->redirect(['index']);
+            }
+
         }
 
         return $this->render('create', [
@@ -86,8 +90,11 @@ class AuthitemController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->name]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->type = Yii::$app->request->post('auth_type');
+            if( $model->save()){
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('update', [
