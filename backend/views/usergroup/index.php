@@ -9,7 +9,18 @@ use yii\widgets\Pjax;
 
 $this->title = 'กลุ่มผู้ใช้งาน';
 $this->params['breadcrumbs'][] = $this->title;
+
+$completed = '';
 ?>
+<div class="chk-alert">
+    <?php
+    $session = Yii::$app->session;
+    if($session->getFlash('msg')){
+        $completed = "completed";
+    }
+    ?>
+    <div class="tst3"></div>
+</div>
 <div class="user-group-index">
     <h1><?= Html::encode($this->title) ?></h1>
 <div class="card">
@@ -103,3 +114,59 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 </div>
+<?php
+$js=<<<JS
+ $(function() {
+     var comp = "$completed";
+     if(comp == "completed"){
+        // $(".tst3").click(function(){
+           $.toast({
+            heading: 'แจ้งผลการทำงาน',
+            text: 'ระบบทำการลบข้อมูลที่คุณต้องการลบแล้ว',
+            position: 'top-right',
+            loaderBg:'#ff6849',
+            icon: 'success',
+            hideAfter: 3500, 
+            stack: 6
+          });
+
+     //});
+     }
+   $("#sa-warning1").click(function(){
+      swal({   
+            title: "คุณต้องการลบข้อมูลนี้ใช่หรือไม่?",   
+            text: "ข้อมูลนี้จะถูกลบแบบถาวรเลยนะ!",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "ตกลง",   
+            cancelButtonText: "เลิกทำ",   
+            closeOnConfirm: false 
+        }, function(){   
+            swal("ลบข้อมูลเรียบร้อยแล้ว!", "ระบบทำการลบข้อมูลที่คุณต้องการให้แล้ว.", "success"); 
+        }); 
+   });
+   
+ });
+    function recDelete(e){
+            //e.preventDefault();
+            var url = e.attr("data-url");
+          //  alert(url);
+            swal({   
+                title: "คุณต้องการลบข้อมูลนี้ใช่หรือไม่?",   
+                text: "ข้อมูลนี้จะถูกลบแบบถาวรเลยนะ!",   
+                type: "warning",   
+                showCancelButton: true,   
+                confirmButtonColor: "#DD6B55",   
+                confirmButtonText: "ตกลง",   
+                cancelButtonText: "เลิกทำ",   
+                closeOnConfirm: false 
+            }, function(){  
+                  e.attr("href",url); 
+                  e.trigger("click"); 
+                //  swal("ลบข้อมูลเรียบร้อยแล้ว!", "ระบบทำการลบข้อมูลที่คุณต้องการให้แล้ว.", "success"); 
+            });
+    }
+JS;
+$this->registerJs($js,static::POS_END);
+?>
