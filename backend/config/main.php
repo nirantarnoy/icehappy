@@ -49,17 +49,18 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'assetManager' => [
-            'bundles' => [
-                'dosamigos\google\maps\MapAsset' => [
-                    'options' => [
-                        'key' => 'AIzaSyBb3O8n560yQ67V_vrJkTzQVnsBfxL2Q4w',// ใส่ API ตรงนี้ครับ
-                        'language' => 'th',
-                        'version' => '3.1.18'
-                    ]
-                ]
-            ]
-        ],
+     //   'assetManager' => [
+           // 'forceCopy' => true,
+//            'bundles' => [
+//                'dosamigos\google\maps\MapAsset' => [
+//                    'options' => [
+//                        'key' => 'AIzaSyBb3O8n560yQ67V_vrJkTzQVnsBfxL2Q4w',// ใส่ API ตรงนี้ครับ
+//                        'language' => 'th',
+//                        'version' => '3.1.18'
+//                    ]
+//                ]
+//            ]
+      //  ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,

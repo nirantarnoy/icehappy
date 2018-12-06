@@ -26,7 +26,7 @@ class SaleorderController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['POST','GET'],
                 ],
             ],
         ];
@@ -409,9 +409,17 @@ class SaleorderController extends Controller
                 if($model_cus){
                     foreach($model_cus as $value){
                         $price1 = \backend\models\Custumer::findprice($value->id,1);
+                        $price2 = \backend\models\Custumer::findprice($value->id,2);
+                        $price3 = \backend\models\Custumer::findprice($value->id,3);
+                        $price4 = \backend\models\Custumer::findprice($value->id,4);
                         array_push($list,['zone_name'=>$model->description,'cus_code'=>$value->code,
                                                  'cus_id'=>$value->id,'cus_name'=>$value->first_name." ".$value->last_name,
-                                                 'price1'=>$price1]);
+                                'price1'=>$price1,
+                                'price2'=>$price2,
+                                'price3'=>$price3,
+                                'price4'=>$price4,
+                            ]
+                                  );
                     }
                 }
                 return Json::encode($list);
