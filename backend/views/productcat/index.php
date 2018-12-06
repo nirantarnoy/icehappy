@@ -11,7 +11,17 @@ use lavrentiev\widgets\toastr\Notification;
 
 $this->title = Yii::t('app', 'กลุ่มสินค้า');
 $this->params['breadcrumbs'][] = $this->title;
+$completed = '';
 ?>
+<div class="chk-alert">
+    <?php
+    $session = Yii::$app->session;
+    if($session->getFlash('msg')){
+        $completed = "completed";
+    }
+    ?>
+    <div class="tst3"></div>
+</div>
 <div class="productcat-index">
   <?php $session = Yii::$app->session;
       if ($session->getFlash('msg')): ?>
@@ -168,6 +178,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 //'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
                                                 //'data-method' => 'post',
                                                 //'data-pjax' => '0',
+                                                'data-url'=>$url,
                                                 'onclick'=>'recDelete($(this));'
                                             ]);
                                             return Html::a('<span class="fa fa-trash btn btn-secondary"></span>', 'javascript:void(0)', $options);

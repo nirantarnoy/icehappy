@@ -50,7 +50,17 @@ table.table-vendor td{
     padding: 0.5px 1px 0.5px 1px;
 }
 ');
+$completed = '';
 ?>
+<div class="chk-alert">
+    <?php
+    $session = Yii::$app->session;
+    if($session->getFlash('msg')){
+        $completed = "completed";
+    }
+    ?>
+    <div class="tst3"></div>
+</div>
 <div class="product-index">
 <?php $session = Yii::$app->session;
       if ($session->getFlash('msg')): ?>
@@ -368,6 +378,7 @@ table.table-vendor td{
                                                         //'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
                                                         //'data-method' => 'post',
                                                         //'data-pjax' => '0',
+                                                        'data-url'=>$url,
                                                         'onclick'=>'recDelete($(this));'
                                                     ]);
                                                     return Html::a('<span class="fa fa-trash btn btn-secondary"></span>', 'javascript:void(0)', $options);
