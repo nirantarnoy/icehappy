@@ -363,7 +363,7 @@ PressAsset::register($this);
                         <ul aria-expanded="false" class="collapse">
                             <li><a href="index.php?r=usergroup/index">User group</a></li>
                             <li><a href="index.php?r=user/index">Users</a></li>
-                            <li><a href="index.php?r=authenitem/index">Permission</a></li>
+                            <li><a href="index.php?r=authitem/index">Permission</a></li>
                         </ul>
                     </li>
                     <li class="two-column"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Products</span></a>

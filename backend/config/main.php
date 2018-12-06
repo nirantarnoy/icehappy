@@ -16,6 +16,7 @@ return [
         '@adminpress' => '@backend/theme/adminpress',
     ],
     'components' => [
+
         'view' => [
             'theme' => [
                 'basePath' => '@backend/theme/adminpress',
