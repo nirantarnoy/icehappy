@@ -67,8 +67,14 @@ class UserController extends Controller
         $model = new User();
 
         if ($model->load(Yii::$app->request->post())) {
+
+            $item_list = explode(',',Yii::$app->request->post('select_item'));
+
             $model->group_id = Yii::$app->request->post('select_group');
             if($model->save()){
+
+
+
                 $session = Yii::$app->session;
                 $session->setFlash('msg','บันทึกรายการเรียบร้อย');
                 return $this->redirect(['index']);
@@ -90,7 +96,7 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->getRoleByUser();
         if ($model->load(Yii::$app->request->post())) {
             $model->group_id = Yii::$app->request->post('select_group');
             if($model->save()){
