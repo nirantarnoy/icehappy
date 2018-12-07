@@ -359,14 +359,14 @@ PressAsset::register($this);
                     <li> <a class="has-arrow waves-effect waves-dark" href="index.php?r=plant/index" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">บริษัท</span></a>
 
                     </li>
-                    <li class="three-column"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">ข้อมูลผู้ใช้งาน</span></a>
+                    <li class="one-column"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">ข้อมูลผู้ใช้งาน</span></a>
                         <ul aria-expanded="false" class="collapse">
                             <li><a href="index.php?r=usergroup/index">กลุ่มผู้ใช้งาน</a></li>
                             <li><a href="index.php?r=user/index">ผู้ใช้งาน</a></li>
                             <li><a href="index.php?r=authitem/index">สิทธิ์การใช้งาน</a></li>
                         </ul>
                     </li>
-                    <li class="two-column"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">ระบบสินค้า</span></a>
+                    <li class="one-column"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">ระบบสินค้า</span></a>
                         <ul aria-expanded="false" class="collapse">
                             <li><a href="index.php?r=productcat/index">กลุ่มสินค้า</a></li>
                             <li><a href="index.php?r=product/index">สินค้า</a></li>
@@ -375,13 +375,18 @@ PressAsset::register($this);
                         </ul>
                     </li>
                     <li class="nav-small-cap">Sales Order</li>
-                    <li class="two-column"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-file"></i><span class="hide-menu">ระบบขาย</span></a>
+                    <li class="three-column"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-file"></i><span class="hide-menu">ระบบขาย</span></a>
                         <ul aria-expanded="false" class="collapse">
-                            <li><a href="index.php?r=saleorder/index">ขายสินค้า</a></li>
-                            <li><a href="index.php?r=salezone/index">เขต/เส้นทาง</a></li>
-                            <li><a href="index.php?r=prospect/index">คัดกรองลูกค้า</a></li>
+                            <li><a href="index.php?r=prospect/index">ขอเปิดบัญชี/กรองลูกค้า</a></li>
+                            <li><a href="index.php?r=saleorder/index">เปิดบิลขาย</a></li>
+                            <li><a href="index.php?r=salereport/index">รายงานระบบขาย</a></li>
+                            <li><a href="index.php?r=customer/index">สร้างข้อมูลลูกค้า</a></li>
+                            <li></li><li></li>
                             <li><a href="index.php?r=customergroup/index">กลุ่มลูกค้า</a></li>
-                            <li><a href="index.php?r=customer/index">ลูกค้า</a></li>
+                            <li></li><li></li>
+                            <li><a href="index.php?r=salezone/index">เขต/เส้นทาง</a></li>
+
+
 
 
                         </ul>

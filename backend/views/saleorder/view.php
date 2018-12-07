@@ -118,7 +118,7 @@ function geninvoice(e) {
     var custid = e.closest("tr").find(".cust-id").val();
     
     if(saleid !=''){
-        alert(saleid);
+        alert('$url_to_geninvoice');
         $.ajax({
            'type':'post',
            'dataType':'html',
