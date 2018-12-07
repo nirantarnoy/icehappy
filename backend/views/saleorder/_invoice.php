@@ -119,8 +119,8 @@
                             <div class="clearfix"></div>
                             <hr>
                             <div class="text-right">
-                                <button class="btn btn-danger" type="submit"> Proceed to payment </button>
-                                <button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>
+<!--                                <button class="btn btn-danger" type="submit"> Proceed to payment </button>-->
+                                <button id="print" class="btn btn-secondary btn-outline" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>
                             </div>
                         </div>
                     </div>
