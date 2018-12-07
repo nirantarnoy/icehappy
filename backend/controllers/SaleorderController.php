@@ -566,6 +566,8 @@ class SaleorderController extends Controller
             $model_city = \backend\models\AddressBook::getCity($custid);
             $model_province = \backend\models\AddressBook::getProvince($custid);
             $model_zipcode = \backend\models\AddressBook::getZipcode($custid);
+
+            $modelsaleline = \backend\models\Saleorderline::find()->where(['sale_id'=>$saleid,'customer_id'=>$custid])->all();
             if($modelsale){
                 return $this->render('_invoice',[
                     'modelsale' =>$modelsale,
@@ -576,6 +578,7 @@ class SaleorderController extends Controller
                     'customer_city' => $model_city,
                     'customer_province' => $model_province,
                     'customer_zipcode' => $model_zipcode,
+                    'modelsaleline' => $modelsaleline,
                 ]);
             }
         }

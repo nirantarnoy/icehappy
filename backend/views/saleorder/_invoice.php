@@ -77,44 +77,29 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <?php if($modelsaleline):?>
+                                    <?php $i=0;?>
+                                    <?php foreach ($modelsaleline as $value):?>
+                                    <?php $i+=1;?>
                                     <tr>
-                                        <td class="text-center">1</td>
+                                        <td class="text-center"><?=$i?></td>
                                         <td>Milk Powder</td>
-                                        <td class="text-right">2 </td>
-                                        <td class="text-right"> 24 </td>
-                                        <td class="text-right"> 48 </td>
+                                        <td class="text-right"><?=number_format($value->qty)?> </td>
+                                        <td class="text-right"> <?=number_format($value->price,2)?> </td>
+                                        <td class="text-right"> <?=number_format($value->qty * $value->price,2)?> </td>
                                     </tr>
-                                    <tr>
-                                        <td class="text-center">2</td>
-                                        <td>Air Conditioner</td>
-                                        <td class="text-right"> 3 </td>
-                                        <td class="text-right"> 500 </td>
-                                        <td class="text-right"> 1500 </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">3</td>
-                                        <td>RC Cars</td>
-                                        <td class="text-right"> 20 </td>
-                                        <td class="text-right"> 600 </td>
-                                        <td class="text-right"> 12000 </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">4</td>
-                                        <td>Down Coat</td>
-                                        <td class="text-right"> 60 </td>
-                                        <td class="text-right">5 </td>
-                                        <td class="text-right"> 300 </td>
-                                    </tr>
+                                    <?php endforeach;?>
+                                    <?php endif;?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="pull-right m-t-30 text-right">
-                                <p>รวม: 13,848</p>
-                                <p>vat (10%) : 138 </p>
+                                <p>รวม: <span class="total">13,848</span></p>
+                                <p>vat (7%) : <span class="vat">138</span> </p>
                                 <hr>
-                                <h3><b>รวมทั้งสิ้น :</b> 13,986</h3>
+                                <h3><b>รวมทั้งสิ้น :</b> <span class="grandtotal">13,986</span></h3>
                             </div>
                             <div class="clearfix"></div>
                             <hr>
