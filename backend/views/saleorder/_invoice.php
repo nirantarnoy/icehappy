@@ -38,29 +38,29 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-body printableArea">
-                    <h3><b>INVOICE</b> <span class="pull-right">#5669626</span></h3>
+                    <h3><b>INVOICE</b> <span class="pull-right"><?=$modelsale->sale_no?></span></h3>
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="pull-left">
                                 <address>
-                                    <h3> &nbsp;<b class="text-danger">Ice Happy</b></h3>
-                                    <p class="text-muted m-l-5">E 104, Dharti-2,
-                                        <br/> Nr' Viswakarma Temple,
-                                        <br/> Talaja Road,
-                                        <br/> Bhavnagar - 364002</p>
+                                    <h3> &nbsp;<b class="text-danger">Ice Happy Co.,Ltd.</b></h3>
+                                    <p class="text-muted m-l-5">บริษัท น้ำแข็งแฮปปี้ จำกัด,
+                                        <br/> 52/1 ต.หนองหงษ์,
+                                        <br/> อ.ทุ่งสง,
+                                        <br/> จ.นครศรีธรรมราช 80110</p>
                                 </address>
                             </div>
                             <div class="pull-right text-right">
                                 <address>
-                                    <h3>To,</h3>
-                                    <h4 class="font-bold">Gaala & Sons,</h4>
-                                    <p class="text-muted m-l-30">E 104, Dharti-2,
-                                        <br/> Nr' Viswakarma Temple,
-                                        <br/> Talaja Road,
-                                        <br/> Bhavnagar - 364002</p>
-                                    <p class="m-t-30"><b>Invoice Date :</b> <i class="fa fa-calendar"></i> 23rd Jan 2017</p>
-                                    <p><b>Due Date :</b> <i class="fa fa-calendar"></i> 25th Jan 2017</p>
+                                    <h3>ข้อมูลลูกค้า</h3>
+                                    <h4 class="font-bold"><?=$customer_name?>,</h4>
+                                    <p class="text-muted m-l-30"><?=$customer_address?>
+                                        <br/> <?=$customer_street." ".$customer_district?>,
+                                        <br/> <?=$customer_city?>,
+                                        <br/> <?=$customer_province." ".$customer_zipcode?></p>
+                                    <p class="m-t-30"><b>วันที่ :</b> <i class="fa fa-calendar"></i> 23rd Jan 2017</p>
+<!--                                    <p><b>Due Date :</b> <i class="fa fa-calendar"></i> 25th Jan 2017</p>-->
                                 </address>
                             </div>
                         </div>
@@ -70,10 +70,10 @@
                                     <thead>
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th>Description</th>
-                                        <th class="text-right">Quantity</th>
-                                        <th class="text-right">Unit Cost</th>
-                                        <th class="text-right">Total</th>
+                                        <th>รายการสินค้า</th>
+                                        <th class="text-right">จำนวน</th>
+                                        <th class="text-right">ราคาต่อหน่วย</th>
+                                        <th class="text-right">รวม</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -81,29 +81,29 @@
                                         <td class="text-center">1</td>
                                         <td>Milk Powder</td>
                                         <td class="text-right">2 </td>
-                                        <td class="text-right"> $24 </td>
-                                        <td class="text-right"> $48 </td>
+                                        <td class="text-right"> 24 </td>
+                                        <td class="text-right"> 48 </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center">2</td>
                                         <td>Air Conditioner</td>
                                         <td class="text-right"> 3 </td>
-                                        <td class="text-right"> $500 </td>
-                                        <td class="text-right"> $1500 </td>
+                                        <td class="text-right"> 500 </td>
+                                        <td class="text-right"> 1500 </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center">3</td>
                                         <td>RC Cars</td>
                                         <td class="text-right"> 20 </td>
-                                        <td class="text-right"> %600 </td>
-                                        <td class="text-right"> $12000 </td>
+                                        <td class="text-right"> 600 </td>
+                                        <td class="text-right"> 12000 </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center">4</td>
                                         <td>Down Coat</td>
                                         <td class="text-right"> 60 </td>
-                                        <td class="text-right">$5 </td>
-                                        <td class="text-right"> $300 </td>
+                                        <td class="text-right">5 </td>
+                                        <td class="text-right"> 300 </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -111,10 +111,10 @@
                         </div>
                         <div class="col-md-12">
                             <div class="pull-right m-t-30 text-right">
-                                <p>Sub - Total amount: $13,848</p>
-                                <p>vat (10%) : $138 </p>
+                                <p>รวม: 13,848</p>
+                                <p>vat (10%) : 138 </p>
                                 <hr>
-                                <h3><b>Total :</b> $13,986</h3>
+                                <h3><b>รวมทั้งสิ้น :</b> 13,986</h3>
                             </div>
                             <div class="clearfix"></div>
                             <hr>

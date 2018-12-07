@@ -203,6 +203,9 @@ class CustomerController extends Controller
        // $seeme_select = \backend\models\Prospectdetail::find()->where(['customer_id'=>$id,'line_type'=>3])->all();
         if ($model->load(Yii::$app->request->post())) {
 
+            $address = Yii::$app->request->post('address');
+            $street = Yii::$app->request->post('street');
+            $zipcode = Yii::$app->request->post('zipcode');
             $district = Yii::$app->request->post('select_district');
             $city = Yii::$app->request->post('select_city');
             $province = Yii::$app->request->post('select_province');
@@ -234,11 +237,28 @@ class CustomerController extends Controller
 
 //                $model_address_plant->status = 1;
 //                $model_address_plant->party_id = $model->id;
-                $model_address_plant->district_id = $district;
-                $model_address_plant->city_id = $city;
-                $model_address_plant->province_id = $province;
-           //     $model_address_plant->party_type_id = 2;
-                $model_address_plant->save(false);
+                if($model_address_plant){
+                    $model_address_plant->address = $address;
+                    $model_address_plant->street = $street;
+                    $model_address_plant->zipcode = $zipcode;
+                    $model_address_plant->district_id = $district;
+                    $model_address_plant->city_id = $city;
+                    $model_address_plant->province_id = $province;
+                    //     $model_address_plant->party_type_id = 2;
+                    $model_address_plant->save(false);
+                }else{
+                    $model_addressbok = new \backend\models\AddressBook();
+                    $model_addressbok->address = $address;
+                    $model_addressbok->street = $address;
+                    $model_addressbok->zipcode = $address;
+                    $model_addressbok->district_id = $address;
+                    $model_addressbok->city_id = $address;
+                    $model_addressbok->province_id = $address;
+                    $model_addressbok->party_type_id = 2;
+                    $model_addressbok->party_id = $id;
+                    $model_addressbok->save(false);
+                }
+
 
                 if (!empty($uploadimage)) {
                     foreach ($uploadimage as $file) {

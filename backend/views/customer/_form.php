@@ -175,7 +175,10 @@ $this->registerJs($js,static::POS_END);
                         <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name"><?=Yii::t('app','ที่อยู่')?>
                         </label>
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <?= $form->field($model_address_plant?$model_address_plant:$model_address, 'address')->textarea(['maxlength' => true,'class'=>'form-control'])->label(false) ?>
+                            <textarea name="address" id="address" class="form-control" cols="30" rows="3">
+                                <?php echo $model_address_plant?$model_address_plant->address:'';?>
+                            </textarea>
+                            <?php //echo $form->field($model_address_plant?$model_address_plant:$model_address, 'address')->textarea(['maxlength' => true,'class'=>'form-control'])->label(false) ?>
                         </div>
                     </div>
                 </div>
@@ -184,7 +187,8 @@ $this->registerJs($js,static::POS_END);
                         <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name"><?=Yii::t('app','ถนน')?>
                         </label>
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <?= $form->field($model_address_plant?$model_address_plant:$model_address, 'street')->textInput(['maxlength' => true,'class'=>'form-control'])->label(false) ?>
+                            <input type="text" class="form-control" name="street" value="<?=$model_address_plant?$model_address_plant->street:''?>">
+                            <?php //echo $form->field($model_address_plant?$model_address_plant:$model_address, 'street')->textInput(['maxlength' => true,'class'=>'form-control'])->label(false) ?>
                         </div>
                     </div>
                 </div>
@@ -250,9 +254,11 @@ $this->registerJs($js,static::POS_END);
                         </label>
                         <div class="col-lg-12">
                             <?php if($model_address_plant):?>
-                                <?= $form->field($model_address_plant, 'zipcode')->textInput(['class'=>'form-control','id'=>'zipcode','readonly'=>'readonly'])->label(false) ?>
+                                <input type="text" name="zipcode" class="form-control" id="zipcode" value="<?=$model_address_plant->zipcode?>" readonly>
+                                <?php //echo $form->field($model_address_plant, 'zipcode')->textInput(['class'=>'form-control','id'=>'zipcode','readonly'=>'readonly'])->label(false) ?>
                             <?php else:?>
-                                <?= $form->field($model_address, 'zipcode')->textInput(['class'=>'form-control','id'=>'zipcode','readonly'=>'readonly'])->label(false) ?>
+                                <input type="text" name="zipcode" class="form-control" id="zipcode" value="" readonly>
+                                <?php //echo $form->field($model_address, 'zipcode')->textInput(['class'=>'form-control','id'=>'zipcode','readonly'=>'readonly'])->label(false) ?>
                             <?php endif;?>
 
                         </div>

@@ -554,6 +554,33 @@ class SaleorderController extends Controller
         }
     }
     public function actionPrintinvoice(){
-        return $this->render('_invoice');
+        $saleid = Yii::$app->request->post('saleid');
+        $custid = Yii::$app->request->post('custid');
+
+        if($saleid){
+            $modelsale = \backend\models\Saleorder::find()->where(['id'=>$saleid])->one();
+            $customer_name = \backend\models\Custumer::findFull($custid);
+            $model_address = \backend\models\AddressBook::getAddress($custid);
+            $model_street = \backend\models\AddressBook::getStreet($custid);
+            $model_district = \backend\models\AddressBook::getDistrict($custid);
+            $model_city = \backend\models\AddressBook::getCity($custid);
+            $model_province = \backend\models\AddressBook::getProvince($custid);
+            $model_zipcode = \backend\models\AddressBook::getZipcode($custid);
+            if($modelsale){
+                return $this->render('_invoice',[
+                    'modelsale' =>$modelsale,
+                    'customer_name' => $customer_name,
+                    'customer_address' => $model_address,
+                    'customer_street' => $model_street,
+                    'customer_district' => $model_district,
+                    'customer_city' => $model_city,
+                    'customer_province' => $model_province,
+                    'customer_zipcode' => $model_zipcode,
+                ]);
+            }
+        }
+
+
+
     }
 }

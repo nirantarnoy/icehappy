@@ -68,4 +68,8 @@ class Custumer extends \common\models\Customer{
         $model = \backend\models\Customerdetail::find()->where(['customer_id'=>$cus,'line_type'=>1,'itemid'=>$product])->one();
         return count($model)>0?$model->line_price:0;
     }
+    public function findFull($id){
+        $model = \backend\models\Custumer::find()->where(['id'=>$id])->one();
+        return count($model)>0?$model->first_name." ".$model->last_name:'';
+    }
 }

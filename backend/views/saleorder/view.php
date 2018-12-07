@@ -102,13 +102,17 @@ $this->params['breadcrumbs'][] = $this->title;
                   <?php endfor;?>
                 </tbody>
             </table>
+            <form id="form-print" target="_blank" method="post">
+                <input type="hidden" name="saleid" value="" class="form-saleid">
+                <input type="hidden" name="custid" value="" class="form-custid">
+            </form>
         </div>
     </div>
 
 
 </div>
 <?php
-$url_to_geninvoice = 'index.php?r=saleorder/printinvoice';
+$url_to_geninvoice = Url::to(['saleorder/printinvoice'],true);
 $js=<<<JS
 $(function() {
   
@@ -118,17 +122,10 @@ function geninvoice(e) {
     var custid = e.closest("tr").find(".cust-id").val();
     
     if(saleid !=''){
-        alert('$url_to_geninvoice');
-        $.ajax({
-           'type':'post',
-           'dataType':'html',
-           'utl': '$url_to_geninvoice',
-           'data': {'custid':custid,'saleid':saleid},
-           'success': function(data){
-               
-           }
-           
-        });
+        $("#form-print").attr("action","$url_to_geninvoice");
+        $(".form-saleid").val(saleid);
+        $(".form-custid").val(custid);
+        $("#form-print").submit();
     }
 }
 JS;

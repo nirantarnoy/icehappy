@@ -69,4 +69,17 @@ class AddressBook extends \common\models\Addressbook
         $model = \common\models\Province::find()->where(['PROVINCE_ID'=>$id])->one();
         return count($model)>0?$model->PROVINCE_NAME:'';
     }
+    public function getZipcode($id){
+        $model = \common\models\Addressbook::find()->where(['party_id'=>$id])->andFilterWhere(['party_type_id'=>2])->one();
+        return count($model)>0?$model->zipcode:'';
+    }
+    public function getStreet($id){
+        $model = \common\models\Addressbook::find()->where(['party_id'=>$id])->andFilterWhere(['party_type_id'=>2])->one();
+        return count($model)>0?$model->street:'';
+    }
+    public function getAddress($id){
+        $model = \common\models\Addressbook::find()->where(['party_id'=>$id])->andFilterWhere(['party_type_id'=>2])->one();
+        return count($model)>0?$model->address:'';
+    }
+
 }
