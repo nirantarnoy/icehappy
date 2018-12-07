@@ -34,6 +34,7 @@ class PressAsset extends AssetBundle
         'plugins/toast-master/js/jquery.toast.js',
         'plugins/bootstrap-daterangepicker/daterangepicker.js',
         'plugins/bootstrap-datepicker/bootstrap-datepicker.min.js',
+        'plugins/bootstrap/js/popper.min.js',
        // 'plugins/jquery/jquery.min.js',
         'js/jquery.slimscroll.js',
         'js/waves.js',
@@ -41,7 +42,8 @@ class PressAsset extends AssetBundle
         'js/custom.min.js',
         'js/dashboard1.js',
         'js/jasny-bootstrap.js',
-        'js/toastr.js'
+        'js/toastr.js',
+        'js/jquery.PrintArea.js'
     ];
 
     public $depends = [
