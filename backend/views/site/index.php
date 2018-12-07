@@ -4,6 +4,47 @@
 
 $this->title = 'น้ำแข็งแฮปปี้';
 ?>
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex no-block">
+            <h4 class="card-title">ยอดขายรวมแต่ละเขต<br/><small class="text-muted">Total sales by zone</small></h4>
+            <div class="ml-auto">
+<!--                    <h5 class="box-title m-t-30">Date Range Pick</h5>-->
+                    <input class="form-control input-daterange-datepicker" type="text" name="daterange" value="01/01/2015 - 01/31/2015" />
+            </div>
+        </div>
+    </div>
+    <div class="bg-light p-20">
+        <div class="d-flex">
+            <div class="align-self-center">
+                <h3 class="m-b-0">July 2017</h3><small>Total Earning</small></div>
+            <div class="ml-auto align-self-center">
+                <h2 class="text-success">$5470</h2></div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex flex-wrap">
+                    <div>
+                        <h4 class="card-title">Yearly Earning</h4>
+                    </div>
+                    <div class="ml-auto">
+                        <ul class="list-inline">
+                            <li>
+                                <h6 class="text-muted text-success"><i class="fa fa-circle font-10 m-r-10 "></i>Sales</h6> </li>
+                            <li>
+                                <h6 class="text-muted  text-info"><i class="fa fa-circle font-10 m-r-10"></i>Earning ($)</h6> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div id="earning" style="height: 355px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="card-group">
     <div class="card">
         <div class="card-body">
@@ -74,32 +115,7 @@ $this->title = 'น้ำแข็งแฮปปี้';
 </div>
 <div class="row">
     <!-- Column -->
-    <div class="col-lg-8 col-xlg-9">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="d-flex flex-wrap">
-                            <div>
-                                <h4 class="card-title">Yearly Earning</h4>
-                            </div>
-                            <div class="ml-auto">
-                                <ul class="list-inline">
-                                    <li>
-                                        <h6 class="text-muted text-success"><i class="fa fa-circle font-10 m-r-10 "></i>Sales</h6> </li>
-                                    <li>
-                                        <h6 class="text-muted  text-info"><i class="fa fa-circle font-10 m-r-10"></i>Earning ($)</h6> </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div id="earning" style="height: 355px;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <!-- Column -->
     <div class="col-lg-4 col-xlg-3">
         <div class="card card-inverse card-info">
