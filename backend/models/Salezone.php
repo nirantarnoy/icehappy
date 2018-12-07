@@ -52,4 +52,8 @@ class Salezone extends \common\models\SaleZone {
         $model = \backend\models\Salezone::find()->where(['id'=>$id])->one();
         return count($model)>0?$model->description:'';
     }
+    public function findFull($id){
+        $model = \backend\models\Salezone::find()->where(['id'=>$id])->one();
+        return count($model)>0?$model->name." ".$model->description:'';
+    }
 }

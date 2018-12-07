@@ -50,9 +50,13 @@ $completed = '';
             [
                 'attribute'=>'status',
                 'contentOptions' => ['style' => 'vertical-align: middle'],
-                'format' => 'html',
+                'format'=>'raw',
                 'value'=>function($data){
-                    return $data->status === 1 ? '<div class="label label-success">Active</div>':'<div class="label label-default">Inactive</div>';
+                    if($data->status == 1){
+                        return '<div class="label label-success">Open</div>';
+                    }else if($data->status == 2){
+                        '<div class="label label-danger">Completed</div>';
+                    }
                 }
             ],
             [

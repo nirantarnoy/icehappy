@@ -542,4 +542,7 @@ class SaleorderController extends Controller
             return $pdf->render();
         }
     }
+    public function actionPrintinvoice(){
+        return $this->render('_invoice');
+    }
 }

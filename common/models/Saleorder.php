@@ -47,10 +47,10 @@ class Saleorder extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'sale_no' => 'Sale No',
-            'sale_date' => 'Sale Date',
-            'sale_zone' => 'Sale Zone',
-            'status' => 'Status',
+            'sale_no' => 'เลขที่',
+            'sale_date' => 'วันที่',
+            'sale_zone' => 'เขต/เส้นทาง',
+            'status' => 'สถานะ',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
