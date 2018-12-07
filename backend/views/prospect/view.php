@@ -15,15 +15,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('แก้ไข', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('ลบ', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('Approve', ['approve', 'id' => $model->id], [
+        <?= Html::a('อนุมัติลูกค้า', ['approve', 'id' => $model->id], [
                 'class' => 'btn btn-success',
                 'data' => [
                         'confirm'=>'คุณต้องการอนุมัติลูกค้าใช่หรือไม่',
