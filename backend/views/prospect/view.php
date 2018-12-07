@@ -75,6 +75,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]) ?>
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                แผนที่
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-4">
                   <div class="card">
@@ -154,13 +161,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title">
-                                แผนที่
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
     </div>
 

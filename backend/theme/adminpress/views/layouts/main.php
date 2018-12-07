@@ -366,7 +366,7 @@ PressAsset::register($this);
                             <li><a href="index.php?r=authitem/index">สิทธิ์การใช้งาน</a></li>
                         </ul>
                     </li>
-                    <li class="two-column"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">ข้อมูลสินค้า</span></a>
+                    <li class="two-column"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">ระบบสินค้า</span></a>
                         <ul aria-expanded="false" class="collapse">
                             <li><a href="index.php?r=productcat/index">กลุ่มสินค้า</a></li>
                             <li><a href="index.php?r=product/index">สินค้า</a></li>
@@ -375,7 +375,7 @@ PressAsset::register($this);
                         </ul>
                     </li>
                     <li class="nav-small-cap">Sales Order</li>
-                    <li class="two-column"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-file"></i><span class="hide-menu">ข้อมูลขาย</span></a>
+                    <li class="two-column"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-file"></i><span class="hide-menu">ระบบขาย</span></a>
                         <ul aria-expanded="false" class="collapse">
                             <li><a href="index.php?r=saleorder/index">ขายสินค้า</a></li>
                             <li><a href="index.php?r=salezone/index">เขต/เส้นทาง</a></li>
