@@ -73,8 +73,6 @@ class UserController extends Controller
             $model->group_id = Yii::$app->request->post('select_group');
             if($model->save()){
 
-
-
                 $session = Yii::$app->session;
                 $session->setFlash('msg','บันทึกรายการเรียบร้อย');
                 return $this->redirect(['index']);
