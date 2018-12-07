@@ -83,7 +83,7 @@
                                     <?php $i+=1;?>
                                     <tr>
                                         <td class="text-center"><?=$i?></td>
-                                        <td>Milk Powder</td>
+                                        <td><?=\backend\models\Product::findName($value->product_id)?></td>
                                         <td class="text-right"><?=number_format($value->qty)?> </td>
                                         <td class="text-right"> <?=number_format($value->price,2)?> </td>
                                         <td class="text-right line-total"> <?=number_format($value->qty * $value->price,2)?> </td>
