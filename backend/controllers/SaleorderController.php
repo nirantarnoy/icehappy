@@ -55,8 +55,19 @@ class SaleorderController extends Controller
      */
     public function actionView($id)
     {
+        $sql = "
+                select saleorder_line.sale_id,saleorder_line.customer_id,customer.code,customer.first_name,customer.last_name,sum(saleorder_line.price * saleorder_line.qty)as total_sale
+                from saleorder_line
+                inner join 
+                customer on customer.id = saleorder_line.customer_id
+                where saleorder_line.sale_id = ".$id."
+                group by saleorder_line.sale_id,saleorder_line.customer_id
+        ";
+        $query = Yii::$app->db->createCommand($sql)->queryAll();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'query' => $query,
         ]);
     }
 

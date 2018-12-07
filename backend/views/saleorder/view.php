@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Saleorder */
@@ -81,9 +82,55 @@ $this->params['breadcrumbs'][] = $this->title;
                         <th>พิมพ์ใบเสร็จ</th>
                     </tr>
                 </thead>
+                <tbody>
+                  <?php for($i=0;$i<=count($query)-1;$i++):?>
+                    <tr>
+                        <td>
+                            <input type="hidden" name="" class="sale-id" value="<?=$query[$i]['sale_id']?>">
+                            <input type="hidden" name="" class="cust-id" value="<?=$query[$i]['customer_id']?>">
+                            <?=$i+1;?>
+                        </td>
+                        <td>
+                            <?=$query[$i]['code']?>
+                        </td>
+                        <td><?=$query[$i]['first_name']?></td>
+                        <td><?=number_format($query[$i]['total_sale'],2)?></td>
+                        <td>
+                            <div class="btn btn-secondary btn-gen-invoice" onclick="geninvoice($(this))"><i class="fa fa-print"></i> พิมพ์</div>
+                        </td>
+                    </tr>
+                  <?php endfor;?>
+                </tbody>
             </table>
         </div>
     </div>
 
 
 </div>
+<?php
+$url_to_geninvoice = 'index.php?r=saleorder/printinvoice';
+$js=<<<JS
+$(function() {
+  
+});
+function geninvoice(e) {
+    var saleid = e.closest("tr").find(".sale-id").val();
+    var custid = e.closest("tr").find(".cust-id").val();
+    
+    if(saleid !=''){
+        alert(saleid);
+        $.ajax({
+           'type':'post',
+           'dataType':'html',
+           'utl': '$url_to_geninvoice',
+           'data': {'custid':custid,'saleid':saleid},
+           'success': function(data){
+               
+           }
+           
+        });
+    }
+}
+JS;
+$this->registerJs($js,static::POS_END);
+?>
