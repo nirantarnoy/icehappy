@@ -15,7 +15,8 @@ class PressAsset extends AssetBundle
         'css/colors/blue.css',
         'plugins/sweetalert/sweetalert.css',
         'plugins/toast-master/css/jquery.toast.css',
-        'plugins/bootstrap-daterangepicker/daterangepicker.css'
+        'plugins/bootstrap-daterangepicker/daterangepicker.css',
+        'plugins/bootstrap-datepicker/bootstrap-datepicker.min.css'
     ];
 
     public $js = [
@@ -32,6 +33,7 @@ class PressAsset extends AssetBundle
         'plugins/sweetalert/sweetalert.min.js',
         'plugins/toast-master/js/jquery.toast.js',
         'plugins/bootstrap-daterangepicker/daterangepicker.js',
+        'plugins/bootstrap-datepicker/bootstrap-datepicker.min.js',
        // 'plugins/jquery/jquery.min.js',
         'js/jquery.slimscroll.js',
         'js/waves.js',
