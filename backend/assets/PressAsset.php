@@ -15,10 +15,8 @@ class PressAsset extends AssetBundle
         'css/colors/blue.css',
         'plugins/sweetalert/sweetalert.css',
         'plugins/toast-master/css/jquery.toast.css',
-        'plugins/bootstrap-daterangepicker/daterangepicker.css',
-        'plugins/bootstrap-datepicker/bootstrap-datepicker.min.css',
-        'plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css',
-        'plugins/clockpicker/dist/jquery-clockpicker.min.css'
+        'plugins/bootstrap-daterangepicker/daterangepicker.css'
+
     ];
 
     public $js = [
