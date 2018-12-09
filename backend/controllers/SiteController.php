@@ -6,6 +6,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use yii\helpers\Json;
 
 /**
  * Site controller
@@ -60,7 +61,29 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $total_by_zone = 0;
+
+        $sql = "
+            SELECT sale_zone,sale_zone.name,sale_zone.description,sum(qty * price)as sale_amount
+            FROM saleorder_line
+            INNER JOIN saleorder
+            ON saleorder_line.sale_id = saleorder.id
+            INNER JOIN sale_zone
+            ON saleorder.sale_zone = sale_zone.id
+            GROUP BY sale_zone
+        ";
+
+        $query_by_zone = Yii::$app->db->createCommand($sql)->queryAll();
+        $ret = array_values($query_by_zone);
+
+        for($i=0;$i<=count($query_by_zone)-1;$i++){
+            $total_by_zone = $total_by_zone + $query_by_zone[$i]['sale_amount'];
+        }
+
+        return $this->render('index',[
+            'sale_by_zone' => Json::encode($ret),
+            'total_by_zone' => $total_by_zone,
+        ]);
     }
 
     /**

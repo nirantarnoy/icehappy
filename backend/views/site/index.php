@@ -3,7 +3,9 @@
 /* @var $this yii\web\View */
 
 $this->title = 'น้ำแข็งแฮปปี้';
+$sale_by_zone = $sale_by_zone;
 ?>
+<input type="hidden" class="sale-by-zone" name="" value="<?=$sale_by_zone?>">
 <div class="card">
     <div class="card-body">
         <div class="d-flex no-block">
@@ -17,30 +19,30 @@ $this->title = 'น้ำแข็งแฮปปี้';
     <div class="bg-light p-20">
         <div class="d-flex">
             <div class="align-self-center">
-                <h3 class="m-b-0">July 2017</h3><small>Total Earning</small></div>
+                <h3 class="m-b-0">ยอดขายรวมทั้งหมด</h3><small></small></div>
             <div class="ml-auto align-self-center">
-                <h2 class="text-success">$5470</h2></div>
+                <h2 class="text-success"><?=number_format($total_by_zone,2)?></h2></div>
         </div>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-12">
                 <div class="d-flex flex-wrap">
-                    <div>
-                        <h4 class="card-title">Yearly Earning</h4>
-                    </div>
-                    <div class="ml-auto">
-                        <ul class="list-inline">
-                            <li>
-                                <h6 class="text-muted text-success"><i class="fa fa-circle font-10 m-r-10 "></i>Sales</h6> </li>
-                            <li>
-                                <h6 class="text-muted  text-info"><i class="fa fa-circle font-10 m-r-10"></i>Earning ($)</h6> </li>
-                        </ul>
-                    </div>
+<!--                    <div>-->
+<!--                        <h4 class="card-title">Yearly Earning</h4>-->
+<!--                    </div>-->
+<!--                    <div class="ml-auto">-->
+<!--                        <ul class="list-inline">-->
+<!--                            <li>-->
+<!--                                <h6 class="text-muted text-success"><i class="fa fa-circle font-10 m-r-10 "></i>Sales</h6> </li>-->
+<!--                            <li>-->
+<!--                                <h6 class="text-muted  text-info"><i class="fa fa-circle font-10 m-r-10"></i>Earning ($)</h6> </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
                 </div>
             </div>
             <div class="col-12">
-                <div id="earning" style="height: 355px;"></div>
+                <div id="earnings" style="height: 355px;"></div>
             </div>
         </div>
     </div>
@@ -159,3 +161,31 @@ $this->title = 'น้ำแข็งแฮปปี้';
     </div>
     <!-- Column -->
 </div>
+
+<?php
+$js =<<<JS
+$(function() {
+   var data= jQuery.parseJSON('$sale_by_zone'); 
+//   if(sale_by_zone.length > 0){
+       console.log(data);
+//   }
+//         $.each(data, function(i,item) {
+//             alert(data[i].name);
+//             alert(data[i].description);
+//         });
+   
+   Morris.Bar({
+        element: 'earnings',
+        data: data,
+        xkey: 'name',
+        ykeys: ['sale_amount'],
+        labels: ['ยอดขาย'],
+        barColors:['#55ce63', '#2f3d4a', '#009efb'],
+        hideHover: 'auto',
+        gridLineColor: '#eef0f2',
+        resize: true
+    });
+});
+JS;
+$this->registerJs($js,static::POS_END);
+?>
