@@ -1,9 +1,14 @@
 <?php
 
 /* @var $this yii\web\View */
-
+use yii\helpers\Url;
 $this->title = 'น้ำแข็งแฮปปี้';
 $sale_by_zone = $sale_by_zone;
+$zone_date_filter = date('d/m/Y').'-'.date('d/m/Y');
+if($sdate !=''){
+    $zone_date_filter = $sdate.'-'.$ndate;
+}
+
 ?>
 <input type="hidden" class="sale-by-zone" name="" value="<?=$sale_by_zone?>">
 <div class="card">
@@ -12,7 +17,10 @@ $sale_by_zone = $sale_by_zone;
             <h4 class="card-title">ยอดขายรวมแต่ละเขต<br/><small class="text-muted">Total sales by zone</small></h4>
             <div class="ml-auto">
 <!--                    <h5 class="box-title m-t-30">Date Range Pick</h5>-->
-                    <input class="form-control input-daterange-datepicker" type="text" name="daterange" value="01/01/2015 - 01/31/2015" />
+                <form id="date_filter_by_zone" action="<?=Url::to(['site/index'],true)?>" method="post">
+                    <input class="form-control input-daterange-datepicker" type="text" name="date_filter_zone" value="<?=$zone_date_filter?>" />
+                </form>
+
             </div>
         </div>
     </div>
@@ -188,8 +196,13 @@ $(function() {
    $('.input-daterange-datepicker').daterangepicker({
         buttonClasses: ['btn', 'btn-sm'],
         applyClass: 'btn-danger',
-        cancelClass: 'btn-inverse'
+        cancelClass: 'btn-inverse',
+        format: 'dd/mm/yyyy'
     });
+   $('.input-daterange-datepicker').change(function() {
+     //  alert();
+     $('form#date_filter_by_zone').submit();
+   });
 });
 JS;
 $this->registerJs($js,static::POS_END);

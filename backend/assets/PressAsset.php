@@ -29,6 +29,7 @@ class PressAsset extends AssetBundle
         'plugins/raphael/raphael-min.js',
         'plugins/sticky-kit-master/dist/sticky-kit.min.js',
         'plugins/morrisjs/morris.min.js',
+        'plugins/moment/moment.js',
         'plugins/styleswitcher/jQuery.style.switcher.js',
         'plugins/dropify/dist/js/dropify.min.js',
         'plugins/sweetalert/jquery.sweet-alert.custom.js',
@@ -45,8 +46,8 @@ class PressAsset extends AssetBundle
         'js/dashboard1.js',
         'js/jasny-bootstrap.js',
         'js/toastr.js',
-        'js/jquery.PrintArea.js',
-        'plugins/moment/moment.js'
+        'js/jquery.PrintArea.js'
+
     ];
 
     public $depends = [

@@ -13,6 +13,7 @@ use yii\helpers\Json;
  */
 class SiteController extends Controller
 {
+    public $enableCsrfValidation = false;
     /**
      * {@inheritdoc}
      */
@@ -61,6 +62,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $date_filter_zone = explode('-',Yii::$app->request->post('date_filter_zone'));
+        $sdate = date('d/m/Y');
+        $ndate = date('d/m/Y');
+
+        if(count($date_filter_zone) && $date_filter_zone[0]!=''){
+            $sdate = $date_filter_zone[0];
+            $ndate = $date_filter_zone[1];
+        }
+
+
+
         $total_by_zone = 0;
 
         $sql = "
@@ -70,6 +82,8 @@ class SiteController extends Controller
             ON saleorder_line.sale_id = saleorder.id
             INNER JOIN sale_zone
             ON saleorder.sale_zone = sale_zone.id
+            WHERE saleorder.sale_date >=".$sdate."
+                  AND saleorder.sale_date <=".$ndate."
             GROUP BY sale_zone
         ";
 
@@ -83,6 +97,8 @@ class SiteController extends Controller
         return $this->render('index',[
             'sale_by_zone' => Json::encode($ret),
             'total_by_zone' => $total_by_zone,
+            'sdate'=>$sdate,
+            'ndate' => $ndate
         ]);
     }
 
