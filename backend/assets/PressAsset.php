@@ -16,7 +16,9 @@ class PressAsset extends AssetBundle
         'plugins/sweetalert/sweetalert.css',
         'plugins/toast-master/css/jquery.toast.css',
         'plugins/bootstrap-daterangepicker/daterangepicker.css',
-        'plugins/bootstrap-datepicker/bootstrap-datepicker.min.css'
+        'plugins/bootstrap-datepicker/bootstrap-datepicker.min.css',
+        'plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css',
+        'plugins/clockpicker/dist/jquery-clockpicker.min.css'
     ];
 
     public $js = [
@@ -43,7 +45,8 @@ class PressAsset extends AssetBundle
         'js/dashboard1.js',
         'js/jasny-bootstrap.js',
         'js/toastr.js',
-        'js/jquery.PrintArea.js'
+        'js/jquery.PrintArea.js',
+        'plugins/moment/moment.js'
     ];
 
     public $depends = [

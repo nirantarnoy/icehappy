@@ -185,6 +185,11 @@ $(function() {
         gridLineColor: '#eef0f2',
         resize: true
     });
+   $('.input-daterange-datepicker').daterangepicker({
+        buttonClasses: ['btn', 'btn-sm'],
+        applyClass: 'btn-danger',
+        cancelClass: 'btn-inverse'
+    });
 });
 JS;
 $this->registerJs($js,static::POS_END);
