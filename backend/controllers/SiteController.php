@@ -103,6 +103,16 @@ class SiteController extends Controller
 
         $query_new_cust = Yii::$app->db->createCommand($sql_new_cust)->queryAll();
 
+        $sql_new_prospect = "
+            SELECT name,first_name,last_name,DATEDIFF(from_unixtime(created_at,'%Y-%m-%d %h:%i:%s'),now()) as diffcount
+            FROM 
+            prospect
+            WHERE
+            status = 0
+        ";
+
+        $query_new_prospect = Yii::$app->db->createCommand($sql_new_prospect)->queryAll();
+
         //print_r($query_new_cust);return;
 
 
@@ -115,7 +125,8 @@ class SiteController extends Controller
             'total_by_zone' => $total_by_zone,
             'sdate'=>$sdate,
             'ndate' => $ndate,
-            'cust_new'=>$query_new_cust
+            'cust_new'=>$query_new_cust,
+            'prospect_new'=> $query_new_prospect
         ]);
     }
 

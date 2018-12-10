@@ -35,7 +35,7 @@ if($sdate !=''){
             <div class="row">
                 <div class="col-12">
                     <h2 class="m-b-0"><i class="mdi mdi-buffer text-warning"></i></h2>
-                    <h3 class="">2</h3>
+                    <h3 class=""><?=number_format(count($prospect_new),0)?></h3>
                     <h6 class="card-subtitle">คัดกรองลูกค้ารออนุมัติ</h6></div>
                 <div class="col-12">
                     <div class="progress">
