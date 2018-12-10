@@ -63,15 +63,17 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $date_filter_zone = explode('-',Yii::$app->request->post('date_filter_zone'));
-        $sdate = date('d/m/Y');
-        $ndate = date('d/m/Y');
-
+        $sdate = date('Y-m-d');
+        $ndate = date('Y-m-d');
+       // echo $date_filter_zone[0];return;
         if(count($date_filter_zone) && $date_filter_zone[0]!=''){
-            $sdate = $date_filter_zone[0];
-            $ndate = $date_filter_zone[1];
+//            $xdate = explode("/",$date_filter_zone[0]);
+//            $ydate = explode("/",$date_filter_zone[1]);
+            $sdate = "".date('Y-m-d',strtotime($date_filter_zone[0]));
+            $ndate = "".date('Y-m-d',strtotime($date_filter_zone[1]));
         }
 
-       //echo $sdate;return;
+       //echo $ndate;return;
 
         $total_by_zone = 0;
 
@@ -82,11 +84,11 @@ class SiteController extends Controller
             ON saleorder_line.sale_id = saleorder.id
             INNER JOIN sale_zone
             ON saleorder.sale_zone = sale_zone.id
-            WHERE saleorder.sale_date >=".$sdate."
-                  AND saleorder.sale_date <=".$ndate."
+            WHERE saleorder.sale_date >='".$sdate."'
+                  AND saleorder.sale_date <='".$ndate."'
             GROUP BY sale_zone
         ";
-
+      // echo $sql;return;
         $query_by_zone = Yii::$app->db->createCommand($sql)->queryAll();
         $ret = array_values($query_by_zone);
 

@@ -4,7 +4,7 @@
 use yii\helpers\Url;
 $this->title = 'น้ำแข็งแฮปปี้';
 $sale_by_zone = $sale_by_zone;
-$zone_date_filter = date('d/m/Y').'-'.date('d/m/Y');
+$zone_date_filter = date('d-m-Y').'-'.date('d-m-Y');
 if($sdate !=''){
     $zone_date_filter = $sdate.'-'.$ndate;
 }
