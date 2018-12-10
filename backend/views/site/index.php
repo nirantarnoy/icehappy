@@ -78,50 +78,86 @@ if($sdate !=''){
         </div>
     </div>
 </div>
-<div class="card">
-    <div class="card-body">
-        <div class="d-flex no-block">
-            <h4 class="card-title">ยอดขายรวมแต่ละเขต<br/><small class="text-muted">Total sales by zone</small></h4>
-            <div class="ml-auto">
-<!--                    <h5 class="box-title m-t-30">Date Range Pick</h5>-->
-                <form id="date_filter_by_zone" action="<?=Url::to(['site/index'],true)?>" method="post">
-                    <input class="form-control input-daterange-datepicker" type="text" name="date_filter_zone" value="<?=$zone_date_filter?>" />
-                </form>
 
-            </div>
-        </div>
-    </div>
-    <div class="bg-light p-20">
-        <div class="d-flex">
-            <div class="align-self-center">
-                <h3 class="m-b-0">ยอดขาย</h3><small></small></div>
-            <div class="ml-auto align-self-center">
-                <h2 class="text-success"><?=number_format($total_by_zone,2)?></h2></div>
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-12">
-                <div class="d-flex flex-wrap">
-<!--                    <div>-->
-<!--                        <h4 class="card-title">Yearly Earning</h4>-->
-<!--                    </div>-->
-<!--                    <div class="ml-auto">-->
-<!--                        <ul class="list-inline">-->
-<!--                            <li>-->
-<!--                                <h6 class="text-muted text-success"><i class="fa fa-circle font-10 m-r-10 "></i>Sales</h6> </li>-->
-<!--                            <li>-->
-<!--                                <h6 class="text-muted  text-info"><i class="fa fa-circle font-10 m-r-10"></i>Earning ($)</h6> </li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex no-block">
+                        <h4 class="card-title">ยอดขายรวมแต่ละเขต<br/><small class="text-muted">Total sales by zone</small></h4>
+                        <div class="ml-auto">
+                            <!--                    <h5 class="box-title m-t-30">Date Range Pick</h5>-->
+                            <form id="date_filter_by_zone" action="<?=Url::to(['site/index'],true)?>" method="post">
+                                <input class="form-control input-daterange-datepicker" type="text" name="date_filter_zone" value="<?=$zone_date_filter?>" />
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-light p-20">
+                    <div class="d-flex">
+                        <div class="align-self-center">
+                            <h3 class="m-b-0">ยอดขาย</h3><small></small></div>
+                        <div class="ml-auto align-self-center">
+                            <h2 class="text-success"><?=number_format($total_by_zone,2)?></h2></div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex flex-wrap">
+                                <!--                    <div>-->
+                                <!--                        <h4 class="card-title">Yearly Earning</h4>-->
+                                <!--                    </div>-->
+                                <!--                    <div class="ml-auto">-->
+                                <!--                        <ul class="list-inline">-->
+                                <!--                            <li>-->
+                                <!--                                <h6 class="text-muted text-success"><i class="fa fa-circle font-10 m-r-10 "></i>Sales</h6> </li>-->
+                                <!--                            <li>-->
+                                <!--                                <h6 class="text-muted  text-info"><i class="fa fa-circle font-10 m-r-10"></i>Earning ($)</h6> </li>-->
+                                <!--                        </ul>-->
+                                <!--                    </div>-->
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div id="earnings" style="height: 355px;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-12">
-                <div id="earnings" style="height: 355px;"></div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card card-default">
+                <div class="card-header">
+                    <div class="card-actions">
+                        <a class="" data-action="collapse"><i class="ti-minus"></i></a>
+                        <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                        <a class="btn-close" data-action="close"><i class="ti-close"></i></a>
+                    </div>
+                    <h4 class="card-title m-b-0">ยอดขายสินค้าแยกตามประเภท</h4>
+                </div>
+                <div class="card-body collapse show">
+                    <div id="morris-donut-chart" class="ecomm-donute" style="height: 317px;"></div>
+                    <ul class="list-inline m-t-20 text-center">
+                        <li >
+                            <h6 class="text-muted"><i class="fa fa-circle text-info"></i> Order</h6>
+                                <h4 class="m-b-0">8500</h4>
+                        </li>
+                        <li>
+                            <h6 class="text-muted"><i class="fa fa-circle text-danger"></i> Pending</h6>
+                            <h4 class="m-b-0">3630</h4>
+                        </li>
+                        <li>
+                            <h6 class="text-muted"> <i class="fa fa-circle text-success"></i> Delivered</h6>
+                            <h4 class="m-b-0">4870</h4>
+                        </li>
+                    </ul>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
+
 
 
 
