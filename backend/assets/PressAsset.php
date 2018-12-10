@@ -9,13 +9,13 @@ class PressAsset extends AssetBundle
     public $sourcePath = '@adminpress/dist';
     public $css = [
         'plugins/bootstrap/css/bootstrap.min.css',
-        'plugins/morrisjs/morris.css',
         'plugins/dropify/dist/css/dropify.min.css',
         'css/style.css',
         'css/colors/blue.css',
         'plugins/sweetalert/sweetalert.css',
         'plugins/toast-master/css/jquery.toast.css',
-        'plugins/bootstrap-daterangepicker/daterangepicker.css'
+        'plugins/bootstrap-daterangepicker/daterangepicker.css',
+        'plugins/morrisjs/morris.css',
 
     ];
 

@@ -6,6 +6,7 @@ use yii\helpers\Json;
 
 $this->title = 'น้ำแข็งแฮปปี้';
 $sale_by_zone = $sale_by_zone;
+$sale_by_product = $sale_by_product;
 $zone_date_filter = date('d-m-Y').'-'.date('d-m-Y');
 if($sdate !=''){
     $zone_date_filter = $sdate.'-'.$ndate;
@@ -13,6 +14,7 @@ if($sdate !=''){
 
 ?>
 <input type="hidden" class="sale-by-zone" name="" value="<?=$sale_by_zone?>">
+<input type="hidden" class="sale-by-product" name="" value="<?=$sale_by_product?>">
 <div class="card-group">
 
     <!-- Column -->
@@ -141,8 +143,8 @@ if($sdate !=''){
                 <div class="card-body collapse show">
                     <div id="morris-donut-chart" class="ecomm-donute" style="height: 317px;"></div>
                     <ul class="list-inline m-t-20 text-center">
-                        <?php if(count($sale_by_product)):?>
-                        <?php $arr = Json::decode($sale_by_product);?>
+                        <?php if(count($sale_by_product_long)):?>
+                        <?php $arr = Json::decode($sale_by_product_long);?>
                         <?php foreach($arr as $value):?>
                         <li >
                             <h6 class="text-muted"><i class="fa fa-circle text-info"></i> <?=$value['name']?></h6>
@@ -164,8 +166,9 @@ if($sdate !=''){
 $js =<<<JS
 $(function() {
    var data= jQuery.parseJSON('$sale_by_zone'); 
+   var data_product= jQuery.parseJSON('$sale_by_product'); 
 //   if(sale_by_zone.length > 0){
-       console.log(data);
+       console.log(data_product);
 //   }
 //         $.each(data, function(i,item) {
 //             alert(data[i].name);
@@ -182,6 +185,12 @@ $(function() {
         hideHover: 'auto',
         gridLineColor: '#eef0f2',
         resize: true
+    });
+   Morris.Donut({
+        element: 'morris-donut-chart',
+        data:data_product,
+        resize: true,
+        colors:['#26c6da', '#1976d2', '#ef5350']
     });
    $('.input-daterange-datepicker').daterangepicker({
         buttonClasses: ['btn', 'btn-sm'],

@@ -95,8 +95,8 @@ class SiteController extends Controller
 
 
 
-     $sql_by_product = "
-            SELECT saleorder_line.product_id,product.name,SUM(saleorder_line.qty * saleorder_line.price) as sale_amount
+       $sql_by_product = "
+            SELECT product.name as label,SUM(saleorder_line.qty * saleorder_line.price) as value
             FROM saleorder_line
             INNER JOIN saleorder on saleorder.id = saleorder_line.sale_id
             INNER JOIN product on product.id = saleorder_line.product_id
@@ -107,6 +107,19 @@ class SiteController extends Controller
       // echo $sql;return;
         $query_by_product = Yii::$app->db->createCommand($sql_by_product)->queryAll();
         $ret_by_product = array_values($query_by_product);
+
+        $sql_by_product_long = "
+            SELECT saleorder_line.product_id,product.name,SUM(saleorder_line.qty * saleorder_line.price) as sale_amount
+            FROM saleorder_line
+            INNER JOIN saleorder on saleorder.id = saleorder_line.sale_id
+            INNER JOIN product on product.id = saleorder_line.product_id
+            WHERE saleorder.sale_date >='".$sdate."'
+                  AND saleorder.sale_date <='".$ndate."'
+            GROUP BY product_id
+        ";
+        // echo $sql;return;
+        $query_by_product_long = Yii::$app->db->createCommand($sql_by_product_long)->queryAll();
+        $ret_by_product_long = array_values($query_by_product_long);
 
         $sql_new_cust = "
             SELECT code,first_name,last_name,DATEDIFF(from_unixtime(created_at,'%Y-%m-%d %h:%i:%s'),now()) as diffcount
@@ -138,6 +151,7 @@ class SiteController extends Controller
         return $this->render('index',[
             'sale_by_zone' => Json::encode($ret),
             'sale_by_product'=>Json::encode($ret_by_product),
+            'sale_by_product_long'=>Json::encode($ret_by_product_long),
             'total_by_zone' => $total_by_zone,
             'sdate'=>$sdate,
             'ndate' => $ndate,
