@@ -71,7 +71,7 @@ class SiteController extends Controller
             $ndate = $date_filter_zone[1];
         }
 
-
+       //echo $sdate;return;
 
         $total_by_zone = 0;
 
