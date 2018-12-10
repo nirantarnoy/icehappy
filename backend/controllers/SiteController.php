@@ -96,7 +96,7 @@ class SiteController extends Controller
 
 
      $sql_by_product = "
-            SELECT saleorder_line.product_id,product.name,SUM(saleorder_line.qty) as qty
+            SELECT saleorder_line.product_id,product.name,SUM(saleorder_line.qty * saleorder_line.price) as sale_amount
             FROM saleorder_line
             INNER JOIN saleorder on saleorder.id = saleorder_line.sale_id
             INNER JOIN product on product.id = saleorder_line.product_id

@@ -2,6 +2,8 @@
 
 /* @var $this yii\web\View */
 use yii\helpers\Url;
+use yii\helpers\Json;
+
 $this->title = 'น้ำแข็งแฮปปี้';
 $sale_by_zone = $sale_by_zone;
 $zone_date_filter = date('d-m-Y').'-'.date('d-m-Y');
@@ -139,18 +141,15 @@ if($sdate !=''){
                 <div class="card-body collapse show">
                     <div id="morris-donut-chart" class="ecomm-donute" style="height: 317px;"></div>
                     <ul class="list-inline m-t-20 text-center">
+                        <?php if(count($sale_by_product)):?>
+                        <?php $arr = Json::decode($sale_by_product);?>
+                        <?php foreach($arr as $value):?>
                         <li >
-                            <h6 class="text-muted"><i class="fa fa-circle text-info"></i> Order</h6>
-                                <h4 class="m-b-0">8500</h4>
+                            <h6 class="text-muted"><i class="fa fa-circle text-info"></i> <?=$value['name']?></h6>
+                                <h4 class="m-b-0"><?=number_format($value['sale_amount'],2)?></h4>
                         </li>
-                        <li>
-                            <h6 class="text-muted"><i class="fa fa-circle text-danger"></i> Pending</h6>
-                            <h4 class="m-b-0">3630</h4>
-                        </li>
-                        <li>
-                            <h6 class="text-muted"> <i class="fa fa-circle text-success"></i> Delivered</h6>
-                            <h4 class="m-b-0">4870</h4>
-                        </li>
+                        <?php endforeach;?>
+                        <?php endif;?>
                     </ul>
 
                 </div>
