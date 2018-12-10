@@ -90,6 +90,20 @@ class SiteController extends Controller
         $query_by_zone = Yii::$app->db->createCommand($sql)->queryAll();
         $ret = array_values($query_by_zone);
 
+
+        $sql_new_cust = "
+            SELECT code,first_name,last_name,DATEDIFF(from_unixtime(created_at,'%Y-%m-%d %h:%i:%s'),now()) as diffcount
+            FROM 
+            customer
+            WHERE
+            DATEDIFF(from_unixtime(created_at,'%Y-%m-%d %h:%i:%s'),now())>=-7
+        ";
+
+        $query_new_cust = Yii::$app->db->createCommand($sql_new_cust)->queryAll();
+
+        //print_r($query_new_cust);return;
+
+
         for($i=0;$i<=count($query_by_zone)-1;$i++){
             $total_by_zone = $total_by_zone + $query_by_zone[$i]['sale_amount'];
         }
@@ -98,7 +112,8 @@ class SiteController extends Controller
             'sale_by_zone' => Json::encode($ret),
             'total_by_zone' => $total_by_zone,
             'sdate'=>$sdate,
-            'ndate' => $ndate
+            'ndate' => $ndate,
+            'cust_new'=>$query_new_cust
         ]);
     }
 
