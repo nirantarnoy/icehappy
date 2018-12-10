@@ -94,7 +94,7 @@ if($sdate !=''){
     <div class="bg-light p-20">
         <div class="d-flex">
             <div class="align-self-center">
-                <h3 class="m-b-0">ยอดขายรวมทั้งหมด</h3><small></small></div>
+                <h3 class="m-b-0">ยอดขาย</h3><small></small></div>
             <div class="ml-auto align-self-center">
                 <h2 class="text-success"><?=number_format($total_by_zone,2)?></h2></div>
         </div>
