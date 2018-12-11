@@ -208,7 +208,8 @@ class ProspectController extends Controller
         $item = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id,'line_type'=>1])->all();
         $bucket = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id,'line_type'=>2])->all();
         $seeme_select = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id,'line_type'=>3])->all();
-        $modelfile = \common\models\CustomerFile::find()->where(['party_id'=>$id,'party_type'=>1])->all();
+        $modelfile = \common\models\CustomerFile::find()->where(['party_id'=>$id,'party_type'=>1,'file_type'=>2])->all();
+        $modeldoc = \common\models\CustomerFile::find()->where(['party_id'=>$id,'party_type'=>1,'file_type'=>3])->all();
         if ($model->load(Yii::$app->request->post())) {
 
             $prefix = Yii::$app->request->post('prefix');
@@ -325,6 +326,7 @@ class ProspectController extends Controller
             'bucket' => $bucket,
             'seeme'=> $seeme_select,
             'modelfile' => $modelfile,
+            'modeldoc' => $modeldoc,
         ]);
     }
 

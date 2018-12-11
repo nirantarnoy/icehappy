@@ -434,13 +434,13 @@ $zone = \backend\models\Salezone::find()->all();
                         <div class="col-lg-12">
                             <?php if(!$model->isNewRecord): ?>
                                 <div class="row">
-                                    <?php foreach ($modelfile as $value):?>
+                                    <?php foreach ($modeldoc as $value):?>
 
                                         <div class="col-xs-6 col-md-3">
                                             <div class="card">
-                                                <img class="card-img-top img-responsive" src="../../backend/web/uploads/images/<?=$value->name?>" alt="Card image cap">
+                                               <?=$value->name?>
                                                 <div class="card-body">
-                                                    <a href="#" onclick="removepic($(this));" class="btn btn-danger">Delete</a>
+                                                    <a href="#" onclick="removedoc($(this));" class="btn btn-danger">Delete</a>
                                                 </div>
                                             </div>
                                         </div>

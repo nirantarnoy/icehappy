@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = 'Update';
         'bucket' => $bucket,
         'seeme' => $seeme,
         'modelfile' => $modelfile,
+        'modeldoc' => $modeldoc,
     ]) ?>
 
 </div>
