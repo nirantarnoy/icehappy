@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="card-title">
                                 เอกสารประกอบการอนุมัติ
                             </div>
-                            <table>
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>#</th>
