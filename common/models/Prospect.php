@@ -40,7 +40,7 @@ class Prospect extends \yii\db\ActiveRecord
     {
         return [
             [['name'],'required'],
-            [['status', 'created_at', 'updated_at', 'created_by', 'updated_by','zone_id'], 'integer'],
+            [['status', 'created_at', 'updated_at', 'created_by', 'updated_by','zone_id','is_file','is_attach'], 'integer'],
             [['lat','long','prefix','first_name','last_name'],'string'],
             [['email'],'email'],
             [['name', 'contact_name', 'mobile', 'phone', 'line', 'facebook', 'seeme', 'delivery_type', 'delivery_place'], 'string', 'max' => 255],

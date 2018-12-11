@@ -55,7 +55,8 @@ class ProspectController extends Controller
      */
     public function actionView($id)
     {
-        $modelfile = \common\models\CustomerFile::find()->where(['party_id'=>$id,'party_type'=>1])->all();
+        $modelfile = \common\models\CustomerFile::find()->where(['party_id'=>$id,'party_type'=>1,'file_type'=>2])->all();
+        $modeldoc = \common\models\CustomerFile::find()->where(['party_id'=>$id,'party_type'=>1,'file_type'=>3])->all();
         $modelseeme = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id,'line_type'=>3])->all();
         $modelitem = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id,'line_type'=>1])->all();
         $modelbucket = \backend\models\Prospectdetail::find()->where(['prospect_id'=>$id,'line_type'=>2])->all();
@@ -63,6 +64,7 @@ class ProspectController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
             'modelfile'=>$modelfile,
+            'modeldoc'=>$modeldoc,
             'modelseeme'=>$modelseeme,
             'modelitem' => $modelitem,
             'modelbucket' => $modelbucket
@@ -82,6 +84,7 @@ class ProspectController extends Controller
 
             $prefix = Yii::$app->request->post('prefix');
             $uploadimage = UploadedFile::getInstancesByName('imagefile');
+            $uploaddoc = UploadedFile::getInstancesByName('docfile');
 
 
             $item_check = substr(Yii::$app->request->post('select_item'),0,1);
@@ -128,6 +131,19 @@ class ProspectController extends Controller
                         $modelfile->party_id = $model->id;
                         $modelfile->party_type = 1; //1 = คัดกรอง
                         $modelfile->file_type = 2; // 2 = รูปภาพ
+                        $modelfile->name = $file;
+                        $modelfile->save(false);
+                    }
+                }
+                if(!empty($uploaddoc)){
+                    foreach($uploaddoc as $file){
+
+                        $file->saveAs(Yii::getAlias('@backend') .'/web/uploads/documents/'.$file);
+
+                        $modelfile = new \common\models\CustomerFile();
+                        $modelfile->party_id = $model->id;
+                        $modelfile->party_type = 1; //1 = คัดกรอง
+                        $modelfile->file_type = 3; // 2 = รูปภาพ 3 = เอกสาร
                         $modelfile->name = $file;
                         $modelfile->save(false);
                     }
@@ -197,6 +213,7 @@ class ProspectController extends Controller
 
             $prefix = Yii::$app->request->post('prefix');
             $uploadimage = UploadedFile::getInstancesByName('imagefile');
+            $uploaddoc = UploadedFile::getInstancesByName('docfile');
 
             $item_check = substr(Yii::$app->request->post('select_item'),0,1);
             $item_last = '';
@@ -239,6 +256,20 @@ class ProspectController extends Controller
                         $modelfile->party_id = $model->id;
                         $modelfile->party_type = 1; //1 = คัดกรอง
                         $modelfile->file_type = 2; // 2 = รูปภาพ
+                        $modelfile->name = $file;
+                        $modelfile->save(false);
+                    }
+                }
+                if(!empty($uploaddoc)){
+                    foreach($uploaddoc as $file){
+
+
+                        $file->saveAs(Yii::getAlias('@backend') .'/web/uploads/documents/'.$file);
+
+                        $modelfile = new \common\models\CustomerFile();
+                        $modelfile->party_id = $model->id;
+                        $modelfile->party_type = 1; //1 = คัดกรอง
+                        $modelfile->file_type = 3; // 2 = รูปภาพ 3 = เอกสาร
                         $modelfile->name = $file;
                         $modelfile->save(false);
                     }

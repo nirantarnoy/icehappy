@@ -357,6 +357,26 @@ $zone = \backend\models\Salezone::find()->all();
             </div>
         </div>
     </div>
+<!--    <div class="card">-->
+<!--        <div class="card-body">-->
+<!--            <div class="row">-->
+<!--                <div class="col-lg-12">-->
+<!--                    <table>-->
+<!--                        <tr>-->
+<!--                            <td style="vertical-align: middle;">-->
+<!--                                <input type="hidden" name="select_is_attach" class="select_bucket" value="">-->
+<!--                                <input type="checkbox" value="" id="attach_checkbox_" class="filled-in chk-col-cyan" onchange="enableqty2($(this));" />-->
+<!--                                <label for="attach_checkbox_"></label>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!---->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
     <div class="card">
         <div class="container">
             <div class="row">
@@ -365,7 +385,7 @@ $zone = \backend\models\Salezone::find()->all();
 <!--                    <div class="card">-->
 <!--                        <div class="card-body">-->
                             <h4 class="card-title">อัพโหลดรูปภาพ</h4>
-                            <label for="input-file-max-fs">You can add a max file size</label>
+                            <label for="input-file-max-fs"></label>
                             <input type="file" name="imagefile[]" id="input-file-max-fs" multiple class="dropify" data-max-file-size="2M" />
                             <br>
                             <br>
@@ -395,6 +415,48 @@ $zone = \backend\models\Salezone::find()->all();
                     </div>
 <!--                </div>-->
             </div>
+
+        </div>
+    </div>
+    <div class="card">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br><br>
+                    <!--                    <div class="card">-->
+                    <!--                        <div class="card-body">-->
+                    <h4 class="card-title">อัพโหลดเอกสารประกอบการอนุมัติ</h4>
+                    <label for="input-file-max-fs"></label>
+                    <input type="file" name="docfile[]" id="input-file-max-fs" multiple class="dropify" data-max-file-size="2M" />
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <?php if(!$model->isNewRecord): ?>
+                                <div class="row">
+                                    <?php foreach ($modelfile as $value):?>
+
+                                        <div class="col-xs-6 col-md-3">
+                                            <div class="card">
+                                                <img class="card-img-top img-responsive" src="../../backend/web/uploads/images/<?=$value->name?>" alt="Card image cap">
+                                                <div class="card-body">
+                                                    <a href="#" onclick="removepic($(this));" class="btn btn-danger">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <?php //echo Html::img("../../frontend/web/img/screenshots/".$value->filename,['width'=>'10%','class'=>'thumbnail']) ?>
+                                    <?php endforeach;?>
+                                </div>
+
+                            <?php endif;?>
+                        </div>
+                    </div>
+                    <!--                        </div>-->
+                </div>
+                <!--                </div>-->
+            </div>
+
         </div>
     </div>
     <div class="card">
