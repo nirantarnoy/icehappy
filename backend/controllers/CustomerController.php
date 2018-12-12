@@ -58,13 +58,15 @@ class CustomerController extends Controller
      */
     public function actionView($id)
     {
-        $modelfile = \common\models\CustomerFile::find()->where(['party_id'=>$id,'party_type'=>2])->all();
+        $modelfile = \common\models\CustomerFile::find()->where(['party_id'=>$id,'party_type'=>2,'file_type'=>2])->all();
+        $modeldoc = \common\models\CustomerFile::find()->where(['party_id'=>$id,'party_type'=>2,'file_type'=>3])->all();
         $modelseeme = \backend\models\Customerdetail::find()->where(['customer_id'=>$id,'line_type'=>3])->all();
         $modelitem = \backend\models\Customerdetail::find()->where(['customer_id'=>$id,'line_type'=>1])->all();
         $modelbucket = \backend\models\Customerdetail::find()->where(['customer_id'=>$id,'line_type'=>2])->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
             'modelfile'=>$modelfile,
+            'modeldoc'=>$modeldoc,
             'modelseeme'=>$modelseeme,
             'modelitem' => $modelitem,
             'modelbucket' => $modelbucket

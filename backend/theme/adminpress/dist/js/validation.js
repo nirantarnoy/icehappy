@@ -533,7 +533,7 @@
             , required: {
                 name: "required"
                 , init: function ($this, name) {
-                    var message = "This is required";
+                    var message = "กรุณาป้อนข้อมูล";
                     if ($this.data("validation" + name + "Message")) {
                         message = $this.data("validation" + name + "Message");
                     }

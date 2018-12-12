@@ -263,10 +263,7 @@ class ProspectController extends Controller
                 }
                 if(!empty($uploaddoc)){
                     foreach($uploaddoc as $file){
-
-
                         $file->saveAs(Yii::getAlias('@backend') .'/web/uploads/documents/'.$file);
-
                         $modelfile = new \common\models\CustomerFile();
                         $modelfile->party_id = $model->id;
                         $modelfile->party_type = 1; //1 = คัดกรอง
@@ -429,13 +426,24 @@ class ProspectController extends Controller
 
                         }
                     }
-                    $modelpro_image = \common\models\CustomerFile::find()->where(['party_type'=>1,'party_id'=>$id])->all();
+                    $modelpro_image = \common\models\CustomerFile::find()->where(['party_type'=>1,'party_id'=>$id,'file_type'=>2])->all();
                     if($modelpro_image){
                         foreach($modelpro_image as $value){
                             $modelfile = new \common\models\CustomerFile();
                             $modelfile->party_id = $modelcus->id;
                             $modelfile->party_type = 2; //2 = ลูกค้า
                             $modelfile->file_type = 2; // 2 = รูปภาพ
+                            $modelfile->name = $value->name;
+                            $modelfile->save(false);
+                        }
+                    }
+                    $modelpro_doc = \common\models\CustomerFile::find()->where(['party_type'=>1,'party_id'=>$id,'file_type'=>3])->all();
+                    if($modelpro_doc){
+                        foreach($modelpro_doc as $value){
+                            $modelfile = new \common\models\CustomerFile();
+                            $modelfile->party_id = $modelcus->id;
+                            $modelfile->party_type = 2; //2 = ลูกค้า
+                            $modelfile->file_type = 3; // 3 = เอกสาร
                             $modelfile->name = $value->name;
                             $modelfile->save(false);
                         }

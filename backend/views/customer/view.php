@@ -73,6 +73,41 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">
+                        เอกสารประกอบการอนุมัติ
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ชื่อไฟล์</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php if(count($modeldoc)):?>
+                            <?php $i = 0;?>
+                            <?php foreach ($modeldoc as $value):?>
+                                <?php $i +=1;?>
+                                <tr>
+                                    <td><?=$i?></td>
+                                    <td>
+                                        <?=$value->name?>
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-secondary"><i class="fa fa-print"></i></a>
+                                    </td>
+                                </tr>
+                            <?php endforeach;?>
+                        <?php endif;?>
+                        </tbody>
+
+
+                    </table>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
                         ประวัติการซื้อ
                     </div>
                 </div>

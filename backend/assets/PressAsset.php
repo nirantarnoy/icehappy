@@ -45,7 +45,8 @@ class PressAsset extends AssetBundle
         'js/dashboard4.js',
         'js/jasny-bootstrap.js',
         'js/toastr.js',
-        'js/jquery.PrintArea.js'
+        'js/jquery.PrintArea.js',
+        'js/validation.js',
 
     ];
 

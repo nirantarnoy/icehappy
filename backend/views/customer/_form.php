@@ -83,7 +83,7 @@ $this->registerJs($js,static::POS_END);
 
             <div class="row">
                 <div class="col-lg-3">
-                    <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'code')->textInput(['maxlength' => true,'data-validation-required-message'=>'กรุณาป้อนข้อมูลรหัสลูกค้า']) ?>
                 </div>
                 <div class="col-lg-3">
                     <label for="">คำนำหน้า</label>
@@ -187,7 +187,7 @@ $this->registerJs($js,static::POS_END);
                         <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name"><?=Yii::t('app','ถนน')?>
                         </label>
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <input type="text" class="form-control" name="street" value="<?=$model_address_plant?$model_address_plant->street:''?>">
+                            <input type="text" class="form-control" name="street" data-validation-required-message="This field is required" value="<?=$model_address_plant?$model_address_plant->street:''?>">
                             <?php //echo $form->field($model_address_plant?$model_address_plant:$model_address, 'street')->textInput(['maxlength' => true,'class'=>'form-control'])->label(false) ?>
                         </div>
                     </div>
@@ -578,9 +578,16 @@ $js =<<<JS
        item_list = [$(".select_item").val()];
        bucket_list = [$(".select_bucket").val()];
   });
+  ! function(window, document, $) {
+        "use strict";
+        $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(), $(".skin-square input").iCheck({
+            checkboxClass: "icheckbox_square-green",
+            radioClass: "iradio_square-green"
+        }), $(".touchspin").TouchSpin(), $(".switchBootstrap").bootstrapSwitch();
+    }(window, document, jQuery);
   function removepic(e){
    // alert(e.attr("data-var"));return;
-   alert('$url_to_del_pic');
+  // alert('$url_to_del_pic');
     if(confirm("ต้องการลบรูปภาพนี้ใช่หรือไม่")){
         $.ajax({
            'type':'post',

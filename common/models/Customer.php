@@ -38,7 +38,7 @@ class Customer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['code'],'required'],
+            [['code'],'required','message' => 'กรุณาใส่ข้อมูลรหัสลูกค้า'],
             [['customer_group_id','prospect_id', 'customer_type_id', 'status','zone_id',
                 'is_file','is_attach',
                 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
