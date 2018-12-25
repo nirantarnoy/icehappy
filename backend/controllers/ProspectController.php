@@ -390,6 +390,22 @@ class ProspectController extends Controller
             return true;
         }
     }
+    public function actionDeletefile(){
+        //$id = \Yii::$app->request->post("product_id");
+        $filename = trim(\Yii::$app->request->post("file_id"));
+        $cusid = \Yii::$app->request->post("cus_id");
+        if($filename){
+            // return $cusid;
+            $model = \common\models\CustomerFile::find()->where(['name'=>$filename,'party_id'=>$cusid,'party_type'=>1])->one();
+            if($model){
+                //return 100;
+                unlink(Yii::getAlias('@backend') .'/web/uploads/documents/'.$filename);
+                \common\models\CustomerFile::deleteAll(['party_id'=>$cusid,'name'=>$filename,'party_type'=>1]);
+            }
+
+            return true;
+        }
+    }
     public function actionApprove($id){
         //$id = Yii::$app->request->post('id');
         if($id){

@@ -58,7 +58,7 @@ $zone = \backend\models\Salezone::find()->all();
 
 ?>
 
-
+<input type="hidden" name="cur_cus" class="cur_cus" value="<?=$model->id?>">
 <div class="prospect-form">
     <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
     <div class="card">
@@ -432,24 +432,40 @@ $zone = \backend\models\Salezone::find()->all();
                     <br>
                     <div class="row">
                         <div class="col-lg-12">
-                            <?php if(!$model->isNewRecord): ?>
-                                <div class="row">
-                                    <?php foreach ($modeldoc as $value):?>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>ชื่อไฟล์</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php if(count($modeldoc)):?>
+                                            <?php $i = 0;?>
+                                            <?php foreach ($modeldoc as $value):?>
+                                                <?php $i +=1;?>
+                                                <tr>
+                                                    <td><?=$i?></td>
+                                                    <td>
+                                                        <?=$value->name?>
+                                                    </td>
+                                                    <td>
+                                                        <a href="uploads/documents/<?=$value->name?>" class="btn btn-secondary" target="_blank"><i class="fa fa-print"></i></a>
+                                                        <a href="#" class="btn btn-danger remove-file" onclick="removefile($(this))"><i class="fa fa-trash"></i></a>
+                                                    </td>
 
-                                        <div class="col-xs-6 col-md-3">
-                                            <div class="card">
-                                               <?=$value->name?>
-                                                <div class="card-body">
-                                                    <a href="#" onclick="removedoc($(this));" class="btn btn-danger">Delete</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                </tr>
+                                            <?php endforeach;?>
+                                        <?php endif;?>
+                                        </tbody>
 
-                                        <?php //echo Html::img("../../frontend/web/img/screenshots/".$value->filename,['width'=>'10%','class'=>'thumbnail']) ?>
-                                    <?php endforeach;?>
+
+                                    </table>
                                 </div>
-
-                            <?php endif;?>
+                            </div>
                         </div>
                     </div>
                     <!--                        </div>-->
@@ -481,6 +497,7 @@ $zone = \backend\models\Salezone::find()->all();
 
 <?php
 $url_to_del_image = Url::to(['prospect/deletepic'],true);
+$url_to_del_file = Url::to(['prospect/deletefile'],true);
 $js=<<<JS
   var item_list = [];
   var bucket_list = [];
@@ -521,7 +538,20 @@ $js=<<<JS
    
      $(".select_bucket").val(bucket_list);
   }
-  
+  function removefile(e){
+    if(confirm("ต้องการลบไฟล์นี้ใช่หรือไม่")){
+        $.ajax({
+           'type':'post',
+           'dataType':'html',
+           'url':"$url_to_del_file",
+           'data': {'file_id':e.closest("tr").find("td:eq(1)").text(),'cus_id':$(".cur_cus").val()},
+           'success': function(data) {
+             //  alert(data);
+             location.reload();
+           }
+        });
+    }
+  }
    function removepic(e){
    // alert(e.attr("data-var"));return;
         if(confirm("ต้องการลบรูปภาพนี้ใช่หรือไม่")){

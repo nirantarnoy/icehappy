@@ -683,9 +683,6 @@ $js =<<<JS
         }), $(".touchspin").TouchSpin(), $(".switchBootstrap").bootstrapSwitch();
     }(window, document, jQuery);
   function removefile(e){
-   // alert(e.attr("data-var"));return;
-  // alert('$url_to_del_pic');
-  alert($(".cur_cus").val());
     if(confirm("ต้องการลบไฟล์นี้ใช่หรือไม่")){
         $.ajax({
            'type':'post',
@@ -693,8 +690,8 @@ $js =<<<JS
            'url':"$url_to_del_file",
            'data': {'file_id':e.closest("tr").find("td:eq(1)").text(),'cus_id':$(".cur_cus").val()},
            'success': function(data) {
-               alert(data);
-            // location.reload();
+             //  alert(data);
+             location.reload();
            }
         });
     }
