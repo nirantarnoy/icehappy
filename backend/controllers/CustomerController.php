@@ -202,6 +202,7 @@ class CustomerController extends Controller
         $item = \backend\models\Customerdetail::find()->where(['customer_id'=>$id,'line_type'=>1])->all();
         $bucket = \backend\models\Customerdetail::find()->where(['customer_id'=>$id,'line_type'=>2])->all();
        // $seeme_select = \backend\models\Prospectdetail::find()->where(['customer_id'=>$id,'line_type'=>3])->all();
+        $modeldoc = \common\models\CustomerFile::find()->where(['party_id'=>$id,'party_type'=>2,'file_type'=>3])->all();
         if ($model->load(Yii::$app->request->post())) {
 
             $address = Yii::$app->request->post('address');
@@ -311,6 +312,7 @@ class CustomerController extends Controller
             'bucket' => $bucket,
             'model_address'=>$model_address,
             'model_address_plant'=>$model_address_plant,
+            'modeldoc'=>$modeldoc,
             //'seeme'=> $seeme_select,
         ]);
     }
