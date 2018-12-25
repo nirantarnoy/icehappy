@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <?=$value->name?>
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-secondary"><i class="fa fa-print"></i></a>
+                                        <a href="uploads/documents/<?=$value->name?>" class="btn btn-secondary" target="_blank"><i class="fa fa-print"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach;?>
