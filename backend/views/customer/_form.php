@@ -14,9 +14,11 @@ use common\models\District;
 $custgroup = \backend\models\Custumergroup::find()->all();
 $zone = \backend\models\Salezone::find()->all();
 
+$add_prov = $model_address_plant?$model_address_plant->province_id:0;
+
 $prov = Province::find()->all();
-$amp = Amphur::find()->all();
-$dist = District::find()->all();
+$amp = Amphur::find()->where(['PROVINCE_ID'=>$add_prov])->all();
+$dist = District::find()->where(['AMPHUR_ID'=> -1])->all();
 
 $l = 1;
 $old_item = '';
@@ -234,14 +236,18 @@ $this->registerJs($js,static::POS_END);
                             }
                             ?>
                             <select name="select_city" onchange="findDistrict($(this))" class="form-control" id="city" <?=$disabled?>>
-                                <?php foreach ($amp as $value):?>
-                                    <?php
-                                    $select = '';
-                                    $city_id = $model_address_plant?$model_address_plant->city_id:0;
-                                    if($value->AMPHUR_ID ==  $city_id){$select = 'selected';}
-                                    ?>
-                                    <option value="<?=$value->AMPHUR_ID?>" <?=$select?>><?=$value->AMPHUR_NAME?></option>
-                                <?php endforeach;?>
+                                <?php if($model->isNewRecord):?>
+                                    <option value=""></option>
+                                <?php else:?>
+                                    <?php foreach ($amp as $value):?>
+                                        <?php
+                                        $select = '';
+                                        $city_id = $model_address_plant?$model_address_plant->city_id:0;
+                                        if($value->AMPHUR_ID ==  $city_id){$select = 'selected';}
+                                        ?>
+                                        <option value="<?=$value->AMPHUR_ID?>" <?=$select?>><?=$value->AMPHUR_NAME?></option>
+                                    <?php endforeach;?>
+                                <?php endif;?>
                             </select>
                         </div>
                     </div>
