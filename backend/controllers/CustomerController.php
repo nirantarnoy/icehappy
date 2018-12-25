@@ -118,6 +118,7 @@ class CustomerController extends Controller
             $bucket_qty = Yii::$app->request->post('bucket_qty');
 
             $uploadimage = UploadedFile::getInstancesByName('imagefile');
+            $uploaddoc = UploadedFile::getInstancesByName('docfile');
 
 
             //print_r($bucket_list);return;
@@ -151,6 +152,19 @@ class CustomerController extends Controller
                     }
 
 
+                }
+                if(!empty($uploaddoc)){
+                    foreach($uploaddoc as $file){
+
+                        $file->saveAs(Yii::getAlias('@backend') .'/web/uploads/documents/'.$file);
+
+                        $modelfile = new \common\models\CustomerFile();
+                        $modelfile->party_id = $model->id;
+                        $modelfile->party_type = 2; //2 = คูกค้า
+                        $modelfile->file_type = 3; // 2 = รูปภาพ 3 = เอกสาร
+                        $modelfile->name = $file;
+                        $modelfile->save(false);
+                    }
                 }
                 if(count($item_list)>0 && count($item_qty)>0){
                     for($i=0;$i<=count($item_list)-1;$i++){
@@ -230,7 +244,7 @@ class CustomerController extends Controller
             $item_qty = Yii::$app->request->post('item_qty');
 
             $uploadimage = UploadedFile::getInstancesByName('imagefile');
-
+            $uploaddoc = UploadedFile::getInstancesByName('docfile');
 
             // print_r($item_list);
           //  print_r($line_price);
