@@ -178,9 +178,7 @@ $this->registerJs($js,static::POS_END);
                         <label class="control-label col-md-12 col-sm-12 col-xs-12" for="first-name"><?=Yii::t('app','ที่อยู่')?>
                         </label>
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <textarea name="address" id="address" class="form-control" cols="30" rows="3">
-                                <?=$model_address_plant?trim($model_address_plant->address):'';?>
-                            </textarea>
+                            <textarea name="address" id="address" class="form-control" cols="30" rows="3"><?=$model_address_plant?trim($model_address_plant->address):'';?></textarea>
                             <?php //echo $form->field($model_address_plant?$model_address_plant:$model_address, 'address')->textarea(['maxlength' => true,'class'=>'form-control'])->label(false) ?>
                         </div>
                     </div>
