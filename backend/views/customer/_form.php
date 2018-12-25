@@ -204,14 +204,18 @@ $this->registerJs($js,static::POS_END);
                                }
                             ?>
                             <select name="select_district" class="form-control" id="district" <?=$disabled?>>
-                                <?php foreach ($dist as $value):?>
-                                    <?php
-                                    $select = '';
-                                    $dis_id = $model_address_plant?$model_address_plant->district_id:0;
-                                    if($value->DISTRICT_ID ==  $dis_id){$select = 'selected';}
-                                    ?>
-                                    <option value="<?=$value->DISTRICT_ID?>" <?=$select;?>><?=$value->DISTRICT_NAME?></option>
-                                <?php endforeach;?>
+                                <?php if($model->isNewRecord):?>
+                                    <option value=""></option>
+                                <?php else:?>
+                                    <?php foreach ($dist as $value):?>
+                                        <?php
+                                        $select = '';
+                                        $dis_id = $model_address_plant?$model_address_plant->district_id:0;
+                                        if($value->DISTRICT_ID ==  $dis_id){$select = 'selected';}
+                                        ?>
+                                        <option value="<?=$value->DISTRICT_ID?>" <?=$select;?>><?=$value->DISTRICT_NAME?></option>
+                                    <?php endforeach;?>
+                                <?php endif;?>
                             </select>
                         </div>
                     </div>
