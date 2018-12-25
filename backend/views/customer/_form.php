@@ -164,7 +164,7 @@ $this->registerJs($js,static::POS_END);
                             ?>
                            <?php
                                $select = '';
-                               if($list[$i] == $model->delivery_type){$select = 'selected';}
+                               if($list[$i]['id'] == $model->delivery_type){$select = 'selected';}
                            ?>
                             <option value="<?=$list[$i]['id']?>" <?=$select?>><?=$list[$i]['name']?></option>
                         <?php endfor;?>
