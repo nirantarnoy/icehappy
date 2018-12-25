@@ -78,7 +78,7 @@ JS;
 $this->registerJs($js,static::POS_END);
 
 ?>
-
+<input type="hidden" name="cur_cus" class="cur_cus" value="<?=$model->id;?>">
 <div class="custumer-form">
     <div class="card">
         <div class="card-body">
@@ -625,7 +625,7 @@ $this->registerJs($js,static::POS_END);
                                                     </td>
                                                     <td>
                                                         <a href="uploads/documents/<?=$value->name?>" class="btn btn-secondary" target="_blank"><i class="fa fa-print"></i></a>
-                                                        <a href="uploads/documents/<?=$value->name?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                                        <a href="#" class="btn btn-danger remove-file" onclick="removefile($(this))"><i class="fa fa-trash"></i></a>
                                                     </td>
 
                                                 </tr>
@@ -658,6 +658,7 @@ $this->registerJs($js,static::POS_END);
 </div>
 <?php
 $url_to_del_pic = Url::to(['customer/deletepic'],true);
+$url_to_del_file = Url::to(['customer/deletefile'],true);
 $js =<<<JS
 
  var item_list = [];
@@ -681,6 +682,23 @@ $js =<<<JS
             radioClass: "iradio_square-green"
         }), $(".touchspin").TouchSpin(), $(".switchBootstrap").bootstrapSwitch();
     }(window, document, jQuery);
+  function removefile(e){
+   // alert(e.attr("data-var"));return;
+  // alert('$url_to_del_pic');
+  alert($(".cur_cus").val());
+    if(confirm("ต้องการลบไฟล์นี้ใช่หรือไม่")){
+        $.ajax({
+           'type':'post',
+           'dataType':'html',
+           'url':"$url_to_del_file",
+           'data': {'file_id':e.closest("tr").find("td:eq(1)").text(),'cus_id':$(".cur_cus").val()},
+           'success': function(data) {
+               alert(data);
+            // location.reload();
+           }
+        });
+    }
+  }
   function removepic(e){
    // alert(e.attr("data-var"));return;
   // alert('$url_to_del_pic');

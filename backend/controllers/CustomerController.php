@@ -395,6 +395,21 @@ class CustomerController extends Controller
             return true;
         }
     }
+    public function actionDeletefile(){
+        //$id = \Yii::$app->request->post("product_id");
+        $filename = \Yii::$app->request->post("file_id");
+        $cusid = \Yii::$app->request->post("cus_id");
+        if($filename){
+           // return $cusid;
+            $model = \common\models\CustomerFile::find()->where(['name'=>trim($filename),'party_id'=>$cusid,'party_type'=>2])->one();
+            if($model){
+                unlink(Yii::getAlias('@backend') .'/web/uploads/documents/'.$filename);
+                \common\models\CustomerFile::deleteAll(['party_id'=>$cusid,'name'=>$filename,'party_type'=>2]);
+            }
+
+            return true;
+        }
+    }
     public function actionPrintlongrentmaster($id){
         if($id) {
             $model = \backend\models\Custumer::find()->where(['id'=>$id])->one();
