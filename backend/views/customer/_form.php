@@ -596,10 +596,15 @@ $js =<<<JS
  var bucket_list = [];
 
   $(function() {
-      $(".select_item").val('$old_item');
+       $(".select_item").val('$old_item');
        $(".select_bucket").val('$old_bucket');
        item_list = [$(".select_item").val()];
        bucket_list = [$(".select_bucket").val()];
+       
+       $("input:textarea").each(function(){
+          $(this).val($(this).val().trim()); 
+       });
+       
   });
   ! function(window, document, $) {
         "use strict";
