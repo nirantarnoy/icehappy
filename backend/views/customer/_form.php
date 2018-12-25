@@ -611,7 +611,6 @@ $this->registerJs($js,static::POS_END);
                                             <th>#</th>
                                             <th>ชื่อไฟล์</th>
                                             <th></th>
-                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -626,10 +625,9 @@ $this->registerJs($js,static::POS_END);
                                                     </td>
                                                     <td>
                                                         <a href="uploads/documents/<?=$value->name?>" class="btn btn-secondary" target="_blank"><i class="fa fa-print"></i></a>
+                                                        <a href="uploads/documents/<?=$value->name?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                                     </td>
-                                                    <td>
-                                                        <a href="uploads/documents/<?=$value->name?>" class="btn btn-danger"><i class="fa fa-bin"></i></a>
-                                                    </td>
+
                                                 </tr>
                                             <?php endforeach;?>
                                         <?php endif;?>
