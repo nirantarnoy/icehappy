@@ -179,7 +179,7 @@ $this->registerJs($js,static::POS_END);
                         </label>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <textarea name="address" id="address" class="form-control" cols="30" rows="3">
-                                <?php echo $model_address_plant?trim($model_address_plant->address):'';?>
+                                <?=$model_address_plant?trim($model_address_plant->address):'';?>
                             </textarea>
                             <?php //echo $form->field($model_address_plant?$model_address_plant:$model_address, 'address')->textarea(['maxlength' => true,'class'=>'form-control'])->label(false) ?>
                         </div>
@@ -601,9 +601,9 @@ $js =<<<JS
        item_list = [$(".select_item").val()];
        bucket_list = [$(".select_bucket").val()];
        
-       $("input:textarea").each(function(){
-          $(this).val($(this).val().trim()); 
-       });
+       // $("input:textarea").each(function(){
+       //    $(this).val($(this).val().trim()); 
+       // });
        
   });
   ! function(window, document, $) {
