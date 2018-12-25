@@ -162,7 +162,11 @@ $this->registerJs($js,static::POS_END);
                         $list = \backend\helpers\DeliveryType::asArrayObject();
                         for($i=0;$i<=count($list)-1;$i++):
                             ?>
-                            <option value="<?=$list[$i]['id']?>"><?=$list[$i]['name']?></option>
+                           <?php
+                               $select = '';
+                               if($list[$i] == $model->delivery_type){$select = 'selected';}
+                           ?>
+                            <option value="<?=$list[$i]['id']?>" <?=$select?>><?=$list[$i]['name']?></option>
                         <?php endfor;?>
                     </select>
                 </div>

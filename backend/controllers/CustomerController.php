@@ -92,6 +92,8 @@ class CustomerController extends Controller
             $city = Yii::$app->request->post('select_city');
             $province = Yii::$app->request->post('select_province');
 
+            $delivery = Yii::$app->request->post('delivery_type');
+
 
             $item_check = substr(Yii::$app->request->post('select_item'),0,1);
             $item_last = '';
@@ -119,7 +121,9 @@ class CustomerController extends Controller
 
 
             //print_r($bucket_list);return;
-
+            $model->customer_group_id = Yii::$app->request->post('customer_group');
+            $model->zone_id = Yii::$app->request->post('zone_id');
+            $model->delivery_type = $delivery;
             if ($model->save()) {
                 // insert address
                 $model_address->status = 1;
@@ -212,6 +216,8 @@ class CustomerController extends Controller
             $city = Yii::$app->request->post('select_city');
             $province = Yii::$app->request->post('select_province');
 
+            $delivery = Yii::$app->request->post('delivery_type');
+
             $item_check = substr(Yii::$app->request->post('select_item'),0,1);
             $item_last = '';
             if($item_check == ","){
@@ -234,6 +240,7 @@ class CustomerController extends Controller
 
             $model->customer_group_id = Yii::$app->request->post('customer_group');
             $model->zone_id = Yii::$app->request->post('zone_id');
+            $model->delivery_type = $delivery;
 
             if($model->save()){
 
