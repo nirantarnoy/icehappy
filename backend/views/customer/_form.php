@@ -15,10 +15,11 @@ $custgroup = \backend\models\Custumergroup::find()->all();
 $zone = \backend\models\Salezone::find()->all();
 
 $add_prov = $model_address_plant?$model_address_plant->province_id:0;
+$add_amp = $model_address_plant?$model_address_plant->city_id:0;
 
 $prov = Province::find()->all();
 $amp = Amphur::find()->where(['PROVINCE_ID'=>$add_prov])->all();
-$dist = District::find()->where(['AMPHUR_ID'=> -1])->all();
+$dist = District::find()->where(['AMPHUR_ID'=> $add_amp])->all();
 
 $l = 1;
 $old_item = '';
