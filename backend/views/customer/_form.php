@@ -602,24 +602,45 @@ $this->registerJs($js,static::POS_END);
                     <br>
                     <div class="row">
                         <div class="col-lg-12">
-                            <?php if(!$model->isNewRecord): ?>
-                                <div class="row">
-                                    <?php foreach ($modeldoc as $value):?>
 
-                                        <div class="col-xs-6 col-md-3">
-                                            <div class="card">
-                                                <?=$value->name?>
-                                                <div class="card-body">
-                                                    <a href="#" onclick="removedoc($(this));" class="btn btn-danger">Delete</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>ชื่อไฟล์</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php if(count($modeldoc)):?>
+                                            <?php $i = 0;?>
+                                            <?php foreach ($modeldoc as $value):?>
+                                                <?php $i +=1;?>
+                                                <tr>
+                                                    <td><?=$i?></td>
+                                                    <td>
+                                                        <?=$value->name?>
+                                                    </td>
+                                                    <td>
+                                                        <a href="uploads/documents/<?=$value->name?>" class="btn btn-secondary" target="_blank"><i class="fa fa-print"></i></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="uploads/documents/<?=$value->name?>" class="btn btn-danger"><i class="fa fa-bin"></i></a>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach;?>
+                                        <?php endif;?>
+                                        </tbody>
 
-                                        <?php //echo Html::img("../../frontend/web/img/screenshots/".$value->filename,['width'=>'10%','class'=>'thumbnail']) ?>
-                                    <?php endforeach;?>
+
+                                    </table>
                                 </div>
+                            </div>
 
-                            <?php endif;?>
+
                         </div>
                     </div>
                 </div>
