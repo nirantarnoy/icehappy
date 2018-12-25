@@ -31,26 +31,28 @@ $(function() {
                      $("#sale-zone-name").val(data[0]['zone_name']);
                      if(data[0]['cus_code']!=''){
                          for(i=0;i<=data.length -1;i++){
-                         html+="<tr>";
-                         html+="<td>"+data[i]['cus_code']+"<input type='hidden' name='cus_id[]' value='"+data[i]['cus_id']+"'></td>";
-                         html+="<td style='width:12%'>"+data[i]['cus_name']+"</td>";
-                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product1-qty-"+i+"' name='product1-qty[]' onchange='caltotal($(this));'/></td>";
-                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product1-price-"+i+"' name='product1-price[]' value='"+data[i]['price1']+"'/></td>";
-                         html+="<td style='width:8%'>"+"<input type='text' style='text-align: right' class='form-control' id='product1-total-"+i+"' name='product1-total[]' disabled /></td>";
-                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product2-qty-"+i+"' name='product2-qty[]' onchange='caltotal($(this));'/></td>";
-                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product2-price-"+i+"' name='product2-price[]' value='"+data[i]['price2']+"'/></td>";
-                         html+="<td style='width:8%'>"+"<input type='text' style='text-align: right' class='form-control' id='product2-total-"+i+"' name='product2-total[]' disabled /></td>";
-                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product3-qty-"+i+"' name='product3-qty[]' onchange='caltotal($(this));'/></td>";
-                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product3-price-"+i+"' name='product3-price[]' value='"+data[i]['price3']+"'/></td>";
-                         html+="<td style='width:8%'>"+"<input type='text' style='text-align: right' class='form-control' id='product3-total-"+i+"' name='product3-total[]' disabled /></td>";
-                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product4-qty-"+i+"' name='product4-qty[]' onchange='caltotal($(this));'/></td>";
-                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product4-price-"+i+"' name='product4-price[]' value='"+data[i]['price4']+"'/></td>";
-                         html+="<td style='width:8%'>"+"<input type='text' style='text-align: right' class='form-control' id='product4-total-"+i+"' name='product4-total[]' disabled /></td>";
-                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='free1-qty-"+i+"' name='free1-qty[]' onchange='calall();'/></td>";
-                         html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='free2-qty-"+i+"'name='free2-qty[]' onchange='calall();'/></td>";
-                         html+="<td>"+"</td>";
-                         html+="</tr>";
-                     }
+                             html+="<tr>";
+                             html+="<td>"+data[i]['cus_code']+"<input type='hidden' name='cus_id[]' value='"+data[i]['cus_id']+"'></td>";
+                             html+="<td style='width:12%'>"+data[i]['cus_name']+"</td>";
+                             html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product1-qty-"+i+"' name='product1-qty[]' onchange='caltotal($(this));'/></td>";
+                             html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product1-price-"+i+"' name='product1-price[]' value='"+data[i]['price1']+"'/></td>";
+                             html+="<td style='width:8%'>"+"<input type='text' style='text-align: right' class='form-control' id='product1-total-"+i+"' name='product1-total[]' disabled /></td>";
+                             html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product2-qty-"+i+"' name='product2-qty[]' onchange='caltotal($(this));'/></td>";
+                             html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product2-price-"+i+"' name='product2-price[]' value='"+data[i]['price2']+"'/></td>";
+                             html+="<td style='width:8%'>"+"<input type='text' style='text-align: right' class='form-control' id='product2-total-"+i+"' name='product2-total[]' disabled /></td>";
+                             html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product3-qty-"+i+"' name='product3-qty[]' onchange='caltotal($(this));'/></td>";
+                             html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product3-price-"+i+"' name='product3-price[]' value='"+data[i]['price3']+"'/></td>";
+                             html+="<td style='width:8%'>"+"<input type='text' style='text-align: right' class='form-control' id='product3-total-"+i+"' name='product3-total[]' disabled /></td>";
+                             html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product4-qty-"+i+"' name='product4-qty[]' onchange='caltotal($(this));'/></td>";
+                             html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='product4-price-"+i+"' name='product4-price[]' value='"+data[i]['price4']+"'/></td>";
+                             html+="<td style='width:8%'>"+"<input type='text' style='text-align: right' class='form-control' id='product4-total-"+i+"' name='product4-total[]' disabled /></td>";
+                             html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='free1-qty-"+i+"' name='free1-qty[]' onchange='calall();'/></td>";
+                             html+="<td>"+"<input type='text' style='text-align: right' class='form-control' id='free2-qty-"+i+"'name='free2-qty[]' onchange='calall();'/></td>";
+                             html+="<td>"+"</td>";
+                             html+="</tr>";
+                         }
+                     }else{
+                         alert("เขตการขายนี้ยังไม่มีรหัสลูกค้า");
                      }
                      
                      $("table.table-list tbody").html(html);

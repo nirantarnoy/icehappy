@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'bucket'=>null,
         'model_address'=>$model_address,
         'model_address_plant'=>$model_address_plant,
+        'modeldoc'=>null,
     ]) ?>
 
 </div>

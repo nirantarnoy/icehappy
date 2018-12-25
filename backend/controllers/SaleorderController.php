@@ -432,6 +432,8 @@ class SaleorderController extends Controller
                             ]
                                   );
                     }
+                }else{
+                    array_push($list,['zone_name'=>$model->description,'cus_code'=>'']);
                 }
                 return Json::encode($list);
             }else{
