@@ -223,7 +223,13 @@ $this->registerJs($js,static::POS_END);
                         <label class="control-label col-lg-12" for="first-name"><?=Yii::t('app','อำเภอ')?>
                         </label>
                         <div class="col-lg-12">
-                            <select name="select_city" onchange="findDistrict($(this))" class="form-control" id="city" disabled>
+                            <?php
+                            $disabled = '';
+                            if($model->isNewRecord){
+                                $disabled = 'disabled';
+                            }
+                            ?>
+                            <select name="select_city" onchange="findDistrict($(this))" class="form-control" id="city" <?=$disabled?>>
                                 <?php foreach ($amp as $value):?>
                                     <?php
                                     $select = '';
