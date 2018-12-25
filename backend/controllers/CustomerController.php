@@ -301,6 +301,19 @@ class CustomerController extends Controller
 
 
                 }
+                if(!empty($uploaddoc)){
+                    foreach($uploaddoc as $file){
+
+                        $file->saveAs(Yii::getAlias('@backend') .'/web/uploads/documents/'.$file);
+
+                        $modelfile = new \common\models\CustomerFile();
+                        $modelfile->party_id = $model->id;
+                        $modelfile->party_type = 2; //2 = คูกค้า
+                        $modelfile->file_type = 3; // 2 = รูปภาพ 3 = เอกสาร
+                        $modelfile->name = $file;
+                        $modelfile->save(false);
+                    }
+                }
                 if(count($item_list)>0){
                     \backend\models\Customerdetail::deleteAll(['customer_id'=>$id,'line_type'=>1]);
                     for($i=0;$i<=count($item_list)-1;$i++){
