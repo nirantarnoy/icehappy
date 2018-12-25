@@ -156,6 +156,17 @@ $this->registerJs($js,static::POS_END);
             </div>
             <div class="row">
                 <div class="col-lg-3">
+                    <label for="">ประเภทจัดส่ง</label>
+                    <select name="delivery_type" class="form-control" id="">
+                        <?php
+                        $list = \backend\helpers\DeliveryType::asArrayObject();
+                        for($i=0;$i<=count($list)-1;$i++):
+                            ?>
+                            <option value="<?=$list[$i]['id']?>"><?=$list[$i]['name']?></option>
+                        <?php endfor;?>
+                    </select>
+                </div>
+                <div class="col-lg-3">
                     <?= $form->field($model, 'lat')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-lg-3">
