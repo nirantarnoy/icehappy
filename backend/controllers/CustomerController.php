@@ -178,7 +178,6 @@ class CustomerController extends Controller
                 return $this->redirect(['index']);
             }
 
-
         }
         return $this->render('create', [
             'model' => $model,
@@ -240,8 +239,8 @@ class CustomerController extends Controller
 //                $model_address_plant->status = 1;
 //                $model_address_plant->party_id = $model->id;
                 if($model_address_plant){
-                    $model_address_plant->address = $address;
-                    $model_address_plant->street = $street;
+                    $model_address_plant->address = trim($address);
+                    $model_address_plant->street = trim($street);
                     $model_address_plant->zipcode = $zipcode;
                     $model_address_plant->district_id = $district;
                     $model_address_plant->city_id = $city;

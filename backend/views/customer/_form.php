@@ -197,7 +197,13 @@ $this->registerJs($js,static::POS_END);
                         <label class="control-label col-lg-12" for="first-name"><?=Yii::t('app','ตำบล')?>
                         </label>
                         <div class="col-lg-12">
-                            <select name="select_district" class="form-control" id="district" disabled>
+                            <?php
+                               $disabled = '';
+                               if($model->isNewRecord){
+                                  $disabled = 'disabled';
+                               }
+                            ?>
+                            <select name="select_district" class="form-control" id="district" <?=$disabled?>>
                                 <?php foreach ($dist as $value):?>
                                     <?php
                                     $select = '';
