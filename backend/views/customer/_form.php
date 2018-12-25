@@ -545,7 +545,7 @@ $this->registerJs($js,static::POS_END);
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">อัพโหลดรูปภาพ</h4>
-                            <label for="input-file-max-fs">You can add a max file size</label>
+                            <label for="input-file-max-fs"></label>
                             <input type="file" name="imagefile[]" id="input-file-max-fs" multiple class="dropify" data-max-file-size="2M" />
 
                         </div>
@@ -574,6 +574,42 @@ $this->registerJs($js,static::POS_END);
 
                     <?php endif;?>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+
+                                        <div class="card">
+                                            <div class="card-body">
+                    <h4 class="card-title">อัพโหลดเอกสารประกอบการอนุมัติ</h4>
+                    <label for="input-file-max-fs"></label>
+                    <input type="file" name="docfile[]" id="input-file-max-fs" multiple class="dropify" data-max-file-size="2M" />
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <?php if(!$model->isNewRecord): ?>
+                                <div class="row">
+                                    <?php foreach ($modeldoc as $value):?>
+
+                                        <div class="col-xs-6 col-md-3">
+                                            <div class="card">
+                                                <?=$value->name?>
+                                                <div class="card-body">
+                                                    <a href="#" onclick="removedoc($(this));" class="btn btn-danger">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <?php //echo Html::img("../../frontend/web/img/screenshots/".$value->filename,['width'=>'10%','class'=>'thumbnail']) ?>
+                                    <?php endforeach;?>
+                                </div>
+
+                            <?php endif;?>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                                </div>
             </div>
 
 
