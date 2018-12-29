@@ -6,7 +6,7 @@
  * Time: 16:39:38
  */
 $this->title = "Create Saleorder";
-$sale_zone = \backend\models\Salezone::find()->asAray()->all();
+$sale_zone = \backend\models\Salezone::find()->asArray()->all();
 
 ?>
 <div class="row">
