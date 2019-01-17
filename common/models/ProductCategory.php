@@ -44,9 +44,9 @@ class ProductCategory extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'description' => 'Description',
-            'status' => 'Status',
+            'name' => 'ชื่อ',
+            'description' => 'รายละเอียด',
+            'status' => 'สถานะ',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
