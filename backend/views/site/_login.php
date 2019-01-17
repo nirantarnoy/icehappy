@@ -49,7 +49,7 @@ $model->rememberMe = 0;
     <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">
         <div class="login-box card">
             <div class="card-body">
-                <?php $form = ActiveForm::begin(['options'=>['class'=>'form-horizontal form-label-left','enctype'=>'multipart/form-data']]); ?>
+                <?php $form = ActiveForm::begin(); ?>
 
                 <!--                <form class="form-horizontal form-material" id="loginform" method="post" action="--><?//=Url::to(['site/login'],true)?><!--">-->
                     <h3 class="box-title m-b-20">ลงชื่อเข้าใช้งานระบบ</h3>
