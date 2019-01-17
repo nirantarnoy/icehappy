@@ -167,12 +167,20 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+       // $uname = Yii::$app->request->post('username');
+        // $pwd = Yii::$app->request->post('password');
+
+       // echo $uname;return;
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
+        //$this->layout = false;
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        //if ($model->load(Yii::$app->request->post())) {
+           // print_r($model);return;
+        //if($uname!='' && $pwd !=''){
+          //  $user = \backend\models\User::find()->where(['user'])->one();
             return $this->goBack();
         } else {
             $model->password = '';

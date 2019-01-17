@@ -5,9 +5,9 @@ namespace backend\modules\api\controllers;
 use yii\filters\ContentNegotiator;
 use yii\rest\ActiveController;
 use yii\web\Response;
-use backend\models\Saleorder;
+use backend\models\Salezone;
 
-class SaleorderController extends ActiveController
+class SalezoneController extends ActiveController
 {
     public $enableCsrfValidation = false;
     public function behaviors()
@@ -22,15 +22,15 @@ class SaleorderController extends ActiveController
             ],
         ];
     }
-    public $modelClass = 'backend\models\Saleorder';
-    public $serializer = [
-        'class' => 'yii\rest\Serializer',
-        'collectionEnvelope' => 'items',
-    ];
+        public $modelClass = 'backend\models\Salezone';
+        public $serializer = [
+            'class' => 'yii\rest\Serializer',
+            'collectionEnvelope' => 'items',
+        ];
     public function actionGet()
     {
         \Yii::$app->response->format = \yii\web\Response:: FORMAT_JSON;
-        $model = Saleorder::find()->all();
+        $model = Salezone::find()->all();
         if (count($model) > 0) {
             return array('status' => true, 'data' => $model);
         } else {

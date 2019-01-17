@@ -83,7 +83,7 @@ class CustomerController extends Controller
         $model = new Custumer();
         $model_address = new \backend\models\AddressBook();
 
-        if ($model->load(Yii::$app->request->post()) && $model_address->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) || $model_address->load(Yii::$app->request->post())) {
 
             $model->customer_group_id = Yii::$app->request->post('customer_group');
             $model->zone_id = Yii::$app->request->post('zone_id');

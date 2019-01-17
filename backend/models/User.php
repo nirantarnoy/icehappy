@@ -23,13 +23,13 @@ Class User extends \common\models\User{
                 ],
                 'value'=> time(),
             ],
-            'timestampcby'=>[
-                'class'=> \yii\behaviors\AttributeBehavior::className(),
-                'attributes'=>[
-                    ActiveRecord::EVENT_BEFORE_INSERT=>'created_by',
-                ],
-                'value'=> Yii::$app->user->identity->id,
-            ],
+//            'timestampcby'=>[
+//                'class'=> \yii\behaviors\AttributeBehavior::className(),
+//                'attributes'=>[
+//                    ActiveRecord::EVENT_BEFORE_INSERT=>'created_by',
+//                ],
+//                'value'=> Yii::$app->user->identity->id,
+//            ],
 //            'timestamuby'=>[
 //                'class'=> \yii\behaviors\AttributeBehavior::className(),
 //                'attributes'=>[
