@@ -174,7 +174,7 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-        //$this->layout = false;
+        $this->layout = false;
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
         //if ($model->load(Yii::$app->request->post())) {
@@ -185,7 +185,7 @@ class SiteController extends Controller
         } else {
             $model->password = '';
 
-            return $this->render('login', [
+            return $this->render('_login', [
                 'model' => $model,
             ]);
         }
