@@ -325,9 +325,9 @@ PressAsset::register($this);
 <!--                                <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>-->
 <!--                                <li><a href="#"><i class="ti-email"></i> Inbox</a></li>-->
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
+                                <li><a href="#"><i class="ti-settings"></i> เปลี่ยนรหัสผ่าน</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="<?=Url::to(['site/logout'],true)?>"><i class="fa fa-power-off"></i> Logout</a></li>
+                                <li><a href="<?=Url::to(['site/logout'],true)?>"><i class="fa fa-power-off"></i> ออกจากระบบ</a></li>
                             </ul>
                         </div>
                     </li>
