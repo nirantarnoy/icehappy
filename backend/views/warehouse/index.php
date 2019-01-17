@@ -30,7 +30,7 @@ $completed = '';
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Warehouse', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fa fa-plus-circle"></i> สร้างคลังสินค้า', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
