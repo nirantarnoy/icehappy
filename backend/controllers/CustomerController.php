@@ -125,6 +125,7 @@ class CustomerController extends Controller
             $model->customer_group_id = Yii::$app->request->post('customer_group');
             $model->zone_id = Yii::$app->request->post('zone_id');
             $model->delivery_type = $delivery;
+            $model->status = 1;
             if ($model->save()) {
                 // insert address
                 $model_address->status = 1;
