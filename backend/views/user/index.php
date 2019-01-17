@@ -29,7 +29,7 @@ $completed = '';
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
             <p>
-                <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('<i class="fa fa-plus-circle"></i> สร้างผู้ใช้งาน', ['create'], ['class' => 'btn btn-success']) ?>
             </p>
 
             <?= GridView::widget([
