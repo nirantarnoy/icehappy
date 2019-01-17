@@ -15,15 +15,15 @@ return [
         '@template' => '@frontend/theme/template',
     ],
     'components' => [
-        'view' => [
-            'theme' => [
-                'basePath' => '@frontend/theme/template',
-                'baseUrl' => '@web/',
-                'pathMap' => [
-                    '@frontend/views' => '@template/views'
-                ],
-            ],
-        ],
+//        'view' => [
+//            'theme' => [
+//                'basePath' => '@frontend/theme/template',
+//                'baseUrl' => '@web/',
+//                'pathMap' => [
+//                    '@frontend/views' => '@template/views'
+//                ],
+//            ],
+//        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
