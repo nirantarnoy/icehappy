@@ -46,7 +46,7 @@ $model->rememberMe = 0;
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
 <section id="wrapper">
-    <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">
+    <div class="login-register" style="background-image:url(../web/images/background/login-register.jpg);">
         <div class="login-box card">
             <div class="card-body">
                 <?php $form = ActiveForm::begin(); ?>
