@@ -143,8 +143,8 @@ class AuthitemController extends Controller
 
         // site module
 
-//        $site_index = $auth->createPermission('site/index');
-//        $auth->add($site_index);
+      //  $site_changepwd = $auth->createPermission('site/changepassword');
+     //   $auth->add($site_changepwd);
 //        $site_logout = $auth->createPermission('site/logout');
 //        $auth->add($site_logout);
 //        $site_login = $auth->createPermission('site/login');
